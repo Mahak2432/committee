@@ -1,27 +1,27 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listTeachers } from '../actions/teacherActions'
+import { listChairpersons } from '../actions/chairpersonActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { deleteTeacher } from '../actions/teacherActions'
+import { deleteChairperson } from '../actions/chairpersonActions'
 
-const AllTeachers = ({}) => {
+const AllChairpersons = ({}) => {
   const dispatch = useDispatch()
-  const teacherList = useSelector((state) => state.teacherList)
-  const { loading, teachers, error } = teacherList
-  const teacherDelete = useSelector((state) => state.teacherDelete)
+  const chairpersonList = useSelector((state) => state.chairpersonList)
+  const { loading, chairpersons, error } = chairpersonList
+  const chairpersonDelete = useSelector((state) => state.chairpersonDelete)
   const {
     loading: loadingDelete,
     success: successDelete,
     error: errorDelete,
-  } = teacherDelete
+  } = chairpersonDelete
   // const matchid = match.params.id
   useEffect(() => {
-    dispatch(listTeachers())
+    dispatch(listChairpersons())
   }, [dispatch, successDelete])
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteTeacher(id))
+      dispatch(deleteChairperson(id))
     }
   }
   var i = 1
@@ -31,11 +31,11 @@ const AllTeachers = ({}) => {
     console.log('clicked')
   }
   // const loading1=true
-  // const teachers = []
+  // const chairpersons = []
   return (
     <div className='container3'>
       <div className='outer'>
-        <input type='text' placeholder='Search for teacher...' />
+        <input type='text' placeholder='Search for chairperson...' />
         <span className='search-icon' onClick={searchSubmit}>
           <i className='fas fa-search'></i>
         </span>
@@ -52,9 +52,9 @@ const AllTeachers = ({}) => {
                   <th>SN</th>
                   {/* <th>ID</th> */}
                   <th>Photo</th>
-                  <th>Teacher Name</th>
+                  <th>Chairperson Name</th>
                   <th>Qualification</th>
-                  <th>Teacher Id</th>
+                  <th>Chairperson Id</th>
                   <th>Address</th>
                   <th>Subject To Teach</th>
                   <th>Contact No</th>
@@ -76,16 +76,16 @@ const AllTeachers = ({}) => {
                 {/* for displaying the information about the particular class
 only we first should have the data of that class only 
 . We cannot make selection inside the map method by using double and operator. */}
-                {teachers.map((data) => (
+                {chairpersons.map((data) => (
                   <tr key={data._id} className='contents'>
                     <td>{i++}</td>
                     {/* <td>{data._id}</td> */}
                     <td>
                       <img style={{ height: '50px' }} src={data.image} alt='' />
                     </td>
-                    <td>{data.teacher_name}</td>
+                    <td>{data.chairperson_name}</td>
                     <td>{data.qualification}</td>
-                    <td>{data.teacherId}</td>
+                    <td>{data.chairpersonId}</td>
                     {/* <td>{data.roll_no}</td> */}
 
                     <td>{data.address}</td>
@@ -114,7 +114,7 @@ only we first should have the data of that class only
                           fontSize: '25px',
                           cursor: 'pointer',
                         }}
-                        onClick={() => deleteHandler(data.teacherId)}
+                        onClick={() => deleteHandler(data.chairpersonId)}
                         className='fas fa-trash'
                       ></i>
                     </td>
@@ -131,4 +131,4 @@ only we first should have the data of that class only
   )
 }
 
-export default AllTeachers
+export default AllChairpersons

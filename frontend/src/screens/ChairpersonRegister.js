@@ -2,11 +2,11 @@ import axios from 'axios'
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { teacherregister } from '../actions/teacherActions'
+import { chairpersonregister } from '../actions/chairpersonActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import './Student.css'
-const TeacherRegister = ({ history }) => {
+const ChairpersonRegister = ({ history }) => {
   const dispatch = useDispatch()
   const [uploading, setUploading] = useState(false)
   const [valid, setValid] = useState(false)
@@ -60,7 +60,7 @@ const TeacherRegister = ({ history }) => {
     e.preventDefault()
     setValid(true)
     dispatch(
-      teacherregister(
+      chairpersonregister(
         name.trim(),
         qualification,
 
@@ -88,9 +88,9 @@ const TeacherRegister = ({ history }) => {
   const { userCred } = userLogin
 
   // const studentRegister = useSelector((state) => state.studentRegister)
-  const teacherRegister = useSelector((state) => state.teacherRegister)
+  const chairpersonRegister = useSelector((state) => state.chairpersonRegister)
 
-  const { loading, success, error } = teacherRegister
+  const { loading, success, error } = chairpersonRegister
   useEffect(() => {
     if (!userCred) {
       history.push('/login')
@@ -102,7 +102,7 @@ const TeacherRegister = ({ history }) => {
         <Loader />
       ) : (
         <div className='outer-layout'>
-          <h1>Register Teacher</h1>
+          <h1>Register Chairperson</h1>
           {success && valid && (
             <Message
               style={{ marginBottom: '3px' }}
@@ -237,7 +237,7 @@ const TeacherRegister = ({ history }) => {
             </div>
 
             <button className='btn-register' type='submit'>
-              Register Teacher
+              Register Chairperson
             </button>
           </form>
         </div>
@@ -246,4 +246,4 @@ const TeacherRegister = ({ history }) => {
   )
 }
 
-export default TeacherRegister
+export default ChairpersonRegister

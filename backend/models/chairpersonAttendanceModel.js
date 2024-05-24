@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const teacherAttendanceSchema = mongoose.Schema({
+const chairpersonAttendanceSchema = mongoose.Schema({
   admin: {
     type: String,
     required: true,
@@ -9,14 +9,14 @@ const teacherAttendanceSchema = mongoose.Schema({
     default: Date.now(),
   },
 
-  teachers: [
+  chairpersons: [
     {
-      teacher_name: {
+      chairperson_name: {
         type: String,
         required: true,
       },
 
-      teacherId: {
+      chairpersonId: {
         type: Number,
         required: true,
       },
@@ -32,8 +32,8 @@ const teacherAttendanceSchema = mongoose.Schema({
   ],
 })
 
-const TeacherAttendance = mongoose.model(
-  'TeacherAttendance',
-  teacherAttendanceSchema
+const ChairpersonAttendance = mongoose.model(
+  'ChairpersonAttendance',
+  chairpersonAttendanceSchema
 )
-export default TeacherAttendance
+export default ChairpersonAttendance

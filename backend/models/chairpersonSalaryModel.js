@@ -1,15 +1,15 @@
 import mongoose from 'mongoose'
-const teacherSalarySchema = mongoose.Schema(
+const chairpersonSalarySchema = mongoose.Schema(
   {
     admin: {
       type: String,
       required: true,
     },
-    teacher_name: {
+    chairperson_name: {
       type: String,
       required: true,
     },
-    teacherId: {
+    chairpersonId: {
       type: String,
       required: true,
     },
@@ -31,5 +31,5 @@ const teacherSalarySchema = mongoose.Schema(
   }
 )
 
-const TeacherSalary = mongoose.model('TeacherSalary', teacherSalarySchema)
-export default TeacherSalary
+const ChairpersonSalary = mongoose.model('ChairpersonSalary', chairpersonSalarySchema)
+export default ChairpersonSalary

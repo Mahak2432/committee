@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 const studentAttendanceSchema = mongoose.Schema({
-  class_teacher: {
+  class_chairperson: {
     type: String,
     required: true,
   },

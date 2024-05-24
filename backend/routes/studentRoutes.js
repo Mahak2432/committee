@@ -162,7 +162,7 @@ router.post(
     // const students = await Student.find({})
     const { students } = req.body
     console.log(req.body)
-    const class_teacher = req.user.name
+    const class_chairperson = req.user.name
     // console.log(req.params.classname)
     const attendanceFound = await StudentAttendance.findOne({
       attendance_date: new NepaliDate().format('YYYY-MM-D'),
@@ -178,7 +178,7 @@ router.post(
       res.status(201).json({ message: 'Attendance retaken successfully' })
     } else {
       const new_attendance = await StudentAttendance.create({
-        class_teacher,
+        class_chairperson,
         classname: req.params.classname,
         attendance_date: new NepaliDate().format('YYYY-MM-D'),
         students,

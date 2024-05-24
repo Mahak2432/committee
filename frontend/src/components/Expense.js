@@ -12,8 +12,8 @@ export default class Expense extends Component {
         </p>
         <p>
           Total Salary paid Rs {this.props.salaryAmount} to{' '}
-          {this.props.teacher_name
-            ? this.props.teacher_name
+          {this.props.chairperson_name
+            ? this.props.chairperson_name
             : this.props.staff_name}
         </p>
       </div>

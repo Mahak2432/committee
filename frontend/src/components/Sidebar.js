@@ -62,29 +62,29 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             Admit Card
           </Link>
         </div>
-        <h2>Teachers Section</h2>
+        <h2>Chairpersons Section</h2>
         <div className='sidebar__link'>
           <i className='fa fa-male'></i>
-          <Link className='linked' to='/teacher_register'>
-            Teacher Registration
+          <Link className='linked' to='/chairperson_register'>
+            Chairperson Registration
           </Link>
         </div>
         <div className='sidebar__link'>
           <i className='fa fa-coins'></i>
-          <Link className='linked' to='/teacher_salary'>
-            Teacher Salary
+          <Link className='linked' to='/chairperson_salary'>
+            Chairperson Salary
           </Link>
         </div>
         <div className='sidebar__link'>
           <i className='fas fa-info'></i>
-          <Link className='linked' to='/teacher_details'>
-            Teacher Details
+          <Link className='linked' to='/chairperson_details'>
+            Chairperson Details
           </Link>
         </div>
         <div className='sidebar__link'>
           <i className='fas fa-school'></i>
-          <Link className='linked' to='teacher_attendance'>
-            Teacher Attendance
+          <Link className='linked' to='chairperson_attendance'>
+            Chairperson Attendance
           </Link>
         </div>
         <h2>Non-Teaching Staffs</h2>

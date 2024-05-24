@@ -14,9 +14,9 @@ import {
   TEACHER_SALARY_REQUEST,
   TEACHER_SALARY_RESET,
   TEACHER_SALARY_SUCCESS,
-} from '../constants/teacherConstants'
+} from '../constants/chairpersonConstants'
 
-export const teacherSalaryReducer = (state = {}, action) => {
+export const chairpersonSalaryReducer = (state = {}, action) => {
   switch (action.type) {
     case TEACHER_SALARY_REQUEST:
       return { loading: true }
@@ -32,7 +32,7 @@ export const teacherSalaryReducer = (state = {}, action) => {
 }
 
 //TEACHER REGISTER REDUCER
-export const teacherRegisterReducer = (state = {}, action) => {
+export const chairpersonRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case TEACHER_REGISTER_REQUEST:
       return { loading: true }
@@ -47,7 +47,7 @@ export const teacherRegisterReducer = (state = {}, action) => {
   }
 }
 
-export const teacherDeleteReducer = (state = {}, action) => {
+export const chairpersonDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case TEACHER_DELETE_REQUEST:
       return { loading: true }
@@ -60,12 +60,12 @@ export const teacherDeleteReducer = (state = {}, action) => {
   }
 }
 
-export const teacherListReducer = (state = { teachers: [] }, action) => {
+export const chairpersonListReducer = (state = { chairpersons: [] }, action) => {
   switch (action.type) {
     case TEACHER_LIST_REQUEST:
-      return { loading: true, teachers: [] }
+      return { loading: true, chairpersons: [] }
     case TEACHER_LIST_SUCCESS:
-      return { loading: false, teachers: action.payload }
+      return { loading: false, chairpersons: action.payload }
     case TEACHER_LIST_FAIL:
       return { loading: false, error: action.payload }
     case TEACHER_LIST_RESET:

@@ -12,11 +12,11 @@ import {
   TEACHER_SALARY_FAIL,
   TEACHER_SALARY_REQUEST,
   TEACHER_SALARY_SUCCESS,
-} from '../constants/teacherConstants'
+} from '../constants/chairpersonConstants'
 
 export const PaySalary = (
-  teachername,
-  teacherid,
+  chairpersonname,
+  chairpersonid,
 
   salaryForTheYear,
   salaryForTheMonth,
@@ -36,7 +36,7 @@ export const PaySalary = (
       },
     }
     const { data } = await axios.post(
-      `/api/teachers/fees/${teachername}/${teacherid}`,
+      `/api/chairpersons/fees/${chairpersonname}/${chairpersonid}`,
       {
         salaryForTheYear,
         salaryForTheMonth,
@@ -63,8 +63,8 @@ export const PaySalary = (
 
 //TEACHER REGISTER
 
-export const teacherregister = (
-  teacher_name,
+export const chairpersonregister = (
+  chairperson_name,
 
   qualification,
 
@@ -95,9 +95,9 @@ export const teacherregister = (
       },
     }
     const { data } = await axios.post(
-      '/api/teachers/register',
+      '/api/chairpersons/register',
       {
-        teacher_name,
+        chairperson_name,
 
         qualification,
 
@@ -132,14 +132,14 @@ export const teacherregister = (
   }
 }
 
-//FOLLOWING IS FOR DELETING THE Teacher
+//FOLLOWING IS FOR DELETING THE Chairperson
 
-export const deleteTeacher = (id) => async (dispatch) => {
+export const deleteChairperson = (id) => async (dispatch) => {
   try {
     dispatch({
       type: TEACHER_DELETE_REQUEST,
     })
-    const { data } = await axios.delete(`/api/teachers/delete/${id}`)
+    const { data } = await axios.delete(`/api/chairpersons/delete/${id}`)
     dispatch({
       type: TEACHER_DELETE_SUCCESS,
       payload: data,
@@ -157,12 +157,12 @@ export const deleteTeacher = (id) => async (dispatch) => {
 
 //TEACHER all
 
-export const listTeachers = () => async (dispatch) => {
+export const listChairpersons = () => async (dispatch) => {
   try {
     dispatch({
       type: TEACHER_LIST_REQUEST,
     })
-    const { data } = await axios.get('/api/teachers')
+    const { data } = await axios.get('/api/chairpersons')
     dispatch({
       type: TEACHER_LIST_SUCCESS,
       payload: data,

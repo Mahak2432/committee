@@ -6,14 +6,14 @@ import capitalize from '../config/capitalize.js'
 import Dashboard from '../models/dashboardModel.js'
 import NonTeachingStaffSalary from '../models/nonTeachingStaffSalary.js'
 import nonTeachingStaffAttendance from '../models/nonTeachingStaffAttendance.js'
-import TeacherSalary from '../models/teacherSalaryModel.js'
+import ChairpersonSalary from '../models/chairpersonSalaryModel.js'
 const router = express.Router()
 
-//following router is for registering the teacher
+//following router is for registering the chairperson
 
 router.post(
   '/register',
-  //the protect used here is used for getting the id of the admin who registered the teacher
+  //the protect used here is used for getting the id of the admin who registered the chairperson
 
   protect,
   asyncHandler(async (req, res) => {
@@ -105,7 +105,7 @@ router.get(
   })
 )
 
-//following route is for deleting the teacher
+//following route is for deleting the chairperson
 
 router.delete(
   '/delete/:id',
@@ -126,17 +126,17 @@ router.delete(
   })
 )
 
-//following route is for paying the fees of teachers
+//following route is for paying the fees of chairpersons
 
 router.post(
   '/fees/:name/:id',
-  //the protect used here is used for getting the id of the admin who registered the teacher
+  //the protect used here is used for getting the id of the admin who registered the chairperson
 
   protect,
   asyncHandler(async (req, res) => {
     const { salaryForTheYear, salaryForTheMonth, salaryAmount } = req.body
     console.log(req.body)
-    // const teacher_info =
+    // const chairperson_info =
     const staff_info = await NonTeachingStaff.findOne({
       staff_name: capitalize(req.params.name),
       staffId: req.params.id,
@@ -164,7 +164,7 @@ router.post(
       })
       console.log(new_staff)
       if (new_staff) {
-        const Fees = await TeacherSalary.find()
+        const Fees = await ChairpersonSalary.find()
           .select('salaryAmount')
           .select('-_id')
         console.log('Fees', Fees)
@@ -211,12 +211,12 @@ router.post(
 // router.get(
 //   '/',
 //   asyncHandler(async (req, res) => {
-//     const teachers = await Teacher.find({})
-//     if (teachers.length > 0) {
-//       res.json(teachers)
+//     const chairpersons = await Chairperson.find({})
+//     if (chairpersons.length > 0) {
+//       res.json(chairpersons)
 //     } else {
 //       res.status(500)
-//       throw new Error('No Teachers found')
+//       throw new Error('No Chairpersons found')
 //     }
 //   })
 // )

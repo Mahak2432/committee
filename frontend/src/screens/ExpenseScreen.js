@@ -179,7 +179,7 @@ const ExpenseScreen = () => {
                   i={i++}
                   createdAt={value.createdAt}
                   salaryAmount={value.salaryAmount}
-                  teacher_name={value.teacher_name}
+                  chairperson_name={value.chairperson_name}
                   staff_name={value.staff_name}
                   ref={componentRef}
                 />

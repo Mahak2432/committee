@@ -18,11 +18,11 @@ import {
   allSalaryReducer,
 } from './reducers/miscellaneousReducers'
 import {
-  teacherSalaryReducer,
-  teacherRegisterReducer,
-  teacherDeleteReducer,
-  teacherListReducer,
-} from './reducers/teacherReducers'
+  chairpersonSalaryReducer,
+  chairpersonRegisterReducer,
+  chairpersonDeleteReducer,
+  chairpersonListReducer,
+} from './reducers/chairpersonReducers'
 import {
   staffSalaryReducer,
   staffRegisterReducer,
@@ -38,10 +38,10 @@ const reducer = combineReducers({
   studentDelete: studentDeleteReducer,
   studentAttendance: studentAttendanceReducer,
   studentFees: studentFeesReducer,
-  teacherSalary: teacherSalaryReducer,
-  teacherRegister: teacherRegisterReducer,
-  teacherDelete: teacherDeleteReducer,
-  teacherList: teacherListReducer,
+  chairpersonSalary: chairpersonSalaryReducer,
+  chairpersonRegister: chairpersonRegisterReducer,
+  chairpersonDelete: chairpersonDeleteReducer,
+  chairpersonList: chairpersonListReducer,
   staffSalary: staffSalaryReducer,
   staffRegister: staffRegisterReducer,
   staffDelete: staffDeleteReducer,

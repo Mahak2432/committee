@@ -16,10 +16,10 @@ import AllStudentsAdmitCard from './screens/AllStudentsAdmitCard'
 import StudentClassAdmitCard from './screens/StudentClassAdmitCard'
 import StudentClassAdmitCardDeep from './screens/StudentClassAdmitCardDeep'
 import ParticularStudentAdmitCard from './screens/ParticularStudentAdmitCard'
-import TeacherSalary from './screens/TeacherSalary'
+import ChairpersonSalary from './screens/ChairpersonSalary'
 import StaffSalary from './screens/StaffSalary'
-import TeacherRegister from './screens/TeacherRegister'
-import AllTeachers from './screens/AllTeachers'
+import ChairpersonRegister from './screens/ChairpersonRegister'
+import AllChairpersons from './screens/AllChairpersons'
 import AllStaffs from './screens/AllStaffs'
 import StaffRegister from './screens/StaffRegister'
 import IncomeScreen from './screens/IncomeScreen'
@@ -56,7 +56,7 @@ const App = () => {
             exact
           /> */}
           <PrivateRoute
-            path='/teacher_attendance'
+            path='/chairperson_attendance'
             component={underConstruction}
             exact
           />
@@ -93,16 +93,16 @@ const App = () => {
             exact
           />
           <PrivateRoute
-            path='/teacher_salary'
-            component={TeacherSalary}
+            path='/chairperson_salary'
+            component={ChairpersonSalary}
             exact
           />
           <PrivateRoute
-            path='/teacher_register'
-            component={TeacherRegister}
+            path='/chairperson_register'
+            component={ChairpersonRegister}
             exact
           />
-          <PrivateRoute path='/teacher_details' component={AllTeachers} exact />
+          <PrivateRoute path='/chairperson_details' component={AllChairpersons} exact />
           <PrivateRoute
             path='/non-teaching_staff_details'
             component={AllStaffs}

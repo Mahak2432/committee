@@ -6,11 +6,11 @@ export const items = [
     image: 'https://img.freepik.com/free-photo/smiling-students-with-backpacks_1098-1220.jpg',
   },
   {
-    title: 'Teachers',
+    title: 'Chairpersons',
     number: 0,
-    takeme:"/teacher_details",
+    takeme:"/chairperson_details",
 
-    image: 'https://www.hindustantimes.com/ht-img/img/2023/09/02/1600x900/teachers_day_1693652054152_1693652065719.jpg',
+    image: 'https://www.hindustantimes.com/ht-img/img/2023/09/02/1600x900/chairpersons_day_1693652054152_1693652065719.jpg',
   },
  {
     title: 'Working Staffs',
