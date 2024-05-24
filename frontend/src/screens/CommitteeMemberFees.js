@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import NepaliDate from 'nepali-date-converter'
-import { PayFees } from '../actions/studentActions'
+import { PayFees } from '../actions/committeeMemberActions'
 import Loader from '../components/Loader'
 import {
   STUDENT_FEES_RESET,
   STUDENT_SEARCH_CLEAR,
-} from '../constants/studentConstants'
+} from '../constants/committeeMemberConstants'
 // import axios from 'axios'
-import { studentSearch } from '../actions/studentActions'
-const StudentFees = () => {
+import { committeeMemberSearch } from '../actions/committeeMemberActions'
+const CommitteeMemberFees = () => {
   const dispatch = useDispatch()
-  const studentdetails = useSelector((state) => state.studentSearch)
-  const { loading, student, error } = studentdetails
+  const committeeMemberdetails = useSelector((state) => state.committeeMemberSearch)
+  const { loading, committeeMember, error } = committeeMemberdetails
   const [name, setName] = useState('')
   const [classname, setClassname] = useState('')
   const [ok, setOk] = useState(false)
@@ -27,17 +27,17 @@ const StudentFees = () => {
   const [computer_fees, setComputer_fees] = useState('')
   const [exam_fees, setExam_fees] = useState('')
   const [miscellaneous, setMiscellaneous] = useState('')
-  const studentFees = useSelector((state) => state.studentFees)
-  // const studentFees = useSelector((state) => state.studentFees)
+  const committeeMemberFees = useSelector((state) => state.committeeMemberFees)
+  // const committeeMemberFees = useSelector((state) => state.committeeMemberFees)
 
   const {
     loading: loadingfees,
     error: errorfees,
     success: successfees,
-  } = studentFees
+  } = committeeMemberFees
   const formSubmit = async (e) => {
     e.preventDefault()
-    dispatch(studentSearch(name.trim(), classname, rollno))
+    dispatch(committeeMemberSearch(name.trim(), classname, rollno))
   }
   const submitHandler = (e) => {
     e.preventDefault()
@@ -45,11 +45,11 @@ const StudentFees = () => {
 
     dispatch(
       PayFees(
-        student._id,
-        student.student_name,
+        committeeMember._id,
+        committeeMember.committeeMember_name,
 
-        student.classname,
-        student.roll_no,
+        committeeMember.classname,
+        committeeMember.roll_no,
         monthname,
         new NepaliDate().format('YYYY'),
         monthlyfees,
@@ -81,14 +81,14 @@ const StudentFees = () => {
   return (
     <div className='container1'>
       <div className='search-form'>
-        <h4>Search for Student to pay fees</h4>
+        <h4>Search for CommitteeMember to pay fees</h4>
 
         <form onSubmit={formSubmit}>
           <input
             className='first-input'
             type='text'
             value={name}
-            placeholder='Enter the name of student'
+            placeholder='Enter the name of committeeMember'
             onChange={(e) => setName(e.target.value)}
             required
           />
@@ -136,15 +136,15 @@ const StudentFees = () => {
       ) : loadingfees ? (
         <Loader />
       ) : (
-        student && (
+        committeeMember && (
           <div className='outer-layout'>
-            <h1>Student Fees Section</h1>
+            <h1>CommitteeMember Fees Section</h1>
 
             <form onSubmit={submitHandler}>
               <div className='form-inner'>
                 <div className='form-control'>
-                  <label for='name'>Student Name</label>
-                  <input type='text' value={student.student_name} />
+                  <label for='name'>CommitteeMember Name</label>
+                  <input type='text' value={committeeMember.committeeMember_name} />
                 </div>
                 {/* <div className='form-control'>
             <label for='name'>Full Name</label>
@@ -152,7 +152,7 @@ const StudentFees = () => {
           </div>{' '} */}
                 <div className='form-control'>
                   <label for='name'>Class</label>
-                  <select id='class' value={student.classname}>
+                  <select id='class' value={committeeMember.classname}>
                     <option value=''>Select</option>
 
                     <option value='Nursery'>Nursery</option>
@@ -172,7 +172,7 @@ const StudentFees = () => {
                 </div>{' '}
                 <div className='form-control'>
                   <label for='name'>Roll No</label>
-                  <input type='number' value={student.roll_no} />
+                  <input type='number' value={committeeMember.roll_no} />
                 </div>{' '}
                 <div className='form-control'>
                   <label for='year'>Year</label>
@@ -270,4 +270,4 @@ const StudentFees = () => {
   )
 }
 
-export default StudentFees
+export default CommitteeMemberFees

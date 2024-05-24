@@ -19,7 +19,7 @@ export default class Income extends Component {
             this.props.computer_fees +
             this.props.exam_fees +
             this.props.miscellaneous}{' '}
-          from {this.props.student_name}
+          from {this.props.committeeMember_name}
         </p>
       </div>
     )

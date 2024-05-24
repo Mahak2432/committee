@@ -79,7 +79,7 @@ router.post(
         { number: total_staffs }
       )
       console.log('done')
-      console.log('total number of students', total_staffs)
+      console.log('total number of committeeMembers', total_staffs)
       res.status(201).json({
         message: 'Staff registered successfully',
       })

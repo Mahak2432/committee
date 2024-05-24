@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Classes from './classData'
 
 import ClassItems from '../components/ClassItems'
-const StudentAttendance = () => {
+const CommitteeMemberAttendance = () => {
   return (
     <div className='container2'>
       <div className='outer'>
@@ -13,7 +13,7 @@ const StudentAttendance = () => {
           {Classes.map((classname) => (
             <ClassItems
               key={classname._id}
-              target={`/student-attendance/${classname.classname}`}
+              target={`/committeeMember-attendance/${classname.classname}`}
               classid={classname.classname}
             />
           ))}
@@ -23,4 +23,4 @@ const StudentAttendance = () => {
   )
 }
 
-export default StudentAttendance
+export default CommitteeMemberAttendance

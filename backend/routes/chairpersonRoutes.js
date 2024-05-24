@@ -4,7 +4,7 @@ import protect from '../middleware/authMiddleware.js'
 import Chairperson from '../models/chairpersonModel.js'
 import capitalize from '../config/capitalize.js'
 import Dashboard from '../models/dashboardModel.js'
-import StudentFees from '../models/studentFeesModel.js'
+import CommitteeMemberFees from '../models/committeeMemberFeesModel.js'
 import ChairpersonSalary from '../models/chairpersonSalaryModel.js'
 import ChairpersonAttendance from '../models/chairpersonAttendanceModel.js'
 import NonTeachingStaffSalary from '../models/nonTeachingStaffSalary.js'
@@ -80,7 +80,7 @@ router.post(
         { number: total_chairpersons }
       )
       console.log('done')
-      console.log('total number of students', total_chairpersons)
+      console.log('total number of committeeMembers', total_chairpersons)
       res.status(201).json({
         message: 'Chairperson registered successfully',
       })
@@ -207,7 +207,7 @@ router.post(
 router.get(
   '/allincome',
   asyncHandler(async (req, res) => {
-    const income = await StudentFees.find({})
+    const income = await CommitteeMemberFees.find({})
     if (income.length > 0) {
       res.json(income)
     } else {
@@ -222,7 +222,7 @@ router.get(
 router.get(
   '/allincome/:year',
   asyncHandler(async (req, res) => {
-    const income = await StudentFees.find({ year: req.params.year })
+    const income = await CommitteeMemberFees.find({ year: req.params.year })
     if (income.length > 0) {
       res.json(income)
     } else {
@@ -236,7 +236,7 @@ router.get(
 router.get(
   '/allincome/:year/:month',
   asyncHandler(async (req, res) => {
-    const income = await StudentFees.find({
+    const income = await CommitteeMemberFees.find({
       year: req.params.year,
       month_name: capitalize(req.params.month),
     })

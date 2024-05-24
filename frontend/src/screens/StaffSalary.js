@@ -4,7 +4,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { PaySalary } from '../actions/staffActions'
 import { STAFF_SALARY_RESET } from '../constants/staffConstants'
-import './Student.css'
+import './CommitteeMember.css'
 const StaffSalary = ({ history }) => {
   const [staffname, setStaffname] = useState('')
   const [id, setId] = useState('')
@@ -31,7 +31,7 @@ const StaffSalary = ({ history }) => {
 
   const { userCred } = userLogin
 
-  // const studentRegister = useSelector((state) => state.studentRegister)
+  // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
   const staffSalary = useSelector((state) => state.staffSalary)
 
   const { loading, success, error } = staffSalary

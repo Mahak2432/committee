@@ -21,16 +21,16 @@ import {
   STUDENT_FEES_REQUEST,
   STUDENT_FEES_SUCCESS,
   STUDENT_FEES_FAIL,
-} from '../constants/studentConstants'
+} from '../constants/committeeMemberConstants'
 
 //the below uses function within a function which is privileged by redux-thunk
 
-export const listStudents = () => async (dispatch) => {
+export const listCommitteeMembers = () => async (dispatch) => {
   try {
     dispatch({
       type: STUDENT_LIST_REQUEST,
     })
-    const { data } = await axios.get('/api/students')
+    const { data } = await axios.get('/api/committeeMembers')
     dispatch({
       type: STUDENT_LIST_SUCCESS,
       payload: data,
@@ -45,14 +45,14 @@ export const listStudents = () => async (dispatch) => {
     })
   }
 }
-//following displays list of all students belonging to the particular class
+//following displays list of all committeeMembers belonging to the particular class
 
-export const classlistStudent = (id) => async (dispatch) => {
+export const classlistCommitteeMember = (id) => async (dispatch) => {
   try {
     dispatch({
       type: STUDENT_CLASS_LIST_REQUEST,
     })
-    const { data } = await axios.get(`/api/students/class/${id}`)
+    const { data } = await axios.get(`/api/committeeMembers/class/${id}`)
     dispatch({
       type: STUDENT_CLASS_LIST_SUCCESS,
       payload: data,
@@ -67,16 +67,16 @@ export const classlistStudent = (id) => async (dispatch) => {
     })
   }
 }
-//following is for searching the student for paying the fees
+//following is for searching the committeeMember for paying the fees
 
-export const studentSearch = (name, classname, rollno) => async (dispatch) => {
+export const committeeMemberSearch = (name, classname, rollno) => async (dispatch) => {
   try {
     dispatch({
       type: STUDENT_SEARCH_REQUEST,
     })
     console.log(name, classname, rollno)
     const { data } = await axios.get(
-      `/api/students/search/${name}/${classname}/${rollno}`
+      `/api/committeeMembers/search/${name}/${classname}/${rollno}`
     )
     console.log('Data is ', data)
     dispatch({
@@ -94,10 +94,10 @@ export const studentSearch = (name, classname, rollno) => async (dispatch) => {
   }
 }
 
-//student register
+//committeeMember register
 
 export const Register = (
-  student_name,
+  committeeMember_name,
   classname,
 
   address,
@@ -125,9 +125,9 @@ export const Register = (
       },
     }
     const { data } = await axios.post(
-      '/api/students/register',
+      '/api/committeeMembers/register',
       {
-        student_name,
+        committeeMember_name,
         classname,
 
         address,
@@ -161,12 +161,12 @@ export const Register = (
 
 //FOLLOWING IS FOR DELETING THE STUDENT
 
-export const deleteStudent = (id) => async (dispatch) => {
+export const deleteCommitteeMember = (id) => async (dispatch) => {
   try {
     dispatch({
       type: STUDENT_DELETE_REQUEST,
     })
-    const { data } = await axios.delete(`/api/students/delete/${id}`)
+    const { data } = await axios.delete(`/api/committeeMembers/delete/${id}`)
     dispatch({
       type: STUDENT_DELETE_SUCCESS,
       payload: data,
@@ -182,9 +182,9 @@ export const deleteStudent = (id) => async (dispatch) => {
   }
 }
 
-//student attendacnce
+//committeeMember attendacnce
 
-export const studentAttendances = (classname, students) => async (
+export const committeeMemberAttendances = (classname, committeeMembers) => async (
   dispatch,
   getState
 ) => {
@@ -203,9 +203,9 @@ export const studentAttendances = (classname, students) => async (
       },
     }
     const { data } = await axios.post(
-      `/api/students/attendance/${classname}`,
+      `/api/committeeMembers/attendance/${classname}`,
       {
-        students,
+        committeeMembers,
       },
       config
     )
@@ -229,8 +229,8 @@ export const studentAttendances = (classname, students) => async (
 //fees
 
 export const PayFees = (
-  studentId,
-  student_name,
+  committeeMemberId,
+  committeeMember_name,
 
   classname,
   roll_no,
@@ -258,9 +258,9 @@ export const PayFees = (
       },
     }
     const { data } = await axios.post(
-      `/api/students/fees/${studentId}`,
+      `/api/committeeMembers/fees/${committeeMemberId}`,
       {
-        student_name,
+        committeeMember_name,
         classname,
         roll_no,
         month_name,

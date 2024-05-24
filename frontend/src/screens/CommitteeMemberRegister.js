@@ -2,11 +2,11 @@ import axios from 'axios'
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Register } from '../actions/studentActions'
+import { Register } from '../actions/committeeMemberActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import './Student.css'
-const StudentRegister = ({ history }) => {
+import './CommitteeMember.css'
+const CommitteeMemberRegister = ({ history }) => {
   const dispatch = useDispatch()
   const [uploading, setUploading] = useState(false)
   const [valid, setValid] = useState(false)
@@ -84,10 +84,10 @@ const StudentRegister = ({ history }) => {
 
   const { userCred } = userLogin
 
-  // const studentRegister = useSelector((state) => state.studentRegister)
-  const studentRegister = useSelector((state) => state.studentRegister)
+  // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
+  const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
 
-  const { loading, success, error } = studentRegister
+  const { loading, success, error } = committeeMemberRegister
   useEffect(() => {
     if (!userCred) {
       history.push('/login')
@@ -246,4 +246,4 @@ const StudentRegister = ({ history }) => {
   )
 }
 
-export default StudentRegister
+export default CommitteeMemberRegister

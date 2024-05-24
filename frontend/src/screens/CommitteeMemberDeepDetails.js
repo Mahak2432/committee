@@ -1,45 +1,43 @@
-import React, { useEffect } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listStudents } from '../actions/studentActions'
-import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { deleteStudent } from '../actions/studentActions'
+import Loader from '../components/Loader'
+import { deleteCommitteeMember } from '../actions/committeeMemberActions'
+import { classlistCommitteeMember } from '../actions/committeeMemberActions'
+const CommitteeMemberDetails = ({ match }) => {
+  const matchid = match.params.id
 
-const AllStudents = ({  }) => {
   const dispatch = useDispatch()
-  const studentList = useSelector((state) => state.studentList)
-  const { loading, students, error } = studentList
-  const studentDelete = useSelector((state) => state.studentDelete)
+  const committeeMemberClassList = useSelector((state) => state.committeeMemberClassList)
+  const { loading, committeeMembers, error } = committeeMemberClassList
+  const committeeMemberDelete = useSelector((state) => state.committeeMemberDelete)
   const {
     loading: loadingDelete,
     success: successDelete,
     error: errorDelete,
-  } = studentDelete
-  // const matchid = match.params.id
+  } = committeeMemberDelete
   useEffect(() => {
-    dispatch(listStudents())
-  }, [dispatch, successDelete])
+    dispatch(classlistCommitteeMember(matchid))
+  }, [dispatch, matchid, successDelete])
+
+  var i = 1
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteStudent(id))
+      dispatch(deleteCommitteeMember(id))
     }
   }
-  var i = 1
-
   const searchSubmit = (e) => {
     e.preventDefault()
     console.log('clicked')
   }
-  // const loading1=true
-  // const students = []
   return (
     <div className='container3'>
       <div className='outer'>
-        <input type='text' placeholder='Search for student...' />
+        <input type='text' placeholder='Search for committeeMember...' />
         <span className='search-icon' onClick={searchSubmit}>
           <i className='fas fa-search'></i>
         </span>
-
         <div className='table-layout'>
           {loading ? (
             <Loader />
@@ -50,9 +48,8 @@ const AllStudents = ({  }) => {
               <thead>
                 <tr>
                   <th>SN</th>
-                  {/* <th>ID</th> */}
                   <th>Photo</th>
-                  <th>Student Name</th>
+                  <th>CommitteeMember Name</th>
                   <th>Class</th>
                   <th>Roll No</th>
                   <th>Address</th>
@@ -65,22 +62,13 @@ const AllStudents = ({  }) => {
                 </tr>
               </thead>
               <tbody>
-                {/* {match.params.id===data.id && */}
-                {/* {console.log(matchid)} */}
-                {/* {"A"==="A" ?():(
-
-)} */}
-                {/* for displaying the information about the particular class
-only we first should have the data of that class only 
-. We cannot make selection inside the map method by using double and operator. */}
-                {students.map((data) => (
+                {committeeMembers.map((data) => (
                   <tr key={data._id} className='contents'>
                     <td>{i++}</td>
-                    {/* <td>{data._id}</td> */}
                     <td>
                       <img style={{ height: '50px' }} src={data.image} alt='' />
                     </td>
-                    <td>{data.student_name}</td>
+                    <td>{data.committeeMember_name}</td>
                     <td>{data.classname}</td>
                     <td>{data.roll_no}</td>
                     <td>{data.address}</td>
@@ -103,8 +91,8 @@ only we first should have the data of that class only
                         style={{
                           padding: '8px',
                           color: 'red',
+                          cursor:'pointer',
                           fontSize: '25px',
-                          cursor: 'pointer',
                         }}
                         onClick={() => deleteHandler(data._id)}
                         className='fas fa-trash'
@@ -123,4 +111,4 @@ only we first should have the data of that class only
   )
 }
 
-export default AllStudents
+export default CommitteeMemberDetails

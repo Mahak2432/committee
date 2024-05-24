@@ -31,29 +31,29 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             Dashboard
           </Link>
         </div>
-        <h2>Students Section</h2>
+        <h2>CommitteeMembers Section</h2>
         <div className='sidebar__link'>
           <i className='fa fa-male' aria-hidden='true'></i>
-          <Link className='linked' to='/student-register'>
-            Student Registration
+          <Link className='linked' to='/committeeMember-register'>
+            CommitteeMember Registration
           </Link>
         </div>
         <div className='sidebar__link'>
           <i className='fa fa-coins'></i>
-          <Link className='linked' to='/student-fee'>
-            Student Fees
+          <Link className='linked' to='/committeeMember-fee'>
+            CommitteeMember Fees
           </Link>
         </div>
         <div className='sidebar__link'>
           <i className='fas fa-info'></i>
-          <Link className='linked' to='/student_details'>
-            Student Details
+          <Link className='linked' to='/committeeMember_details'>
+            CommitteeMember Details
           </Link>
         </div>
         <div className='sidebar__link'>
           <i className='fas fa-school'></i>
-          <Link className='linked' to='/student-attendance'>
-            Student Attendance
+          <Link className='linked' to='/committeeMember-attendance'>
+            CommitteeMember Attendance
           </Link>
         </div>
         <div className='sidebar__link'>

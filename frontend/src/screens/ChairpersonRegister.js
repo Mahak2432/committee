@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { chairpersonregister } from '../actions/chairpersonActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import './Student.css'
+import './CommitteeMember.css'
 const ChairpersonRegister = ({ history }) => {
   const dispatch = useDispatch()
   const [uploading, setUploading] = useState(false)
@@ -87,7 +87,7 @@ const ChairpersonRegister = ({ history }) => {
 
   const { userCred } = userLogin
 
-  // const studentRegister = useSelector((state) => state.studentRegister)
+  // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
   const chairpersonRegister = useSelector((state) => state.chairpersonRegister)
 
   const { loading, success, error } = chairpersonRegister
@@ -151,7 +151,7 @@ const ChairpersonRegister = ({ history }) => {
                 />
               </div>{' '}
               <div className='form-control'>
-                <label htmlFor='name'>Subject To Teach</label>
+                <label htmlFor='name'>Name of Committee</label>
                 <input
                   type='text'
                   value={subjectToTeach}

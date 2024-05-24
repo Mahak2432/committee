@@ -1,7 +1,7 @@
 .container1{
     /* height:190vh; */
 
-    /* background: url("student.jpg"); */
+    /* background: url("committeeMember.jpg"); */
     padding:10px;
     overflow: auto;
     /* background: chocolate; */
@@ -157,7 +157,7 @@ padding:10px;
 }
 
 
-/* the below is for the student Details file */
+/* the below is for the committeeMember Details file */
 .container2{
     height:100vh;
     padding:10px;
@@ -286,7 +286,7 @@ th, td {
     text-align: center;
    }
 
-   /* student fees section
+   /* committeeMember fees section
     */
     .search-form{
         max-width: 1000px;

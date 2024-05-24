@@ -9,7 +9,7 @@ const router = express.Router()
 router.post(
   '/',
   asyncHandler(async (req, res) => {
-    // const students = await Student.find({})
+    // const committeeMembers = await CommitteeMember.find({})
     const { email, password } = req.body
     const user = await Admin.findOne({ email })
     if (user && (await user.matchPassword(password))) {

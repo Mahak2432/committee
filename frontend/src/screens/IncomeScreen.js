@@ -193,7 +193,7 @@ const IncomeScreen = () => {
                   computer_fees={value.computer_fees}
                   exam_fees={value.exam_fees}
                   miscellaneous={value.miscellaneous}
-                  student_name={value.student_name}
+                  committeeMember_name={value.committeeMember_name}
                   ref={componentRef}
                 />
               </div>

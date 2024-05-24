@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { staffregister } from '../actions/staffActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import './Student.css'
+import './CommitteeMember.css'
 const StaffRegister = ({ history }) => {
   const dispatch = useDispatch()
   const [uploading, setUploading] = useState(false)
@@ -87,7 +87,7 @@ const StaffRegister = ({ history }) => {
 
   const { userCred } = userLogin
 
-  // const studentRegister = useSelector((state) => state.studentRegister)
+  // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
   const staffRegister = useSelector((state) => state.staffRegister)
 
   const { loading, success, error } = staffRegister

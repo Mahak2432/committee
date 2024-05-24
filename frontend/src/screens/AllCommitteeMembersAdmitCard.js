@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listStudents } from '../actions/studentActions'
+import { listCommitteeMembers } from '../actions/committeeMemberActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import './admitcard.css'
 
 import { AdmitCard } from '../components/AdmitCard'
-import { STUDENT_LIST_CLEAR } from '../constants/studentConstants'
-const AllStudentsAdmitCard = () => {
+import { STUDENT_LIST_CLEAR } from '../constants/committeeMemberConstants'
+const AllCommitteeMembersAdmitCard = () => {
   const [examno, setExamno] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault()
   }
   const dispatch = useDispatch()
-  const studentList = useSelector((state) => state.studentList)
-  const { loading, students, error } = studentList
+  const committeeMemberList = useSelector((state) => state.committeeMemberList)
+  const { loading, committeeMembers, error } = committeeMemberList
   const Print = () => {
     window.print()
   }
@@ -22,7 +22,7 @@ const AllStudentsAdmitCard = () => {
     dispatch({
       type: STUDENT_LIST_CLEAR,
     })
-    dispatch(listStudents())
+    dispatch(listCommitteeMembers())
   }, [dispatch])
   return (
     // const AdmitCard = ({ examination, name, classname, rollno, image }) => {
@@ -43,20 +43,20 @@ const AllStudentsAdmitCard = () => {
       {loading ? (
         <Loader />
       ) : (
-        students &&
-        students.map((student) => (
-          <div key={student._id} className='arrange'>
+        committeeMembers &&
+        committeeMembers.map((committeeMember) => (
+          <div key={committeeMember._id} className='arrange'>
             <AdmitCard
               examination='Terminal Examination'
-              name={student.student_name}
-              classname={student.classname}
-              rollno={student.roll_no}
-              image={student.image}
+              name={committeeMember.committeeMember_name}
+              classname={committeeMember.classname}
+              rollno={committeeMember.roll_no}
+              image={committeeMember.image}
             />
           </div>
         ))
       )}
-      {students && (
+      {committeeMembers && (
         <div className='la'>
           <button onClick={Print} className='printcmd'>
             Print All
@@ -67,4 +67,4 @@ const AllStudentsAdmitCard = () => {
   )
 }
 
-export default AllStudentsAdmitCard
+export default AllCommitteeMembersAdmitCard

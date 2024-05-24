@@ -3,21 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import ReactToPrint from 'react-to-print'
 // import './particularprint.css'
-import './Student.css'
+import './CommitteeMember.css'
 import { AdmitCard } from '../components/AdmitCard'
 
 import Loader from '../components/Loader'
 // import axios from 'axios'
 
-import { STUDENT_SEARCH_CLEAR } from '../constants/studentConstants'
+import { STUDENT_SEARCH_CLEAR } from '../constants/committeeMemberConstants'
 
-import { studentSearch } from '../actions/studentActions'
-const ParticularStudentAdmitCard = () => {
+import { committeeMemberSearch } from '../actions/committeeMemberActions'
+const ParticularCommitteeMemberAdmitCard = () => {
   const componentRef = useRef()
 
   const dispatch = useDispatch()
-  const studentdetails = useSelector((state) => state.studentSearch)
-  const { loading, student, error } = studentdetails
+  const committeeMemberdetails = useSelector((state) => state.committeeMemberSearch)
+  const { loading, committeeMember, error } = committeeMemberdetails
   const [name, setName] = useState('')
   const [classname, setClassname] = useState('')
   const [rollno, setRollno] = useState('')
@@ -26,7 +26,7 @@ const ParticularStudentAdmitCard = () => {
   }
   const formSubmit = async (e) => {
     e.preventDefault()
-    dispatch(studentSearch(name, classname, rollno))
+    dispatch(committeeMemberSearch(name, classname, rollno))
   }
   // const style =
   // Adding media querry..
@@ -44,14 +44,14 @@ const ParticularStudentAdmitCard = () => {
       {/* following is the thing  I have been searching from the morning  */}
       <style>{`@media print {    @page { size: 110mm 54.5mm; }}`}</style>
       <div className='search-form'>
-        <h4>Search for Student to pay fees</h4>
+        <h4>Search for CommitteeMember to pay fees</h4>
 
         <form onSubmit={formSubmit}>
           <input
             className='first-input'
             type='text'
             value={name}
-            placeholder='Enter the name of student'
+            placeholder='Enter the name of committeeMember'
             onChange={(e) => setName(e.target.value)}
             required
           />
@@ -93,22 +93,22 @@ const ParticularStudentAdmitCard = () => {
       {error && <Message variant='danger' message={error} />}
 
       <div className='arrange'>
-        {student && (
+        {committeeMember && (
           <div className='prints'>
             <AdmitCard
               className='print'
               examination='Terminal Examination'
-              name={student.student_name}
-              classname={student.classname}
-              rollno={student.roll_no}
-              image={student.image}
+              name={committeeMember.committeeMember_name}
+              classname={committeeMember.classname}
+              rollno={committeeMember.roll_no}
+              image={committeeMember.image}
               ref={componentRef}
             />
           </div>
         )}
       </div>
       <div className='printCMD'>
-        {student && (
+        {committeeMember && (
           <ReactToPrint
             trigger={() => (
               <button className='printcmd'>Print this out!</button>
@@ -121,4 +121,4 @@ const ParticularStudentAdmitCard = () => {
   )
 }
 
-export default ParticularStudentAdmitCard
+export default ParticularCommitteeMemberAdmitCard

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import Classes from '../screens/classData'
+import Classes from './classData'
 import axios from 'axios'
 import ClassItems from '../components/ClassItems'
-const StudentClassAdmitCard = () => {
+const CommitteeMemberClassAdmitCard = () => {
   console.log(Classes)
   const searchSubmit = (e) => {
     e.preventDefault()
@@ -12,7 +12,7 @@ const StudentClassAdmitCard = () => {
   return (
     <div className='container2'>
       <div className='outer'>
-        {/* <input type='text' placeholder='Search for student...' />
+        {/* <input type='text' placeholder='Search for committeeMember...' />
         <span className='search-icon' onClick={searchSubmit}>
           <i className='fas fa-search'></i>
         </span> */}
@@ -32,4 +32,4 @@ const StudentClassAdmitCard = () => {
   )
 }
 
-export default StudentClassAdmitCard
+export default CommitteeMemberClassAdmitCard

@@ -62,7 +62,7 @@ const chairpersonSchema = mongoose.Schema(
 )
 //the below is required code for converting the schema to the model
 //as per the documentation of mongoose
-//any name can be given as a constant in the place of the Student
+//any name can be given as a constant in the place of the CommitteeMember
 const Chairperson = mongoose.model('Chairperson', chairpersonSchema)
 //Chairperson variable is exported as follow is a ES module.
 export default Chairperson

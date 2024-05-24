@@ -10,19 +10,19 @@ connectDB()
 const importData = async () => {
   try {
     await Admin.deleteMany()
-    // await Student.deleteMany()
+    // await CommitteeMember.deleteMany()
     await Dashboard.deleteMany()
     // const createdUsers =
    await Admin.insertMany(users)
     // console.log('inserted users')
     // const adminUser = createdUsers[0]._id
 
-    // const sampleStudents = students.map((student) => {
-    //   return { ...student, user: adminUser }
+    // const sampleCommitteeMembers = committeeMembers.map((committeeMember) => {
+    //   return { ...committeeMember, user: adminUser }
     // })
 
   await Dashboard.insertMany(items)
-    // await Student.insertMany(sampleStudents)
+    // await CommitteeMember.insertMany(sampleCommitteeMembers)
 
 
     console.log('Data imported.')
@@ -35,7 +35,7 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    // await Student.deleteMany()
+    // await CommitteeMember.deleteMany()
     await Dashboard.deleteMany()
     await Admin.deleteMany()
     

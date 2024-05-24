@@ -1,85 +1,85 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
-import Student from '../models/studentModel.js'
+import CommitteeMember from '../models/committeeMemberModel.js'
 import capitalize from '../config/capitalize.js'
 import NepaliDate from 'nepali-date-converter'
-import StudentFees from '../models/studentFeesModel.js'
+import CommitteeMemberFees from '../models/committeeMemberFeesModel.js'
 import protect from '../middleware/authMiddleware.js'
-import StudentAttendance from '../models/studentAttendanceModel.js'
+import CommitteeMemberAttendance from '../models/committeeMemberAttendanceModel.js'
 import Dashboard from '../models/dashboardModel.js'
 const router = express.Router()
 
 router.get(
   '/',
   asyncHandler(async (req, res) => {
-    const students = await Student.find({})
+    const committeeMembers = await CommitteeMember.find({})
 
-    res.json(students)
+    res.json(committeeMembers)
   })
 )
 router.get(
   '/class/:id',
   asyncHandler(async (req, res) => {
-    const students = await Student.find({ classname: req.params.id })
-    if (students.length > 0) {
-      console.log(students)
+    const committeeMembers = await CommitteeMember.find({ classname: req.params.id })
+    if (committeeMembers.length > 0) {
+      console.log(committeeMembers)
 
-      res.json(students)
+      res.json(committeeMembers)
     } else {
-      res.status(404).json({ message: 'No students found.' })
+      res.status(404).json({ message: 'No committeeMembers found.' })
     }
   })
 )
-// the following route is for loading attendance and students info.
+// the following route is for loading attendance and committeeMembers info.
 router.get(
   '/class/:id/attendance',
   asyncHandler(async (req, res) => {
-    const students = await StudentAttendance.findOne({
+    const committeeMembers = await CommitteeMemberAttendance.findOne({
       attendance_date: new NepaliDate().format('YYYY-MM-D'),
       classname: req.params.id,
     })
-    // console.log("students",students.length())
-    if (students) {
-      console.log(students)
+    // console.log("committeeMembers",committeeMembers.length())
+    if (committeeMembers) {
+      console.log(committeeMembers)
 
-      res.json(students)
+      res.json(committeeMembers)
     } else {
-      res.status(404).json({ message: 'No students found.' })
+      res.status(404).json({ message: 'No committeeMembers found.' })
     }
   })
 )
 
-//following route is for searching the students with the given name ,class and roll no
+//following route is for searching the committeeMembers with the given name ,class and roll no
 router.get(
   '/search/:name/:class/:roll_no',
   asyncHandler(async (req, res) => {
     console.log(req.params.name, req.params.class, req.params.roll_no)
-    const student = await Student.findOne({
-      student_name: capitalize(req.params.name),
+    const committeeMember = await CommitteeMember.findOne({
+      committeeMember_name: capitalize(req.params.name),
       classname: capitalize(req.params.class),
       roll_no: parseInt(req.params.roll_no),
     })
-    console.log(student)
+    console.log(committeeMember)
 
-    if (student) {
-      res.json(student)
+    if (committeeMember) {
+      res.json(committeeMember)
     } else {
       res.status(404)
-      res.json({ message: 'No student found with the given information.' })
+      res.json({ message: 'No committeeMember found with the given information.' })
     }
   })
 )
 
-//following route is for registering the students
+//following route is for registering the committeeMembers
 
 router.post(
   '/register',
-  //the protect used here is used for getting the id of the admin who registered the student
+  //the protect used here is used for getting the id of the admin who registered the committeeMember
 
   protect,
   asyncHandler(async (req, res) => {
     const {
-      student_name,
+      committeeMember_name,
       classname,
 
       address,
@@ -92,21 +92,21 @@ router.post(
       registration_fees,
       image,
     } = req.body
-    // const student_info =
-    const student_info =
-      (await Student.find({
+    // const committeeMember_info =
+    const committeeMember_info =
+      (await CommitteeMember.find({
         classname: classname,
       })) &&
-      (await Student.findOne({ classname: classname })
+      (await CommitteeMember.findOne({ classname: classname })
         .sort({ roll_no: -1 })
         .limit(1))
-    if (student_info) {
-      var roll_no = student_info.roll_no + 1
+    if (committeeMember_info) {
+      var roll_no = committeeMember_info.roll_no + 1
     } else {
       var roll_no = 1
     }
-    // (await Student.aggregate({ "$max": '$roll_no', classname: classname }))
-    // console.log('student_info is', student_info)
+    // (await CommitteeMember.aggregate({ "$max": '$roll_no', classname: classname }))
+    // console.log('committeeMember_info is', committeeMember_info)
     console.log(req.body)
     const registered_by = req.user.name
 
@@ -114,10 +114,10 @@ router.post(
     const previous_dues = 0
     // const roll_no = 3
     console.log('roll no is', roll_no)
-    const studentname = capitalize(student_name)
-    const new_student = await Student.create({
+    const committeeMembername = capitalize(committeeMember_name)
+    const new_committeeMember = await CommitteeMember.create({
       registered_by,
-      student_name: studentname,
+      committeeMember_name: committeeMembername,
       email,
       address,
       gender,
@@ -131,57 +131,57 @@ router.post(
 
       image,
     })
-    console.log(new_student)
-    if (new_student) {
-      const total_students = (await Student.find()).length
+    console.log(new_committeeMember)
+    if (new_committeeMember) {
+      const total_committeeMembers = (await CommitteeMember.find()).length
       await Dashboard.findOneAndUpdate(
-        { title: 'Students' },
-        { number: total_students }
+        { title: 'CommitteeMembers' },
+        { number: total_committeeMembers }
       )
       console.log('done')
-      console.log('total number of students', total_students)
+      console.log('total number of committeeMembers', total_committeeMembers)
       res.status(201).json({
-        message: 'Student registered successfully',
+        message: 'CommitteeMember registered successfully',
       })
       console.log('registered successfully')
     } else {
       res.status(400)
       console.log(error)
-      throw new Error('Unable to register student')
+      throw new Error('Unable to register committeeMember')
     }
   })
 )
 
-//following route is for paying the fees of students
+//following route is for paying the fees of committeeMembers
 
-//following route is for attendance of students
+//following route is for attendance of committeeMembers
 router.post(
   '/attendance/:classname',
   protect,
   asyncHandler(async (req, res) => {
-    // const students = await Student.find({})
-    const { students } = req.body
+    // const committeeMembers = await CommitteeMember.find({})
+    const { committeeMembers } = req.body
     console.log(req.body)
     const class_chairperson = req.user.name
     // console.log(req.params.classname)
-    const attendanceFound = await StudentAttendance.findOne({
+    const attendanceFound = await CommitteeMemberAttendance.findOne({
       attendance_date: new NepaliDate().format('YYYY-MM-D'),
       classname: req.params.classname,
     })
     console.log(attendanceFound)
     if (attendanceFound) {
-      await StudentAttendance.updateOne(
+      await CommitteeMemberAttendance.updateOne(
         { _id: attendanceFound._id },
-        { $set: { students: students } }
+        { $set: { committeeMembers: committeeMembers } }
       )
       console.log('done with re-attendance')
       res.status(201).json({ message: 'Attendance retaken successfully' })
     } else {
-      const new_attendance = await StudentAttendance.create({
+      const new_attendance = await CommitteeMemberAttendance.create({
         class_chairperson,
         classname: req.params.classname,
         attendance_date: new NepaliDate().format('YYYY-MM-D'),
-        students,
+        committeeMembers,
       })
       console.log(new_attendance)
       if (new_attendance) {
@@ -197,24 +197,24 @@ router.post(
   })
 )
 
-//following route is for admit card of the student
+//following route is for admit card of the committeeMember
 
-//following route is for deleting the student
+//following route is for deleting the committeeMember
 router.delete(
   '/delete/:id',
   asyncHandler(async (req, res) => {
-    const student = await Student.findById(req.params.id)
-    if (student) {
-      await student.remove()
-      const total_students = (await Student.find()).length
+    const committeeMember = await CommitteeMember.findById(req.params.id)
+    if (committeeMember) {
+      await committeeMember.remove()
+      const total_committeeMembers = (await CommitteeMember.find()).length
       await Dashboard.findOneAndUpdate(
-        { title: 'Students' },
-        { number: total_students }
+        { title: 'CommitteeMembers' },
+        { number: total_committeeMembers }
       )
-      res.json({ message: 'Student removed' })
+      res.json({ message: 'CommitteeMember removed' })
     } else {
       res.status(404)
-      throw new Error('student not found')
+      throw new Error('committeeMember not found')
     }
   })
 )
@@ -224,7 +224,7 @@ router.post(
   protect,
   asyncHandler(async (req, res) => {
     const {
-      student_name,
+      committeeMember_name,
       classname,
       roll_no,
       month_name,
@@ -238,13 +238,13 @@ router.post(
     } = req.body
     console.log(req.params.id)
     console.log(req.body)
-    const student = await Student.findById(req.params.id)
-    // console.log('student is ', student)
-    if (student) {
+    const committeeMember = await CommitteeMember.findById(req.params.id)
+    // console.log('committeeMember is ', committeeMember)
+    if (committeeMember) {
       const accountant = req.user.name
-      const fees_submitted = await StudentFees.create({
+      const fees_submitted = await CommitteeMemberFees.create({
         accountant,
-        student_name,
+        committeeMember_name,
         classname,
         roll_no,
         month_name,
@@ -257,7 +257,7 @@ router.post(
         miscellaneous,
       })
       if (fees_submitted) {
-        const total_Fees = await StudentFees.find()
+        const total_Fees = await CommitteeMemberFees.find()
           .select(
             'monthly_fees hostel_fees laboratory_fees computer_fees exam_fees miscellaneous '
           )
@@ -291,11 +291,11 @@ router.post(
       }
     } else {
       res.status(404)
-      throw new Error('Student not found')
+      throw new Error('CommitteeMember not found')
     }
   })
 )
 
-//for the fees of students
+//for the fees of committeeMembers
 
 export default router

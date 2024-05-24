@@ -9,7 +9,7 @@ const Main = () => {
   const [loading, setLoading] = useState()
   useEffect(() => {
     //  console.log("this is me upendra dhamala.")
-    // await axios.get('/api/students/:classes')
+    // await axios.get('/api/committeeMembers/:classes')
     const fetchItems = async () => {
       setLoading(true)
       const { data } = await axios.get('/dashboard')

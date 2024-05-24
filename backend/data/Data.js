@@ -1,9 +1,9 @@
 export const items = [
 {
-    title: 'Students',
+    title: 'CommitteeMembers',
     number: 0,
-    takeme:"/students",
-    image: 'https://img.freepik.com/free-photo/smiling-students-with-backpacks_1098-1220.jpg',
+    takeme:"/committeeMembers",
+    image: 'https://img.freepik.com/free-photo/smiling-committeeMembers-with-backpacks_1098-1220.jpg',
   },
   {
     title: 'Chairpersons',
@@ -22,7 +22,7 @@ export const items = [
 {
     title: 'Classes',
     number: 13,
-    takeme:"/student_details",
+    takeme:"/committeeMember_details",
 
     image: 'https://www.cta.org/wp-content/uploads/2020/03/empty-classroom.jpg',
   },

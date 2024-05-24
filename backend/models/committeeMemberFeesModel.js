@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
-const studentFeesSchema = mongoose.Schema(
+const committeeMemberFeesSchema = mongoose.Schema(
   {
     accountant: {
       type: String,
       required: true,
 
     },
-    student_name: {
+    committeeMember_name: {
       type: String,
       required: true,
     },
@@ -52,5 +52,5 @@ const studentFeesSchema = mongoose.Schema(
   }
 )
 
-const StudentFees = mongoose.model('StudentFees', studentFeesSchema)
-export default StudentFees
+const CommitteeMemberFees = mongoose.model('CommitteeMemberFees', committeeMemberFeesSchema)
+export default CommitteeMemberFees

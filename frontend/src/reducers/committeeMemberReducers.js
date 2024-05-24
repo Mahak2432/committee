@@ -1,4 +1,4 @@
-//following reducer is for displaying the list of all students of all classes
+//following reducer is for displaying the list of all committeeMembers of all classes
 import {
   STUDENT_LIST_REQUEST,
   STUDENT_LIST_SUCCESS,
@@ -26,14 +26,14 @@ import {
   STUDENT_FEES_SUCCESS,
   STUDENT_FEES_FAIL,
   STUDENT_FEES_RESET,
-} from '../constants/studentConstants'
-//following displays list of all students
-export const studentListReducer = (state = { students: [] }, action) => {
+} from '../constants/committeeMemberConstants'
+//following displays list of all committeeMembers
+export const committeeMemberListReducer = (state = { committeeMembers: [] }, action) => {
   switch (action.type) {
     case STUDENT_LIST_REQUEST:
-      return { loading: true, students: [] }
+      return { loading: true, committeeMembers: [] }
     case STUDENT_LIST_SUCCESS:
-      return { loading: false, students: action.payload }
+      return { loading: false, committeeMembers: action.payload }
     case STUDENT_LIST_FAIL:
       return { loading: false, error: action.payload }
     case STUDENT_LIST_CLEAR:
@@ -42,13 +42,13 @@ export const studentListReducer = (state = { students: [] }, action) => {
       return state
   }
 }
-//following displays list of all students belonging to the particular class
-export const studentClassListReducer = (state = { students: [] }, action) => {
+//following displays list of all committeeMembers belonging to the particular class
+export const committeeMemberClassListReducer = (state = { committeeMembers: [] }, action) => {
   switch (action.type) {
     case STUDENT_CLASS_LIST_REQUEST:
-      return { loading: true, students: [] }
+      return { loading: true, committeeMembers: [] }
     case STUDENT_CLASS_LIST_SUCCESS:
-      return { loading: false, students: action.payload }
+      return { loading: false, committeeMembers: action.payload }
     case STUDENT_CLASS_LIST_FAIL:
       return { loading: false, error: action.payload }
     case STUDENT_CLASS_LIST_CLEAR:
@@ -58,13 +58,13 @@ export const studentClassListReducer = (state = { students: [] }, action) => {
   }
 }
 
-//following is for searching the students for fees submission
-export const studentSearchReducer = (state = {}, action) => {
+//following is for searching the committeeMembers for fees submission
+export const committeeMemberSearchReducer = (state = {}, action) => {
   switch (action.type) {
     case STUDENT_SEARCH_REQUEST:
-      return { loading: true, student: {} }
+      return { loading: true, committeeMember: {} }
     case STUDENT_SEARCH_SUCCESS:
-      return { loading: false, student: action.payload }
+      return { loading: false, committeeMember: action.payload }
     case STUDENT_SEARCH_FAIL:
       return { loading: false, error: action.payload }
     case STUDENT_SEARCH_CLEAR:
@@ -76,7 +76,7 @@ export const studentSearchReducer = (state = {}, action) => {
 
 //FOLLOWING IS FOR REGISTERING THE STUDENT
 
-export const studentRegisterReducer = (state = {}, action) => {
+export const committeeMemberRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case STUDENT_REGISTER_REQUEST:
       return { loading: true }
@@ -89,7 +89,7 @@ export const studentRegisterReducer = (state = {}, action) => {
   }
 }
 
-export const studentDeleteReducer = (state = {}, action) => {
+export const committeeMemberDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case STUDENT_DELETE_REQUEST:
       return { loading: true }
@@ -101,12 +101,12 @@ export const studentDeleteReducer = (state = {}, action) => {
       return state
   }
 }
-export const studentAttendanceReducer = (state = { students: [] }, action) => {
+export const committeeMemberAttendanceReducer = (state = { committeeMembers: [] }, action) => {
   switch (action.type) {
     case STUDENT_ATTENDANCE_REQUEST:
       return { loading: true }
     case STUDENT_ATTENDANCE_SUCCESS:
-      return { loading: false, students: action.payload }
+      return { loading: false, committeeMembers: action.payload }
     case STUDENT_ATTENDANCE_FAIL:
       return { loading: false, error: action.payload }
     case STUDENT_ATTENDANCE_RESET:
@@ -117,7 +117,7 @@ export const studentAttendanceReducer = (state = { students: [] }, action) => {
 }
 
 //STUDENT FEES REDUCER
-export const studentFeesReducer = (state = {}, action) => {
+export const committeeMemberFeesReducer = (state = {}, action) => {
   switch (action.type) {
     case STUDENT_FEES_REQUEST:
       return { loading: true }

@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
-const studentSchema = mongoose.Schema(
+const committeeMemberSchema = mongoose.Schema(
   {
     registered_by: {
       type: String,
       required: true,
       ref: 'Admin',
     },
-    student_name: {
+    committeeMember_name: {
       type: String,
       required: true,
     },
@@ -60,7 +60,7 @@ const studentSchema = mongoose.Schema(
 )
 //the below is required code for converting the schema to the model
 //as per the documentation of mongoose
-//any name can be given as a constant in the place of the Student
-const Student = mongoose.model('Student', studentSchema)
-//Student variable is exported as follow is a ES module.
-export default Student
+//any name can be given as a constant in the place of the CommitteeMember
+const CommitteeMember = mongoose.model('CommitteeMember', committeeMemberSchema)
+//CommitteeMember variable is exported as follow is a ES module.
+export default CommitteeMember

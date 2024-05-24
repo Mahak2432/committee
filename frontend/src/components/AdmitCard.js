@@ -14,7 +14,7 @@ export class AdmitCard extends React.Component {
           </div>
 
           <div className='admitCardMiddle'>
-            <h3 style={{ textAlign: 'center' }}>Student Details</h3>
+            <h3 style={{ textAlign: 'center' }}>CommitteeMember Details</h3>
             <div className='details'>
               <div className='left-details'>
                 <p>Name</p>

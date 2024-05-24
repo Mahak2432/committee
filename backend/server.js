@@ -9,7 +9,7 @@ import connectDB from './config/db.js'
 // import items from './data/Data.js'
 import Dashboard from './models/dashboardModel.js'
 // import classes from './data/ClassData.js'
-import studentRoutes from './routes/studentRoutes.js'
+import committeeMemberRoutes from './routes/committeeMemberRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
 import chairpersonRoutes from './routes/chairpersonRoutes.js'
 import staffRoutes from './routes/staffRoutes.js'
@@ -27,7 +27,7 @@ app.get('/dashboard', async (req, res) => {
   res.json(items)
 })
 
-app.use('/api/students', studentRoutes)
+app.use('/api/committeeMembers', committeeMemberRoutes)
 app.use('/api/login', adminRoutes)
 app.use('/api/chairpersons', chairpersonRoutes)
 app.use('/api/staffs', staffRoutes)
@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 
 //the following router is for displaying the class labels
 
-//following route is for displaying the list of students
+//following route is for displaying the list of committeeMembers
 //according to the classses
 
 //following route will only be used in case the error is encountered.

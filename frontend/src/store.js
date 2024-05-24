@@ -3,16 +3,16 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { studentListReducer } from './reducers/studentReducers'
+import { committeeMemberListReducer } from './reducers/committeeMemberReducers'
 import { userLoginReducer } from './reducers/userReducers'
 import {
-  studentClassListReducer,
-  studentSearchReducer,
-  studentRegisterReducer,
-  studentDeleteReducer,
-  studentAttendanceReducer,
-  studentFeesReducer,
-} from './reducers/studentReducers'
+  committeeMemberClassListReducer,
+  committeeMemberSearchReducer,
+  committeeMemberRegisterReducer,
+  committeeMemberDeleteReducer,
+  committeeMemberAttendanceReducer,
+  committeeMemberFeesReducer,
+} from './reducers/committeeMemberReducers'
 import {
   allIncomeReducer,
   allSalaryReducer,
@@ -30,14 +30,14 @@ import {
   staffListReducer,
 } from './reducers/staffReducers'
 const reducer = combineReducers({
-  studentList: studentListReducer,
-  studentClassList: studentClassListReducer,
-  studentSearch: studentSearchReducer,
+  committeeMemberList: committeeMemberListReducer,
+  committeeMemberClassList: committeeMemberClassListReducer,
+  committeeMemberSearch: committeeMemberSearchReducer,
   userLogin: userLoginReducer,
-  studentRegister: studentRegisterReducer,
-  studentDelete: studentDeleteReducer,
-  studentAttendance: studentAttendanceReducer,
-  studentFees: studentFeesReducer,
+  committeeMemberRegister: committeeMemberRegisterReducer,
+  committeeMemberDelete: committeeMemberDeleteReducer,
+  committeeMemberAttendance: committeeMemberAttendanceReducer,
+  committeeMemberFees: committeeMemberFeesReducer,
   chairpersonSalary: chairpersonSalaryReducer,
   chairpersonRegister: chairpersonRegisterReducer,
   chairpersonDelete: chairpersonDeleteReducer,
