@@ -1,16 +1,16 @@
 import mongoose from 'mongoose'
-const nonTeachingStaffSchema = mongoose.Schema(
+const nonTeachingHodSchema = mongoose.Schema(
   {
     registered_by: {
       type: String,
       required: true,
       ref: 'Admin',
     },
-    staff_name: {
+    hod_name: {
       type: String,
       required: true,
     },
-    staffId: {
+    hodId: {
       type: Number,
       required: true,
     },
@@ -63,9 +63,9 @@ const nonTeachingStaffSchema = mongoose.Schema(
 //the below is required code for converting the schema to the model
 //as per the documentation of mongoose
 //any name can be given as a constant in the place of the CommitteeMember
-const NonTeachingStaff = mongoose.model(
-  'NonTeachingStaff',
-  nonTeachingStaffSchema
+const NonTeachingHod = mongoose.model(
+  'NonTeachingHod',
+  nonTeachingHodSchema
 )
-//NonTeachingStaff variable is exported as follow is a ES module.
-export default NonTeachingStaff
+//NonTeachingHod variable is exported as follow is a ES module.
+export default NonTeachingHod

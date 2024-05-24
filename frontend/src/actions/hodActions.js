@@ -12,11 +12,11 @@ import {
   STAFF_SALARY_FAIL,
   STAFF_SALARY_REQUEST,
   STAFF_SALARY_SUCCESS,
-} from '../constants/staffConstants'
+} from '../constants/hodConstants'
 
 export const PaySalary = (
-  staffname,
-  staffid,
+  hodname,
+  hodid,
 
   salaryForTheYear,
   salaryForTheMonth,
@@ -36,7 +36,7 @@ export const PaySalary = (
       },
     }
     const { data } = await axios.post(
-      `/api/STAFFs/fees/${staffname}/${staffid}`,
+      `/api/STAFFs/fees/${hodname}/${hodid}`,
       {
         salaryForTheYear,
         salaryForTheMonth,
@@ -63,8 +63,8 @@ export const PaySalary = (
 
 //STAFF REGISTER
 
-export const staffregister = (
-  staff_name,
+export const hodregister = (
+  hod_name,
 
   qualification,
 
@@ -95,9 +95,9 @@ export const staffregister = (
       },
     }
     const { data } = await axios.post(
-      '/api/staffs/register',
+      '/api/hods/register',
       {
-        staff_name,
+        hod_name,
 
         qualification,
 
@@ -134,12 +134,12 @@ export const staffregister = (
 
 //FOLLOWING IS FOR DELETING THE STAFF
 
-export const deleteStaff = (id) => async (dispatch) => {
+export const deleteHod = (id) => async (dispatch) => {
   try {
     dispatch({
       type: STAFF_DELETE_REQUEST,
     })
-    const { data } = await axios.delete(`/api/staffs/delete/${id}`)
+    const { data } = await axios.delete(`/api/hods/delete/${id}`)
     dispatch({
       type: STAFF_DELETE_SUCCESS,
       payload: data,
@@ -157,12 +157,12 @@ export const deleteStaff = (id) => async (dispatch) => {
 
 //STAFF all
 
-export const listStaffs = () => async (dispatch) => {
+export const listHods = () => async (dispatch) => {
   try {
     dispatch({
       type: STAFF_LIST_REQUEST,
     })
-    const { data } = await axios.get('/api/staffs')
+    const { data } = await axios.get('/api/hods')
     dispatch({
       type: STAFF_LIST_SUCCESS,
       payload: data,

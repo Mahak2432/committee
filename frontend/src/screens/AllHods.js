@@ -1,27 +1,27 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listStaffs } from '../actions/staffActions'
+import { listHods } from '../actions/hodActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { deleteStaff } from '../actions/staffActions'
+import { deleteHod } from '../actions/hodActions'
 
-const AllStaffs = ({}) => {
+const AllHods = ({}) => {
   const dispatch = useDispatch()
-  const staffList = useSelector((state) => state.staffList)
-  const { loading, staffs, error } = staffList
-  const staffDelete = useSelector((state) => state.staffDelete)
+  const hodList = useSelector((state) => state.hodList)
+  const { loading, hods, error } = hodList
+  const hodDelete = useSelector((state) => state.hodDelete)
   const {
     loading: loadingDelete,
     success: successDelete,
     error: errorDelete,
-  } = staffDelete
+  } = hodDelete
   // const matchid = match.params.id
   useEffect(() => {
-    dispatch(listStaffs())
+    dispatch(listHods())
   }, [dispatch, successDelete])
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteStaff(id))
+      dispatch(deleteHod(id))
     }
   }
   var i = 1
@@ -31,11 +31,11 @@ const AllStaffs = ({}) => {
     console.log('clicked')
   }
   // const loading1=true
-  // const staffs = []
+  // const hods = []
   return (
     <div className='container3'>
       <div className='outer'>
-        <input type='text' placeholder='Search for staff...' />
+        <input type='text' placeholder='Search for hod...' />
         <span className='search-icon' onClick={searchSubmit}>
           <i className='fas fa-search'></i>
         </span>
@@ -52,9 +52,9 @@ const AllStaffs = ({}) => {
                   <th>SN</th>
                   {/* <th>ID</th> */}
                   <th>Photo</th>
-                  <th>Staff Name</th>
+                  <th>Hod Name</th>
                   <th>Qualification</th>
-                  <th>Staff Id</th>
+                  <th>Hod Id</th>
                   <th>Address</th>
                   <th>Work</th>
                   <th>Contact No</th>
@@ -76,16 +76,16 @@ const AllStaffs = ({}) => {
                 {/* for displaying the information about the particular class
 only we first should have the data of that class only 
 . We cannot make selection inside the map method by using double and operator. */}
-                {staffs.map((data) => (
+                {hods.map((data) => (
                   <tr key={data._id} className='contents'>
                     <td>{i++}</td>
                     {/* <td>{data._id}</td> */}
                     <td>
                       <img style={{ height: '50px' }} src={data.image} alt='' />
                     </td>
-                    <td>{data.staff_name}</td>
+                    <td>{data.hod_name}</td>
                     <td>{data.qualification}</td>
-                    <td>{data.staffId}</td>
+                    <td>{data.hodId}</td>
                     {/* <td>{data.roll_no}</td> */}
 
                     <td>{data.address}</td>
@@ -114,7 +114,7 @@ only we first should have the data of that class only
                           fontSize: '25px',
                           cursor: 'pointer',
                         }}
-                        onClick={() => deleteHandler(data.staffId)}
+                        onClick={() => deleteHandler(data.hodId)}
                         className='fas fa-trash'
                       ></i>
                     </td>
@@ -131,4 +131,4 @@ only we first should have the data of that class only
   )
 }
 
-export default AllStaffs
+export default AllHods

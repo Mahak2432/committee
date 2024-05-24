@@ -1,15 +1,15 @@
 import mongoose from 'mongoose'
-const nonTeachingStaffSalarySchema = mongoose.Schema(
+const nonTeachingHodSalarySchema = mongoose.Schema(
   {
     admin: {
       type: String,
       required: true,
     },
-    staff_name: {
+    hod_name: {
       type: String,
       required: true,
     },
-    staffId: {
+    hodId: {
       type: String,
       required: true,
     },
@@ -31,8 +31,8 @@ const nonTeachingStaffSalarySchema = mongoose.Schema(
   }
 )
 
-const NonTeachingStaffSalary = mongoose.model(
-  'NonTeachingStaffSalary',
-  nonTeachingStaffSalarySchema
+const NonTeachingHodSalary = mongoose.model(
+  'NonTeachingHodSalary',
+  nonTeachingHodSalarySchema
 )
-export default NonTeachingStaffSalary
+export default NonTeachingHodSalary

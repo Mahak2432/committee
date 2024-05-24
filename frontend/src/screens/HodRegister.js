@@ -2,11 +2,11 @@ import axios from 'axios'
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { staffregister } from '../actions/staffActions'
+import { hodregister } from '../actions/hodActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import './CommitteeMember.css'
-const StaffRegister = ({ history }) => {
+const HodRegister = ({ history }) => {
   const dispatch = useDispatch()
   const [uploading, setUploading] = useState(false)
   const [valid, setValid] = useState(false)
@@ -60,7 +60,7 @@ const StaffRegister = ({ history }) => {
     e.preventDefault()
     setValid(true)
     dispatch(
-      staffregister(
+      hodregister(
         name.trim(),
         qualification,
 
@@ -88,9 +88,9 @@ const StaffRegister = ({ history }) => {
   const { userCred } = userLogin
 
   // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
-  const staffRegister = useSelector((state) => state.staffRegister)
+  const hodRegister = useSelector((state) => state.hodRegister)
 
-  const { loading, success, error } = staffRegister
+  const { loading, success, error } = hodRegister
   useEffect(() => {
     if (!userCred) {
       history.push('/login')
@@ -102,7 +102,7 @@ const StaffRegister = ({ history }) => {
         <Loader />
       ) : (
         <div className='outer-layout'>
-          <h1>Register staff</h1>
+          <h1>Register hod</h1>
           {success && valid && (
             <Message
               style={{ marginBottom: '3px' }}
@@ -237,7 +237,7 @@ const StaffRegister = ({ history }) => {
             </div>
 
             <button className='btn-register' type='submit'>
-              Register staff
+              Register hod
             </button>
           </form>
         </div>
@@ -246,4 +246,4 @@ const StaffRegister = ({ history }) => {
   )
 }
 
-export default StaffRegister
+export default HodRegister

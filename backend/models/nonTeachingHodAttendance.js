@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const nonTeachingStaffAttendanceSchema = mongoose.Schema({
+const nonTeachingHodAttendanceSchema = mongoose.Schema({
   admin: {
     type: String,
     required: true,
@@ -9,14 +9,14 @@ const nonTeachingStaffAttendanceSchema = mongoose.Schema({
     default: Date.now(),
   },
 
-  staffs: [
+  hods: [
     {
-      staff_name: {
+      hod_name: {
         type: String,
         required: true,
       },
 
-      staffId: {
+      hodId: {
         type: Number,
         required: true,
       },
@@ -32,8 +32,8 @@ const nonTeachingStaffAttendanceSchema = mongoose.Schema({
   ],
 })
 
-const nonTeachingStaffAttendance = mongoose.model(
-  'nonTeachingStaffAttendance',
-  nonTeachingStaffAttendanceSchema
+const nonTeachingHodAttendance = mongoose.model(
+  'nonTeachingHodAttendance',
+  nonTeachingHodAttendanceSchema
 )
-export default nonTeachingStaffAttendance
+export default nonTeachingHodAttendance

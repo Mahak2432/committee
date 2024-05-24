@@ -24,11 +24,11 @@ import {
   chairpersonListReducer,
 } from './reducers/chairpersonReducers'
 import {
-  staffSalaryReducer,
-  staffRegisterReducer,
-  staffDeleteReducer,
-  staffListReducer,
-} from './reducers/staffReducers'
+  hodSalaryReducer,
+  hodRegisterReducer,
+  hodDeleteReducer,
+  hodListReducer,
+} from './reducers/hodReducers'
 const reducer = combineReducers({
   committeeMemberList: committeeMemberListReducer,
   committeeMemberClassList: committeeMemberClassListReducer,
@@ -42,10 +42,10 @@ const reducer = combineReducers({
   chairpersonRegister: chairpersonRegisterReducer,
   chairpersonDelete: chairpersonDeleteReducer,
   chairpersonList: chairpersonListReducer,
-  staffSalary: staffSalaryReducer,
-  staffRegister: staffRegisterReducer,
-  staffDelete: staffDeleteReducer,
-  staffList: staffListReducer,
+  hodSalary: hodSalaryReducer,
+  hodRegister: hodRegisterReducer,
+  hodDelete: hodDeleteReducer,
+  hodList: hodListReducer,
   allIncome: allIncomeReducer,
   allSalary: allSalaryReducer,
 })

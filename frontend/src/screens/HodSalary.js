@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { PaySalary } from '../actions/staffActions'
-import { STAFF_SALARY_RESET } from '../constants/staffConstants'
+import { PaySalary } from '../actions/hodActions'
+import { STAFF_SALARY_RESET } from '../constants/hodConstants'
 import './CommitteeMember.css'
-const StaffSalary = ({ history }) => {
-  const [staffname, setStaffname] = useState('')
+const HodSalary = ({ history }) => {
+  const [hodname, setHodname] = useState('')
   const [id, setId] = useState('')
   const [valid, setValid] = useState(false)
   const [year, setYear] = useState('')
@@ -19,8 +19,8 @@ const StaffSalary = ({ history }) => {
     setTimeout(() => {
       setValid(false)
     }, 10000)
-    dispatch(PaySalary(staffname.trim(), id, year, month, salary))
-    setStaffname('')
+    dispatch(PaySalary(hodname.trim(), id, year, month, salary))
+    setHodname('')
     setId('')
     setYear('')
     setSalary('')
@@ -32,9 +32,9 @@ const StaffSalary = ({ history }) => {
   const { userCred } = userLogin
 
   // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
-  const staffSalary = useSelector((state) => state.staffSalary)
+  const hodSalary = useSelector((state) => state.hodSalary)
 
-  const { loading, success, error } = staffSalary
+  const { loading, success, error } = hodSalary
   useEffect(() => {
     dispatch({
       type: STAFF_SALARY_RESET,
@@ -46,7 +46,7 @@ const StaffSalary = ({ history }) => {
   return (
     <div className='container1' style={{ marginTop: '10px' }}>
       <div className='outer-layout'>
-        <h1>Staff Salary Section</h1>
+        <h1>Hod Salary Section</h1>
         {valid && success && (
           <Message variant='success' message={success.message} />
         )}
@@ -58,16 +58,16 @@ const StaffSalary = ({ history }) => {
           <form onSubmit={submitHandler}>
             <div className='form-inner'>
               <div className='form-control'>
-                <label for='name'>Staff Name</label>
+                <label for='name'>Hod Name</label>
                 <input
                   type='text'
-                  value={staffname}
-                  onChange={(e) => setStaffname(e.target.value)}
+                  value={hodname}
+                  onChange={(e) => setHodname(e.target.value)}
                   required
                 />
               </div>
               <div className='form-control'>
-                <label for='name'>Staff ID</label>
+                <label for='name'>Hod ID</label>
                 <input
                   type='number'
                   value={id}
@@ -131,4 +131,4 @@ const StaffSalary = ({ history }) => {
   )
 }
 
-export default StaffSalary
+export default HodSalary

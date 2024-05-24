@@ -38,19 +38,19 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             CommitteeMember Registration
           </Link>
         </div>
-        <div className='sidebar__link'>
+        {/* <div className='sidebar__link'>
           <i className='fa fa-coins'></i>
           <Link className='linked' to='/committeeMember-fee'>
             CommitteeMember Fees
           </Link>
-        </div>
+        </div> */}
         <div className='sidebar__link'>
           <i className='fas fa-info'></i>
           <Link className='linked' to='/committeeMember_details'>
             CommitteeMember Details
           </Link>
         </div>
-        <div className='sidebar__link'>
+        {/* <div className='sidebar__link'>
           <i className='fas fa-school'></i>
           <Link className='linked' to='/committeeMember-attendance'>
             CommitteeMember Attendance
@@ -61,7 +61,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
           <Link className='linked' to='/admit_card'>
             Admit Card
           </Link>
-        </div>
+        </div> */}
         <h2>Chairpersons Section</h2>
         <div className='sidebar__link'>
           <i className='fa fa-male'></i>
@@ -69,49 +69,49 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
             Chairperson Registration
           </Link>
         </div>
-        <div className='sidebar__link'>
+        {/* <div className='sidebar__link'>
           <i className='fa fa-coins'></i>
           <Link className='linked' to='/chairperson_salary'>
             Chairperson Salary
           </Link>
-        </div>
+        </div> */}
         <div className='sidebar__link'>
           <i className='fas fa-info'></i>
           <Link className='linked' to='/chairperson_details'>
             Chairperson Details
           </Link>
         </div>
-        <div className='sidebar__link'>
+        {/* <div className='sidebar__link'>
           <i className='fas fa-school'></i>
           <Link className='linked' to='chairperson_attendance'>
             Chairperson Attendance
           </Link>
-        </div>
-        <h2>Non-Teaching Staffs</h2>
+        </div> */}
+        <h2>Hods Section</h2>
         <div className='sidebar__link'>
           <i className='fa fa-coins'></i>
-          <Link className='linked' to='/non-teaching_staff_register'>
-            Registration
+          <Link className='linked' to='/non-teaching_hod_register'>
+            Hod Registration
           </Link>
         </div>
-        <div className='sidebar__link'>
+        {/* <div className='sidebar__link'>
           <i className='fa fa-coins'></i>
-          <Link className='linked' to='non-teaching_staff_salary'>
+          <Link className='linked' to='non-teaching_hod_salary'>
             Salary
           </Link>
-        </div>
+        </div> */}
         <div className='sidebar__link'>
           <i className='fas fa-info'></i>
-          <Link className='linked' to='/non-teaching_staff_details'>
+          <Link className='linked' to='/non-teaching_hod_details'>
             Details
           </Link>
         </div>
-        <div className='sidebar__link'>
+        {/* <div className='sidebar__link'>
           <i className='fas fa-school'></i>
-          <Link className='linked' to='/non-teaching_staff_attendance'>
+          <Link className='linked' to='/non-teaching_hod_attendance'>
             Attendance
           </Link>
-        </div>
+        </div> */}
         <div className='sidebar__logout'>
           <i className='fa fa-power-off'></i>
           <Link className='linked' onClick={logoutHandler} to='/login'>

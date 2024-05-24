@@ -13,9 +13,9 @@ export const items = [
     image: 'https://www.hindustantimes.com/ht-img/img/2023/09/02/1600x900/chairpersons_day_1693652054152_1693652065719.jpg',
   },
  {
-    title: 'Working Staffs',
+    title: 'Working Hods',
     number: 0,
-    takeme:"/non-teaching_staff_details",
+    takeme:"/non-teaching_hod_details",
 
     image: 'https://www.yc.edu/v6/residence-life/team-photo.jpg',
   },

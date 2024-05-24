@@ -180,7 +180,7 @@ const ExpenseScreen = () => {
                   createdAt={value.createdAt}
                   salaryAmount={value.salaryAmount}
                   chairperson_name={value.chairperson_name}
-                  staff_name={value.staff_name}
+                  hod_name={value.hod_name}
                   ref={componentRef}
                 />
               </div>

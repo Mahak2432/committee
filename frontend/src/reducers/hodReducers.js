@@ -14,9 +14,9 @@ import {
   STAFF_SALARY_REQUEST,
   STAFF_SALARY_RESET,
   STAFF_SALARY_SUCCESS,
-} from '../constants/staffConstants'
+} from '../constants/hodConstants'
 
-export const staffSalaryReducer = (state = {}, action) => {
+export const hodSalaryReducer = (state = {}, action) => {
   switch (action.type) {
     case STAFF_SALARY_REQUEST:
       return { loading: true }
@@ -32,7 +32,7 @@ export const staffSalaryReducer = (state = {}, action) => {
 }
 
 //STAFF REGISTER REDUCER
-export const staffRegisterReducer = (state = {}, action) => {
+export const hodRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case STAFF_REGISTER_REQUEST:
       return { loading: true }
@@ -47,7 +47,7 @@ export const staffRegisterReducer = (state = {}, action) => {
   }
 }
 
-export const staffDeleteReducer = (state = {}, action) => {
+export const hodDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case STAFF_DELETE_REQUEST:
       return { loading: true }
@@ -60,12 +60,12 @@ export const staffDeleteReducer = (state = {}, action) => {
   }
 }
 
-export const staffListReducer = (state = { staffs: [] }, action) => {
+export const hodListReducer = (state = { hods: [] }, action) => {
   switch (action.type) {
     case STAFF_LIST_REQUEST:
-      return { loading: true, staffs: [] }
+      return { loading: true, hods: [] }
     case STAFF_LIST_SUCCESS:
-      return { loading: false, staffs: action.payload }
+      return { loading: false, hods: action.payload }
     case STAFF_LIST_FAIL:
       return { loading: false, error: action.payload }
     case STAFF_LIST_RESET:

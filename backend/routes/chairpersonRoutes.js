@@ -7,7 +7,7 @@ import Dashboard from '../models/dashboardModel.js'
 import CommitteeMemberFees from '../models/committeeMemberFeesModel.js'
 import ChairpersonSalary from '../models/chairpersonSalaryModel.js'
 import ChairpersonAttendance from '../models/chairpersonAttendanceModel.js'
-import NonTeachingStaffSalary from '../models/nonTeachingStaffSalary.js'
+import NonTeachingHodSalary from '../models/nonTeachingHodSalary.js'
 const router = express.Router()
 
 //following router is for registering the chairperson
@@ -172,7 +172,7 @@ router.post(
 
         var total_Fees = 0
         Fees.map((fee) => (total_Fees = total_Fees + fee.salaryAmount))
-        const Fees1 = await NonTeachingStaffSalary.find()
+        const Fees1 = await NonTeachingHodSalary.find()
           .select('salaryAmount')
           .select('-_id')
 
@@ -254,15 +254,15 @@ router.get(
   })
 )
 
-//the following is for the salary given to the staffs and the  chairpersons
+//the following is for the salary given to the hods and the  chairpersons
 
 router.get(
   '/allsalaries',
   asyncHandler(async (req, res) => {
     const salary = await ChairpersonSalary.find({})
-    const staff_salary = await NonTeachingStaffSalary.find({})
-    if (salary.length > 0 || staff_salary.length > 0) {
-      var new_salary = salary.concat(staff_salary)
+    const hod_salary = await NonTeachingHodSalary.find({})
+    if (salary.length > 0 || hod_salary.length > 0) {
+      var new_salary = salary.concat(hod_salary)
       res.json(new_salary)
     } else {
       res.status(500)
@@ -279,13 +279,13 @@ router.get(
     const salary = await ChairpersonSalary.find({
       salaryForTheYear: req.params.year,
     })
-    const staff_salary = await NonTeachingStaffSalary.find({
+    const hod_salary = await NonTeachingHodSalary.find({
       salaryForTheYear: req.params.year,
     })
     console.log(salary)
-    console.log('staffsalary', staff_salary)
-    if (salary.length > 0 || staff_salary.length > 0) {
-      var new_salary = salary.concat(staff_salary)
+    console.log('hodsalary', hod_salary)
+    if (salary.length > 0 || hod_salary.length > 0) {
+      var new_salary = salary.concat(hod_salary)
       res.json(new_salary)
     } else {
       res.status(500)
@@ -303,12 +303,12 @@ router.get(
       salaryForTheMonth: capitalize(req.params.month),
     })
     console.log('hello')
-    const staff_salary = await NonTeachingStaffSalary.find({
+    const hod_salary = await NonTeachingHodSalary.find({
       salaryForTheYear: req.params.year,
       salaryForTheMonth: capitalize(req.params.month),
     })
-    if (salary.length > 0 || staff_salary.length > 0) {
-      var new_salary = salary.concat(staff_salary)
+    if (salary.length > 0 || hod_salary.length > 0) {
+      var new_salary = salary.concat(hod_salary)
       res.json(new_salary)
     } else {
       res.status(500)

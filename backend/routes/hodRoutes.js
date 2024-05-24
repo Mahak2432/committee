@@ -1,11 +1,11 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
 import protect from '../middleware/authMiddleware.js'
-import NonTeachingStaff from '../models/nonTeachingStaffModel.js'
+import NonTeachingHod from '../models/nonTeachingHodModel.js'
 import capitalize from '../config/capitalize.js'
 import Dashboard from '../models/dashboardModel.js'
-import NonTeachingStaffSalary from '../models/nonTeachingStaffSalary.js'
-import nonTeachingStaffAttendance from '../models/nonTeachingStaffAttendance.js'
+import NonTeachingHodSalary from '../models/nonTeachingHodSalary.js'
+import nonTeachingHodAttendance from '../models/nonTeachingHodAttendance.js'
 import ChairpersonSalary from '../models/chairpersonSalaryModel.js'
 const router = express.Router()
 
@@ -18,7 +18,7 @@ router.post(
   protect,
   asyncHandler(async (req, res) => {
     const {
-      staff_name,
+      hod_name,
 
       qualification,
 
@@ -34,15 +34,15 @@ router.post(
       image,
       work,
     } = req.body
-    // const staff_info =
-    const staff_info =
-      (await NonTeachingStaff.find()) &&
-      (await NonTeachingStaff.findOne().sort({ staffId: -1 }).limit(1))
-    console.log('staff info', staff_info)
-    if (staff_info) {
-      var staffId = staff_info.staffId + 1
+    // const hod_info =
+    const hod_info =
+      (await NonTeachingHod.find()) &&
+      (await NonTeachingHod.findOne().sort({ hodId: -1 }).limit(1))
+    console.log('hod info', hod_info)
+    if (hod_info) {
+      var hodId = hod_info.hodId + 1
     } else {
-      var staffId = 1
+      var hodId = 1
     }
 
     console.log(req.body)
@@ -50,12 +50,12 @@ router.post(
 
     console.log(registered_by)
 
-    console.log('staff id is-', staffId)
-    const staffname = capitalize(staff_name)
-    const new_staff = await NonTeachingStaff.create({
+    console.log('hod id is-', hodId)
+    const hodname = capitalize(hod_name)
+    const new_hod = await NonTeachingHod.create({
       registered_by,
-      staff_name: staffname,
-      staffId,
+      hod_name: hodname,
+      hodId,
 
       qualification,
 
@@ -71,36 +71,36 @@ router.post(
       image,
       work,
     })
-    console.log(new_staff)
-    if (new_staff) {
-      const total_staffs = (await NonTeachingStaff.find()).length
+    console.log(new_hod)
+    if (new_hod) {
+      const total_hods = (await NonTeachingHod.find()).length
       await Dashboard.findOneAndUpdate(
-        { title: 'Working Staffs' },
-        { number: total_staffs }
+        { title: 'Working Hods' },
+        { number: total_hods }
       )
       console.log('done')
-      console.log('total number of committeeMembers', total_staffs)
+      console.log('total number of committeeMembers', total_hods)
       res.status(201).json({
-        message: 'Staff registered successfully',
+        message: 'Hod registered successfully',
       })
       console.log('registered successfully')
     } else {
       res.status(400)
       console.log(error)
-      throw new Error('Unable to register the staff')
+      throw new Error('Unable to register the hod')
     }
   })
 )
-//router for getting all the staffs
+//router for getting all the hods
 router.get(
   '/',
   asyncHandler(async (req, res) => {
-    const staffs = await NonTeachingStaff.find({})
-    if (staffs.length > 0) {
-      res.json(staffs)
+    const hods = await NonTeachingHod.find({})
+    if (hods.length > 0) {
+      res.json(hods)
     } else {
       res.status(500)
-      throw new Error('No staffs found')
+      throw new Error('No hods found')
     }
   })
 )
@@ -110,18 +110,18 @@ router.get(
 router.delete(
   '/delete/:id',
   asyncHandler(async (req, res) => {
-    const staff = await NonTeachingStaff.findOne({ staffId: req.params.id })
-    if (staff) {
-      await staff.remove()
-      const total_staffs = (await NonTeachingStaff.find()).length
+    const hod = await NonTeachingHod.findOne({ hodId: req.params.id })
+    if (hod) {
+      await hod.remove()
+      const total_hods = (await NonTeachingHod.find()).length
       await Dashboard.findOneAndUpdate(
-        { title: 'Working Staffs' },
-        { number: total_staffs }
+        { title: 'Working Hods' },
+        { number: total_hods }
       )
-      res.json({ message: 'Staff Deleted successfully' })
+      res.json({ message: 'Hod Deleted successfully' })
     } else {
       res.status(404)
-      throw new Error('Staff not found with the given ID')
+      throw new Error('Hod not found with the given ID')
     }
   })
 )
@@ -137,33 +137,33 @@ router.post(
     const { salaryForTheYear, salaryForTheMonth, salaryAmount } = req.body
     console.log(req.body)
     // const chairperson_info =
-    const staff_info = await NonTeachingStaff.findOne({
-      staff_name: capitalize(req.params.name),
-      staffId: req.params.id,
+    const hod_info = await NonTeachingHod.findOne({
+      hod_name: capitalize(req.params.name),
+      hodId: req.params.id,
     })
-    console.log(staff_info)
+    console.log(hod_info)
     console.log(capitalize(req.params.name + ' ' + req.params.id))
 
-    console.log('staff info', staff_info)
-    if (staff_info) {
+    console.log('hod info', hod_info)
+    if (hod_info) {
       const admin = req.user.name
 
       // console.log(admin)
 
-      // console.log('staff id is-', staffId)
-      const staffname = capitalize(req.params.name)
+      // console.log('hod id is-', hodId)
+      const hodname = capitalize(req.params.name)
       const monthname = capitalize(salaryForTheMonth)
-      const new_staff = await NonTeachingStaffSalary.create({
+      const new_hod = await NonTeachingHodSalary.create({
         admin,
-        staff_name: staffname,
-        staffId: req.params.id,
+        hod_name: hodname,
+        hodId: req.params.id,
 
         salaryForTheYear,
         salaryForTheMonth: monthname,
         salaryAmount,
       })
-      console.log(new_staff)
-      if (new_staff) {
+      console.log(new_hod)
+      if (new_hod) {
         const Fees = await ChairpersonSalary.find()
           .select('salaryAmount')
           .select('-_id')
@@ -177,7 +177,7 @@ router.post(
           (fee) => (total_Fees = total_Fees + fee.salaryAmount)
           // return total_Fees
         )
-        const Fees1 = await NonTeachingStaffSalary.find()
+        const Fees1 = await NonTeachingHodSalary.find()
           .select('salaryAmount')
           .select('-_id')
         // for (i = 0; i < Fees.length; i++) {
@@ -193,7 +193,7 @@ router.post(
           { number: total_Fees + total_Fees1 }
         )
         res.status(201).json({
-          message: 'staff salary paid successfully',
+          message: 'hod salary paid successfully',
         })
         console.log('paid successfully')
       } else {
@@ -203,11 +203,11 @@ router.post(
       }
     } else {
       res.status(400)
-      throw new Error('staff not found')
+      throw new Error('hod not found')
     }
   })
 )
-//router for getting all the staffs
+//router for getting all the hods
 // router.get(
 //   '/',
 //   asyncHandler(async (req, res) => {

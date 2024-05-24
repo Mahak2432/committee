@@ -12,7 +12,7 @@ import Dashboard from './models/dashboardModel.js'
 import committeeMemberRoutes from './routes/committeeMemberRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
 import chairpersonRoutes from './routes/chairpersonRoutes.js'
-import staffRoutes from './routes/staffRoutes.js'
+import hodRoutes from './routes/hodRoutes.js'
 // const items = require('./data/Data')
 // const classes = require('./data/ClassData')
 // d0t
@@ -30,7 +30,7 @@ app.get('/dashboard', async (req, res) => {
 app.use('/api/committeeMembers', committeeMemberRoutes)
 app.use('/api/login', adminRoutes)
 app.use('/api/chairpersons', chairpersonRoutes)
-app.use('/api/staffs', staffRoutes)
+app.use('/api/hods', hodRoutes)
 app.get('/api/config/cloudinary', (req, res) => {
   res.send(process.env.CLOUDINARY_URL)
 })
