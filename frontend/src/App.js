@@ -5,13 +5,9 @@ import Landing from './screens/Landing'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Login from './screens/Login'
 import CommitteeMemberRegister from './screens/CommitteeMemberRegister'
-import CommitteeMemberFees from './screens/CommitteeMemberFees'
 import CommitteeMemberDetails from './screens/CommitteeMemberDetails'
 import CommitteeMemberDeepDetails from './screens/CommitteeMemberDeepDetails'
-import CommitteeMemberAttendance from './screens/CommitteeMemberAttendance'
 import AllCommitteeMembers from './screens/AllCommitteeMembers'
-import CommitteeMemberClassAdmitCard from './screens/CommitteeMemberClassAdmitCard'
-import CommitteeMemberClassAdmitCardDeep from './screens/CommitteeMemberClassAdmitCardDeep'
 import ChairpersonSalary from './screens/ChairpersonSalary'
 import HodSalary from './screens/HodSalary'
 import ChairpersonRegister from './screens/ChairpersonRegister'
@@ -33,7 +29,7 @@ const App = () => {
           <PrivateRoute path='/' component={Landing} exact />
           <Route path='/login' component={Login} exact />
           <PrivateRoute path='/committeeMember-register' component={CommitteeMemberRegister} />
-          <PrivateRoute path='/committeeMember-fee' component={CommitteeMemberFees} />
+          {/* <PrivateRoute path='/committeeMember-fee' component={CommitteeMemberFees} /> */}
           <PrivateRoute
             path='/committeeMember_details'
             component={CommitteeMemberDetails}
@@ -71,16 +67,16 @@ const App = () => {
             component={AllCommitteeMembersAdmitCard}
             exact
           /> */}
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/admit_card/classes'
             component={CommitteeMemberClassAdmitCard}
             exact
-          />
-          <PrivateRoute
+          /> */}
+          {/* <PrivateRoute
             path='/admit_card/classes/:id'
             component={CommitteeMemberClassAdmitCardDeep}
             exact
-          />
+          /> */}
           {/* <PrivateRoute
             path='/admit_card/committeeMember'
             component={ParticularCommitteeMemberAdmitCard}
@@ -114,11 +110,11 @@ const App = () => {
           />
           <PrivateRoute path='/income' component={IncomeScreen} exact />
           <PrivateRoute path='/salary' component={ExpenseScreen} exact />
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/committeeMember-attendance'
             component={CommitteeMemberAttendance}
             exact
-          />
+          /> */}
           <Route component={NotFound} />
         </Switch>
       </div>
