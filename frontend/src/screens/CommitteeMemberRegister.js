@@ -20,14 +20,13 @@ const CommitteeMemberRegister = ({ history }) => {
   const [parentname, setParentname] = useState('')
   const [age, setAge] = useState('')
   const [registrationfees, setRegistraionfees] = useState('')
-  const [image, setImage] = useState('https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+  const [image, setImage] = useState('')
   const uploadFileHandler = async (e) => {
     const { data: CLOUDINARY_URL } = await axios.get('/api/config/cloudinary')
 
     const { data: CLOUDINARY_UPLOAD_PRESET } = await axios.get(
       '/api/config/cloudinarypreset'
     )
-   
     setTime(true)
     setTimeout(() => {
       setTime(false)
@@ -35,11 +34,10 @@ const CommitteeMemberRegister = ({ history }) => {
     const file = e.target.files[0]
     const formData = new FormData()
     formData.append('file', file)
-    formData.append("upload_preset", "chat-app");
-    formData.append("cloud_name", "piyushproj");
+    formData.append('upload_preset',process.env.REACT_APP_CLOUD_PRESET)
     setUploading(true)
     await axios({
-      url: `("https://api.cloudinary.com/v1_1/piyushproj/image/upload"`,
+      url: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
