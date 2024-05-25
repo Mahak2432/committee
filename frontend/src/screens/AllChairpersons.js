@@ -56,8 +56,9 @@ const AllChairpersons = ({}) => {
                   <th>Qualification</th>
                   <th>Chairperson Id</th>
                   <th>Address</th>
-                  <th>Chairperson of Committee</th>
+                  <th>Head of Committee</th>
                   <th>Contact No</th>
+                  <th>Email</th>
                   <th>Age</th>
                   <th>Gender</th>
                   <th>Edit</th>
@@ -88,6 +89,7 @@ only we first should have the data of that class only
                     <td>{data.address}</td>
                     <td>{data.subjectToTeach}</td>
                     <td>{data.contact_no}</td>
+                    <td>{data.email}</td>
                     <td>{data.age}</td>
 
                     <td>{data.gender}</td>
