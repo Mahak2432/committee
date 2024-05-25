@@ -24,7 +24,6 @@ const App = () => {
           <PrivateRoute path='/' component={Landing} exact />
           <Route path='/login' component={Login} exact />
           <PrivateRoute path='/committeeMember-register' component={CommitteeMemberRegister} />
-          {/* <PrivateRoute path='/committeeMember-fee' component={CommitteeMemberFees} /> */}
           <PrivateRoute
             path='/committeeMember_details'
             component={CommitteeMemberDetails}
@@ -35,11 +34,6 @@ const App = () => {
             component={CommitteeMemberDeepDetails}
             exact
           />
-          {/* <PrivateRoute
-            path='/committeeMember-attendance'
-            component={underConstruction}
-            exact
-          /> */}
           <PrivateRoute
             path='/chairperson_attendance'
             component={underConstruction}
@@ -50,38 +44,7 @@ const App = () => {
             component={underConstruction}
             exact
           />
-          {/* <PrivateRoute
-            path='/committeeMember-attendance/:class'
-            component={CommitteeMemberDeepAttendance}
-            exact
-          /> */}
           <PrivateRoute path='/committeeMembers' component={AllCommitteeMembers} exact />
-          {/* <PrivateRoute path='/admit_card' component={CommitteeMemberAdmitCard} exact /> */}
-          {/* <PrivateRoute
-            path='/admit_card/allcommitteeMembers'
-            component={AllCommitteeMembersAdmitCard}
-            exact
-          /> */}
-          {/* <PrivateRoute
-            path='/admit_card/classes'
-            component={CommitteeMemberClassAdmitCard}
-            exact
-          /> */}
-          {/* <PrivateRoute
-            path='/admit_card/classes/:id'
-            component={CommitteeMemberClassAdmitCardDeep}
-            exact
-          /> */}
-          {/* <PrivateRoute
-            path='/admit_card/committeeMember'
-            component={ParticularCommitteeMemberAdmitCard}
-            exact
-          /> */}
-          {/* <PrivateRoute
-            path='/chairperson_salary'
-            component={ChairpersonSalary}
-            exact
-          /> */}
           <PrivateRoute
             path='/chairperson_register'
             component={ChairpersonRegister}
@@ -98,18 +61,7 @@ const App = () => {
             component={HodRegister}
             exact
           />
-          {/* <PrivateRoute
-            path='/non-teaching_hod_salary'
-            component={HodSalary}
-            exact
-          /> */}
-          {/* <PrivateRoute path='/income' component={IncomeScreen} exact /> */}
           <PrivateRoute path='/salary' component={ExpenseScreen} exact />
-          {/* <PrivateRoute
-            path='/committeeMember-attendance'
-            component={CommitteeMemberAttendance}
-            exact
-          /> */}
           <Route component={NotFound} />
         </Switch>
       </div>
