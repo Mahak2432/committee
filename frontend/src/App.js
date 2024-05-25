@@ -1,25 +1,20 @@
 import React, { useState } from 'react'
 import Landing from './screens/Landing'
 // import
-// import { Button } from 'react-bootstrap'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Login from './screens/Login'
 import CommitteeMemberRegister from './screens/CommitteeMemberRegister'
 import CommitteeMemberDetails from './screens/CommitteeMemberDetails'
 import CommitteeMemberDeepDetails from './screens/CommitteeMemberDeepDetails'
 import AllCommitteeMembers from './screens/AllCommitteeMembers'
-import ChairpersonSalary from './screens/ChairpersonSalary'
-import HodSalary from './screens/HodSalary'
 import ChairpersonRegister from './screens/ChairpersonRegister'
 import AllChairpersons from './screens/AllChairpersons'
 import AllHods from './screens/AllHods'
 import HodRegister from './screens/HodRegister'
-import IncomeScreen from './screens/IncomeScreen'
 import NotFound from './screens/NotFound'
 import ExpenseScreen from './screens/ExpenseScreen'
 import underConstruction from './components/underConstruction'
 import PrivateRoute from '../src/utils/PrivateRoute'
-// import ExpenseScreen from './screens/ExpenseScreen'
 
 const App = () => {
   return (
@@ -82,11 +77,11 @@ const App = () => {
             component={ParticularCommitteeMemberAdmitCard}
             exact
           /> */}
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/chairperson_salary'
             component={ChairpersonSalary}
             exact
-          />
+          /> */}
           <PrivateRoute
             path='/chairperson_register'
             component={ChairpersonRegister}
@@ -103,12 +98,12 @@ const App = () => {
             component={HodRegister}
             exact
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/non-teaching_hod_salary'
             component={HodSalary}
             exact
-          />
-          <PrivateRoute path='/income' component={IncomeScreen} exact />
+          /> */}
+          {/* <PrivateRoute path='/income' component={IncomeScreen} exact /> */}
           <PrivateRoute path='/salary' component={ExpenseScreen} exact />
           {/* <PrivateRoute
             path='/committeeMember-attendance'
