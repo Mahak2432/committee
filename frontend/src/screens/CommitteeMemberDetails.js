@@ -16,7 +16,7 @@ const CommitteeMemberDetails = () => {
         <span className='search-icon' onClick={searchSubmit}>
           <i className='fas fa-search'></i>
         </span> */}
-        <h3>Browse By Class</h3>
+        <h3>Browse By Committee</h3>
         <div className='classes'>
           {Classes.map((classinfo) => (
             <ClassItems

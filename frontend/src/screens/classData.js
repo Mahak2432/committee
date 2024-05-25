@@ -1,16 +1,16 @@
 const Classes = [
-  {
-    _id: 1,
-    classname: 'Nursery',
-  },
-  {
-    _id: 2,
-    classname: 'LKG',
-  },
-  {
-    _id: 3,
-    classname: 'UKG',
-  },
+  // {
+  //   _id: 1,
+  //   classname: 'Nursery',
+  // },
+  // {
+  //   _id: 2,
+  //   classname: 'LKG',
+  // },
+  // {
+  //   _id: 3,
+  //   classname: 'UKG',
+  // },
   {
     _id: 4,
     classname: 'One',

@@ -10,12 +10,8 @@ import CommitteeMemberDetails from './screens/CommitteeMemberDetails'
 import CommitteeMemberDeepDetails from './screens/CommitteeMemberDeepDetails'
 import CommitteeMemberAttendance from './screens/CommitteeMemberAttendance'
 import AllCommitteeMembers from './screens/AllCommitteeMembers'
-import CommitteeMemberDeepAttendance from './screens/CommitteeMemberDeepAttendance'
-import CommitteeMemberAdmitCard from './screens/CommitteeMemberAdmitCard'
-import AllCommitteeMembersAdmitCard from './screens/AllCommitteeMembersAdmitCard'
 import CommitteeMemberClassAdmitCard from './screens/CommitteeMemberClassAdmitCard'
 import CommitteeMemberClassAdmitCardDeep from './screens/CommitteeMemberClassAdmitCardDeep'
-import ParticularCommitteeMemberAdmitCard from './screens/ParticularCommitteeMemberAdmitCard'
 import ChairpersonSalary from './screens/ChairpersonSalary'
 import HodSalary from './screens/HodSalary'
 import ChairpersonRegister from './screens/ChairpersonRegister'
@@ -24,10 +20,8 @@ import AllHods from './screens/AllHods'
 import HodRegister from './screens/HodRegister'
 import IncomeScreen from './screens/IncomeScreen'
 import NotFound from './screens/NotFound'
-
 import ExpenseScreen from './screens/ExpenseScreen'
 import underConstruction from './components/underConstruction'
-import { committeeMemberAttendances } from './actions/committeeMemberActions'
 import PrivateRoute from '../src/utils/PrivateRoute'
 // import ExpenseScreen from './screens/ExpenseScreen'
 
@@ -65,18 +59,18 @@ const App = () => {
             component={underConstruction}
             exact
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/committeeMember-attendance/:class'
             component={CommitteeMemberDeepAttendance}
             exact
-          />
+          /> */}
           <PrivateRoute path='/committeeMembers' component={AllCommitteeMembers} exact />
-          <PrivateRoute path='/admit_card' component={CommitteeMemberAdmitCard} exact />
-          <PrivateRoute
+          {/* <PrivateRoute path='/admit_card' component={CommitteeMemberAdmitCard} exact /> */}
+          {/* <PrivateRoute
             path='/admit_card/allcommitteeMembers'
             component={AllCommitteeMembersAdmitCard}
             exact
-          />
+          /> */}
           <PrivateRoute
             path='/admit_card/classes'
             component={CommitteeMemberClassAdmitCard}
@@ -87,11 +81,11 @@ const App = () => {
             component={CommitteeMemberClassAdmitCardDeep}
             exact
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path='/admit_card/committeeMember'
             component={ParticularCommitteeMemberAdmitCard}
             exact
-          />
+          /> */}
           <PrivateRoute
             path='/chairperson_salary'
             component={ChairpersonSalary}

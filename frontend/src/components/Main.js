@@ -37,7 +37,7 @@ const Main = () => {
                 key={item?._id}
                 takeme={item?.takeme}
                 title={item?.title}
-                number={item?.number}
+                // number={item?.number}
                 image={item?.image}
               />
               // </div>

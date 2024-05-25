@@ -50,12 +50,10 @@ const CommitteeMemberDetails = ({ match }) => {
                   <th>SN</th>
                   <th>Photo</th>
                   <th>CommitteeMember Name</th>
-                  <th>Class</th>
-                  <th>Roll No</th>
+                  <th>Committee</th>
                   <th>Address</th>
-                  <th>Parent's Name</th>
                   <th>Contact No</th>
-                  <th>Previous Dues</th>
+                  <th>email address</th>
                   <th>Gender</th>
                   <th>Edit</th>
                   <th>Delete</th>
@@ -70,11 +68,9 @@ const CommitteeMemberDetails = ({ match }) => {
                     </td>
                     <td>{data.committeeMember_name}</td>
                     <td>{data.classname}</td>
-                    <td>{data.roll_no}</td>
                     <td>{data.address}</td>
-                    <td>{data.parents_name}</td>
                     <td>{data.contact_no}</td>
-                    <td>{data.previous_dues}</td>
+                    <td>{data.email}</td>
                     <td>{data.gender}</td>
                     <td>
                       <i

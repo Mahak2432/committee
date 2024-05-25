@@ -24,7 +24,6 @@ const committeeMemberSchema = mongoose.Schema(
     },
     parents_name: {
       type: String,
-      required: true,
     },
     contact_no: {
       type: String,
@@ -47,7 +46,6 @@ const committeeMemberSchema = mongoose.Schema(
     },
     registration_fees: {
       type: Number,
-      required: true,
     },
     image: {
       type: String,

@@ -45,7 +45,6 @@ const chairpersonSchema = mongoose.Schema(
     },
     estimated_salary: {
       type: Number,
-      required: true,
     },
     image: {
       type: String,
@@ -53,7 +52,6 @@ const chairpersonSchema = mongoose.Schema(
     },
     subjectToTeach: {
       type: String,
-      required: true,
     },
   },
   {

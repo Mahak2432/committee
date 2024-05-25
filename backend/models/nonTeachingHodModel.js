@@ -45,7 +45,6 @@ const nonTeachingHodSchema = mongoose.Schema(
     },
     estimated_salary: {
       type: Number,
-      required: true,
     },
     image: {
       type: String,

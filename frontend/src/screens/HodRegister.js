@@ -141,7 +141,7 @@ const HodRegister = ({ history }) => {
                   required
                 />
               </div>{' '}
-              <div className='form-control'>
+              {/* <div className='form-control'>
                 <label htmlFor='name'>Previous School</label>
                 <input
                   type='text'
@@ -149,9 +149,9 @@ const HodRegister = ({ history }) => {
                   onChange={(e) => setPrevious_school(e.target.value)}
                   required
                 />
-              </div>{' '}
+              </div>{' '} */}
               <div className='form-control'>
-                <label htmlFor='name'>Work</label>
+                <label htmlFor='name'>Branch</label>
                 <input
                   type='text'
                   value={work}
@@ -205,7 +205,7 @@ const HodRegister = ({ history }) => {
                   required
                 />
               </div>
-              <div className='form-control'>
+              {/* <div className='form-control'>
                 <label htmlFor='registration-fees'>Salary </label>
                 <input
                   type='number'
@@ -213,7 +213,7 @@ const HodRegister = ({ history }) => {
                   onChange={(e) => setEstimated_salary(e.target.value)}
                   required
                 />
-              </div>
+              </div> */}
               <div className='form-control'>
                 <label htmlFor='name'>
                   Upload Picture
