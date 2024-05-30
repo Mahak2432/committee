@@ -8,91 +8,80 @@ import CommitteeMemberFees from '../models/committeeMemberFeesModel.js'
 import ChairpersonSalary from '../models/chairpersonSalaryModel.js'
 import ChairpersonAttendance from '../models/chairpersonAttendanceModel.js'
 import NonTeachingHodSalary from '../models/nonTeachingHodSalary.js'
+
 const router = express.Router()
 
-//following router is for registering the chairperson
-
+// Route for registering the chairperson
+// Route for registering the chairperson
 router.post(
   '/register',
-  //the protect used here is used for getting the id of the admin who registered the chairperson
-
   protect,
   asyncHandler(async (req, res) => {
     const {
       chairperson_name,
-
       qualification,
-
       address,
-
       contact_no,
       gender,
       previous_school,
-
       age,
       email,
       estimated_salary,
       image,
       subjectToTeach,
     } = req.body
-    // const chairperson_info =
-    const chairperson_info =
-      (await Chairperson.find()) &&
-      (await Chairperson.findOne().sort({ chairpersonId: -1 }).limit(1))
-    console.log('chairperson info', chairperson_info)
-    if (chairperson_info) {
-      var chairpersonId = chairperson_info.chairpersonId + 1
+
+    const existingChairperson = await Chairperson.findOne({ email })
+
+
+    if (existingChairperson) {
+      // Chairperson with the same email exists, append the new subjects
+      const updatedSubjects = [...new Set([...existingChairperson.subjectToTeach, ...subjectToTeach])]
+      existingChairperson.subjectToTeach = updatedSubjects
+      await existingChairperson.save()
+
+      return res.status(200).json({
+        message: 'Chairperson updated with new subjects',
+        chairperson: existingChairperson,
+      })
     } else {
-      var chairpersonId = 1
-    }
+      const chairperson_info = await Chairperson.findOne().sort({ chairpersonId: -1 }).limit(1)
+      const chairpersonId = chairperson_info ? chairperson_info.chairpersonId + 1 : 1
 
-    console.log(req.body)
-    const registered_by = req.user.name
+      const registered_by = req.user.name
+      const chairpersonname = capitalize(chairperson_name)
 
-    console.log(registered_by)
+      const new_chairperson = await Chairperson.create({
+        registered_by,
+        chairperson_name: chairpersonname,
+        chairpersonId,
+        qualification,
+        address,
+        contact_no,
+        gender,
+        previous_school,
+        age,
+        email,
+        estimated_salary,
+        image,
+        subjectToTeach,
+      })
 
-    console.log('chairperson id is-', chairpersonId)
-    const chairpersonname = capitalize(chairperson_name)
-    const new_chairperson = await Chairperson.create({
-      registered_by,
-      chairperson_name: chairpersonname,
-      chairpersonId,
-
-      qualification,
-
-      address,
-
-      contact_no,
-      gender,
-      previous_school,
-
-      age,
-      email,
-      estimated_salary,
-      image,
-      subjectToTeach,
-    })
-    console.log(new_chairperson)
-    if (new_chairperson) {
-      const total_chairpersons = (await Chairperson.find()).length
+      const total_chairpersons = await Chairperson.countDocuments()
       await Dashboard.findOneAndUpdate(
         { title: 'Chairpersons' },
         { number: total_chairpersons }
       )
-      console.log('done')
-      console.log('total number of committeeMembers', total_chairpersons)
+
       res.status(201).json({
         message: 'Chairperson registered successfully',
       })
-      console.log('registered successfully')
-    } else {
-      res.status(400)
-      console.log(error)
-      throw new Error('Unable to register the chairperson')
     }
   })
 )
-//router for getting all the chairpersons
+
+
+// Route for getting all chairpersons
 router.get(
   '/',
   asyncHandler(async (req, res) => {
@@ -106,15 +95,14 @@ router.get(
   })
 )
 
-//following route is for deleting the chairperson
-
+// Route for deleting a chairperson
 router.delete(
   '/delete/:id',
   asyncHandler(async (req, res) => {
     const chairperson = await Chairperson.findOne({ chairpersonId: req.params.id })
     if (chairperson) {
       await chairperson.remove()
-      const total_chairpersons = (await Chairperson.find()).length
+      const total_chairpersons = await Chairperson.countDocuments()
       await Dashboard.findOneAndUpdate(
         { title: 'Chairpersons' },
         { number: total_chairpersons }
@@ -127,73 +115,45 @@ router.delete(
   })
 )
 
-//following route is for paying the fees of chairpersons
-
+// Route for paying the fees of chairpersons
 router.post(
   '/fees/:name/:id',
-  //the protect used here is used for getting the id of the admin who registered the chairperson
-
   protect,
   asyncHandler(async (req, res) => {
     const { salaryForTheYear, salaryForTheMonth, salaryAmount } = req.body
-    console.log(req.body)
-    // const chairperson_info =
+
     const chairperson_info = await Chairperson.findOne({
       chairperson_name: capitalize(req.params.name),
       chairpersonId: req.params.id,
     })
-    console.log(capitalize(req.params.name + ' ' + req.params.id))
 
-    console.log('chairperson info', chairperson_info)
     if (chairperson_info) {
       const admin = req.user.name
-
-      // console.log(admin)
-
-      // console.log('chairperson id is-', chairpersonId)
       const chairpersonname = capitalize(req.params.name)
       const monthname = capitalize(salaryForTheMonth)
       const new_chairperson = await ChairpersonSalary.create({
         admin,
         chairperson_name: chairpersonname,
         chairpersonId: req.params.id,
-
         salaryForTheYear,
         salaryForTheMonth: monthname,
         salaryAmount,
       })
-      console.log(new_chairperson)
-      if (new_chairperson) {
-        const Fees = await ChairpersonSalary.find()
-          .select('salaryAmount')
-          .select('-_id')
-        console.log('Fees', Fees)
-        var total_Fees = 0
 
-        var total_Fees = 0
-        Fees.map((fee) => (total_Fees = total_Fees + fee.salaryAmount))
-        const Fees1 = await NonTeachingHodSalary.find()
-          .select('salaryAmount')
-          .select('-_id')
+      const Fees = await ChairpersonSalary.find().select('salaryAmount').select('-_id')
+      let total_Fees = Fees.reduce((acc, fee) => acc + fee.salaryAmount, 0)
 
-        var total_Fees1 = 0
-        Fees1.map(
-          (fee) => (total_Fees1 = total_Fees1 + fee.salaryAmount)
-          // return total_Fees
-        )
-        await Dashboard.findOneAndUpdate(
-          { title: 'Salary Expenses' },
-          { number: total_Fees + total_Fees1 }
-        )
-        res.status(201).json({
-          message: 'Chairperson salary paid successfully',
-        })
-        console.log('paid successfully')
-      } else {
-        res.status(400)
-        console.log(error)
-        throw new Error('Unable to pay the salary')
-      }
+      const Fees1 = await NonTeachingHodSalary.find().select('salaryAmount').select('-_id')
+      let total_Fees1 = Fees1.reduce((acc, fee) => acc + fee.salaryAmount, 0)
+
+      await Dashboard.findOneAndUpdate(
+        { title: 'Salary Expenses' },
+        { number: total_Fees + total_Fees1 }
+      )
+
+      res.status(201).json({
+        message: 'Chairperson salary paid successfully',
+      })
     } else {
       res.status(400)
       throw new Error('Chairperson not found')
@@ -201,9 +161,7 @@ router.post(
   })
 )
 
-//for getting information regarding income
-
-//all income generated till now
+// Route for getting all income
 router.get(
   '/allincome',
   asyncHandler(async (req, res) => {
@@ -217,8 +175,7 @@ router.get(
   })
 )
 
-//particular year
-
+// Route for getting income of a particular year
 router.get(
   '/allincome/:year',
   asyncHandler(async (req, res) => {
@@ -232,7 +189,7 @@ router.get(
   })
 )
 
-//paritcular month of particular year
+// Route for getting income of a particular month of a particular year
 router.get(
   '/allincome/:year/:month',
   asyncHandler(async (req, res) => {
@@ -240,29 +197,23 @@ router.get(
       year: req.params.year,
       month_name: capitalize(req.params.month),
     })
-    console.log('hello')
-    console.log(req.params.year + req.params.month)
     if (income.length > 0) {
-      // res.status(201)
       res.json(income)
     } else {
       res.status(500)
-      throw new Error(
-        `No Income made for month ${req.params.month} of year ${req.params.year}`
-      )
+      throw new Error(`No Income made for month ${req.params.month} of year ${req.params.year}`)
     }
   })
 )
 
-//the following is for the salary given to the hods and the  chairpersons
-
+// Route for getting all salaries
 router.get(
   '/allsalaries',
   asyncHandler(async (req, res) => {
     const salary = await ChairpersonSalary.find({})
     const hod_salary = await NonTeachingHodSalary.find({})
     if (salary.length > 0 || hod_salary.length > 0) {
-      var new_salary = salary.concat(hod_salary)
+      const new_salary = salary.concat(hod_salary)
       res.json(new_salary)
     } else {
       res.status(500)
@@ -271,8 +222,7 @@ router.get(
   })
 )
 
-//particular year
-
+// Route for getting all salaries of a particular year
 router.get(
   '/allsalary/:year',
   asyncHandler(async (req, res) => {
@@ -282,10 +232,8 @@ router.get(
     const hod_salary = await NonTeachingHodSalary.find({
       salaryForTheYear: req.params.year,
     })
-    console.log(salary)
-    console.log('hodsalary', hod_salary)
     if (salary.length > 0 || hod_salary.length > 0) {
-      var new_salary = salary.concat(hod_salary)
+      const new_salary = salary.concat(hod_salary)
       res.json(new_salary)
     } else {
       res.status(500)
@@ -294,7 +242,7 @@ router.get(
   })
 )
 
-//paritcular month of particular year
+// Route for getting all salaries of a particular month of a particular year
 router.get(
   '/allsalary/:year/:month',
   asyncHandler(async (req, res) => {
@@ -302,19 +250,16 @@ router.get(
       salaryForTheYear: req.params.year,
       salaryForTheMonth: capitalize(req.params.month),
     })
-    console.log('hello')
     const hod_salary = await NonTeachingHodSalary.find({
       salaryForTheYear: req.params.year,
       salaryForTheMonth: capitalize(req.params.month),
     })
     if (salary.length > 0 || hod_salary.length > 0) {
-      var new_salary = salary.concat(hod_salary)
+      const new_salary = salary.concat(hod_salary)
       res.json(new_salary)
     } else {
       res.status(500)
-      throw new Error(
-        `No salary made for month ${req.params.month} of year ${req.params.year}`
-      )
+      throw new Error(`No salary made for month ${req.params.month} of year ${req.params.year}`)
     }
   })
 )

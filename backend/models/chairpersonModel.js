@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 const chairpersonSchema = mongoose.Schema(
   {
     registered_by: {
@@ -12,18 +13,15 @@ const chairpersonSchema = mongoose.Schema(
     },
     chairpersonId: {
       type: Number,
-     
     },
     qualification: {
       type: String,
       required: true,
     },
-
     address: {
       type: String,
       required: true,
     },
-
     contact_no: {
       type: String,
       required: true,
@@ -51,16 +49,13 @@ const chairpersonSchema = mongoose.Schema(
       required: true,
     },
     subjectToTeach: {
-      type: String,
+      type: [String], // Array of strings
     },
   },
   {
     timestamps: true,
   }
 )
-//the below is required code for converting the schema to the model
-//as per the documentation of mongoose
-//any name can be given as a constant in the place of the CommitteeMember
+
 const Chairperson = mongoose.model('Chairperson', chairpersonSchema)
-//Chairperson variable is exported as follow is a ES module.
 export default Chairperson
