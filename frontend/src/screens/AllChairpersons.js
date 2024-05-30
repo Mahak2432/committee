@@ -4,6 +4,7 @@ import { listChairpersons } from '../actions/chairpersonActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { deleteChairperson } from '../actions/chairpersonActions'
+import './AllChairpersons.css'
 
 const AllChairpersons = ({}) => {
   const dispatch = useDispatch()
@@ -87,7 +88,7 @@ only we first should have the data of that class only
                     {/* <td>{data.roll_no}</td> */}
 
                     <td>{data.address}</td>
-                    <td>{data.subjectToTeach}</td>
+                    <td>{data.subjectToTeach.join(', ')}</td>
                     <td>{data.contact_no}</td>
                     <td>{data.email}</td>
                     <td>{data.age}</td>

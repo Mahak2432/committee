@@ -1,0 +1,64 @@
+.container3 {
+    font-family: Arial, sans-serif;
+  }
+  
+  .outer {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .table-layout {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #c6c4c4; /* Default text color */
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #fff; /* Default background color */
+  }
+  
+  tbody tr:hover {
+    background-color: #f0f0f0; /* Slightly lighter background color on hover */
+  }
+  
+  .contents td {
+    /* Add specific styles for table data inside the .contents class */
+  }
+  
+  /* Style for search icon */
+  .search-icon {
+    cursor: pointer;
+  }
+  
+  .search-icon i {
+    color: #333;
+  }
+  
+  /* Style for delete icon */
+  .fa-trash {
+    cursor: pointer;
+  }
+  
+  .fa-trash:hover {
+    color: #e74c3c; /* Red color on hover */
+  }
+  
+  /* Add any additional styles as needed */
+  

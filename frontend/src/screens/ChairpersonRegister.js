@@ -1,11 +1,12 @@
 import axios from 'axios'
-
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Select from 'react-select'
 import { chairpersonregister } from '../actions/chairpersonActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import './CommitteeMember.css'
+
 const ChairpersonRegister = ({ history }) => {
   const dispatch = useDispatch()
   const [uploading, setUploading] = useState(false)
@@ -15,29 +16,41 @@ const ChairpersonRegister = ({ history }) => {
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
   const [previous_school, setPrevious_school] = useState('')
-
   const [gender, setGender] = useState('')
   const [phoneno, setPhoneno] = useState('')
-  const [subjectToTeach, setSubjectToTeach] = useState('')
-
+  const [subjectToTeach, setSubjectToTeach] = useState([])
   const [qualification, setQualification] = useState('')
   const [age, setAge] = useState('')
   const [estimated_salary, setEstimated_salary] = useState('')
   const [image, setImage] = useState('')
+
+  const committeeOptions = [
+    { value: 'One', label: 'One' },
+    { value: 'Two', label: 'Two' },
+    { value: 'Three', label: 'Three' },
+    { value: 'Four', label: 'Four' },
+    { value: 'Five', label: 'Five' },
+    { value: 'Six', label: 'Six' },
+    { value: 'Seven', label: 'Seven' },
+    { value: 'Eight', label: 'Eight' },
+    { value: 'Nine', label: 'Nine' },
+    { value: 'Ten', label: 'Ten' },
+  ]
+
   const uploadFileHandler = async (e) => {
     const { data: CLOUDINARY_URL } = await axios.get('/api/config/cloudinary')
+    const { data: CLOUDINARY_UPLOAD_PRESET } = await axios.get('/api/config/cloudinarypreset')
 
-    const { data: CLOUDINARY_UPLOAD_PRESET } = await axios.get(
-      '/api/config/cloudinarypreset'
-    )
     setTime(true)
     setTimeout(() => {
       setTime(false)
     }, 10000)
+
     const file = e.target.files[0]
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('upload_preset',process.env.REACT_APP_CLOUD_PRESET)
+    formData.append('upload_preset', process.env.REACT_APP_CLOUD_PRESET)
+
     setUploading(true)
     await axios({
       url: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
@@ -47,15 +60,16 @@ const ChairpersonRegister = ({ history }) => {
       },
       data: formData,
     })
-      .then(function (res) {
+      .then((res) => {
         setImage(res.data.url)
       })
-      .catch(function (err) {
+      .catch((err) => {
         console.error(err)
       })
     setUploading(false)
     console.log('url is', image)
   }
+
   const submitHandler = (e) => {
     e.preventDefault()
     setValid(true)
@@ -63,7 +77,6 @@ const ChairpersonRegister = ({ history }) => {
       chairpersonregister(
         name.trim(),
         qualification,
-
         address,
         phoneno,
         gender,
@@ -72,30 +85,30 @@ const ChairpersonRegister = ({ history }) => {
         email,
         estimated_salary,
         image,
-        subjectToTeach
+        subjectToTeach.map((option) => option.value) // Map to array of values
       )
     )
     setName('')
     setAddress('')
+    setSubjectToTeach([])
     // setImage('')
     setTimeout(() => {
       setValid(false)
     }, 10000)
   }
-  const userLogin = useSelector((state) => state.userLogin)
-  // const userLogin = useSelector((state) => state.userLogin)
 
+  const userLogin = useSelector((state) => state.userLogin)
   const { userCred } = userLogin
 
-  // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
   const chairpersonRegister = useSelector((state) => state.chairpersonRegister)
-
   const { loading, success, error } = chairpersonRegister
+
   useEffect(() => {
     if (!userCred) {
       history.push('/login')
     }
   }, [userCred, history])
+
   return (
     <div className='container1' style={{ marginTop: '10px' }}>
       {loading ? (
@@ -104,11 +117,7 @@ const ChairpersonRegister = ({ history }) => {
         <div className='outer-layout'>
           <h1>Register Chairperson</h1>
           {success && valid && (
-            <Message
-              style={{ marginBottom: '3px' }}
-              variant='success'
-              message={success.message}
-            />
+            <Message style={{ marginBottom: '3px' }} variant='success' message={success.message} />
           )}
           {valid && error && <Message variant='danger' message={error} />}
 
@@ -124,79 +133,60 @@ const ChairpersonRegister = ({ history }) => {
                 />
               </div>
               <div className='form-control'>
-                <label htmlFor='name'>Email</label>
+                <label htmlFor='email'>Email</label>
                 <input
                   type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-              </div>{' '}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Address</label>
+                <label htmlFor='address'>Address</label>
                 <input
                   type='text'
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   required
                 />
-              </div>{' '}
-              {/* <div className='form-control'>
-                <label htmlFor='name'>Previous School</label>
-                <input
-                  type='text'
-                  value={previous_school}
-                  onChange={(e) => setPrevious_school(e.target.value)}
+              </div>
+              <div className='form-control'>
+                <label htmlFor='subjectToTeach'>Subjects to Teach</label>
+                <Select
+                  isMulti
+                  name='subjects'
+                  options={committeeOptions}
+                  className='basic-multi-select'
+                  classNamePrefix='select'
+                  value={subjectToTeach}
+                  onChange={setSubjectToTeach}
                   required
                 />
-              </div>{' '} */}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Committee</label>
-                <select
-                  id='class'
-                  value={subjectToTeach}
-                  onChange={(e) => setSubjectToTeach(e.target.value)}
-                  required
-                >
-                  <option value=''>Select a Committee</option>
-                  <option value='One'>One</option>
-                  <option value='Two'>Two</option>
-                  <option value='Three'>Three</option>
-                  <option value='Four'>Four</option>
-                  <option value='Five'>Five</option>
-                  <option value='Six'>Six</option>
-                  <option value='Seven'>Seven</option>
-                  <option value='Eight'>Eight</option>
-                  <option value='Nine'>Nine</option>
-                  <option value='Ten'>Ten</option>
-                </select>
-              </div>{' '}
-              <div className='form-control'>
-                <label htmlFor='name'>Gender</label>
+                <label htmlFor='gender'>Gender</label>
                 <select
                   required
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
                 >
-                  {console.log(gender)}
                   <option value=''>Select Gender</option>
                   <option value='Male'>Male</option>
-
                   <option value='Female'>Female</option>
                   <option value='Others'>Others</option>
                 </select>
-              </div>{' '}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Phone Number</label>
+                <label htmlFor='phoneno'>Phone Number</label>
                 <input
                   type='text'
                   value={phoneno}
                   onChange={(e) => setPhoneno(e.target.value)}
                   required
                 />
-              </div>{' '}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Qualification</label>
+                <label htmlFor='qualification'>Qualification</label>
                 <input
                   type='text'
                   value={qualification}
@@ -204,12 +194,8 @@ const ChairpersonRegister = ({ history }) => {
                   required
                 />
               </div>
-              {/* <div className='form-control'>
-              <label htmlFor='name'>Joining Date</label>
-              <input type='date' />
-            </div>{' '} */}
               <div className='form-control'>
-                <label htmlFor='name'>Age</label>
+                <label htmlFor='age'>Age</label>
                 <input
                   type='number'
                   value={age}
@@ -217,17 +203,8 @@ const ChairpersonRegister = ({ history }) => {
                   required
                 />
               </div>
-              {/* <div className='form-control'>
-                <label htmlFor='registration-fees'>Salary </label>
-                <input
-                  type='number'
-                  value={estimated_salary}
-                  onChange={(e) => setEstimated_salary(e.target.value)}
-                  required
-                />
-              </div> */}
               <div className='form-control'>
-                <label htmlFor='name'>
+                <label htmlFor='upload-picture'>
                   Upload Picture
                   <input
                     className='custom-file-input'
@@ -237,17 +214,9 @@ const ChairpersonRegister = ({ history }) => {
                   />
                 </label>
                 {uploading && <Loader />}
-                {time && image && (
-                  <Message
-                    variant='success'
-                    message='Picture uploaded successfully'
-                  />
-                )}
+                {time && image && <Message variant='success' message='Picture uploaded successfully' />}
               </div>
-              {/* <div className="register-btn"> */}
-              {/* </div> */}
             </div>
-
             <button className='btn-register' type='submit'>
               Register Chairperson
             </button>
