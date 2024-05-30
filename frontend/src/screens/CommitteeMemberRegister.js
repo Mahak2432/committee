@@ -143,7 +143,7 @@ const CommitteeMemberRegister = ({ history }) => {
                 </select>
               </div>{' '}
               <div className='form-control'>
-                <label htmlFor='name'>Class</label>
+                <label htmlFor='name'>Committee</label>
                 <select
                   id='class'
                   value={classname}

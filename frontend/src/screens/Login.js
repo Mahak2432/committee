@@ -31,7 +31,7 @@ const Login = ({ history, location }) => {
           history.push('/hod/dashboard');
           break;
         case 'Chairperson':
-          history.push('/chairperson/dashboard');
+          history.push('/chairperson_landing');
           break;
         default:
           history.push('/');

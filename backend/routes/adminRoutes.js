@@ -46,9 +46,7 @@ router.post(
 
       if (isValidPassword) {
         res.json({
-          _id: user._id,
-          name: user.name,
-          email: user.email,
+          ...user.toObject(),
           userType,
           token: generateToken(user._id),
         });
