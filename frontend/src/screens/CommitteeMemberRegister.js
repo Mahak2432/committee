@@ -1,41 +1,43 @@
-import axios from 'axios'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
+import { Register } from '../actions/committeeMemberActions';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import './CommitteeMember.css';
 
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Register } from '../actions/committeeMemberActions'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import './CommitteeMember.css'
 const CommitteeMemberRegister = ({ history }) => {
-  const dispatch = useDispatch()
-  const [uploading, setUploading] = useState(false)
-  const [valid, setValid] = useState(false)
-  const [time, setTime] = useState(false)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [address, setAddress] = useState('')
-  const [gender, setGender] = useState('')
-  const [classname, setClassname] = useState('')
-  const [phoneno, setPhoneno] = useState('')
-  const [parentname, setParentname] = useState('')
-  const [age, setAge] = useState('')
-  const [registrationfees, setRegistraionfees] = useState('')
-  const [image, setImage] = useState('')
-  const uploadFileHandler = async (e) => {
-    const { data: CLOUDINARY_URL } = await axios.get('/api/config/cloudinary')
+  const dispatch = useDispatch();
+  const [uploading, setUploading] = useState(false);
+  const [valid, setValid] = useState(false);
+  const [time, setTime] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [gender, setGender] = useState('');
+  const [classname, setClassname] = useState([]);
+  const [phoneno, setPhoneno] = useState('');
+  const [parentname, setParentname] = useState('');
+  const [age, setAge] = useState('');
+  const [registrationfees, setRegistraionfees] = useState('');
+  const [image, setImage] = useState('');
 
-    const { data: CLOUDINARY_UPLOAD_PRESET } = await axios.get(
-      '/api/config/cloudinarypreset'
-    )
-    setTime(true)
+  const uploadFileHandler = async (e) => {
+    const { data: CLOUDINARY_URL } = await axios.get('/api/config/cloudinary');
+    const { data: CLOUDINARY_UPLOAD_PRESET } = await axios.get('/api/config/cloudinarypreset');
+
+    setTime(true);
     setTimeout(() => {
-      setTime(false)
-    }, 10000)
-    const file = e.target.files[0]
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('upload_preset',process.env.REACT_APP_CLOUD_PRESET)
-    setUploading(true)
+      setTime(false);
+    }, 10000);
+
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.REACT_APP_CLOUD_PRESET);
+
+    setUploading(true);
     await axios({
       url: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
       method: 'POST',
@@ -44,22 +46,23 @@ const CommitteeMemberRegister = ({ history }) => {
       },
       data: formData,
     })
-      .then(function (res) {
-        setImage(res.data.url)
+      .then((res) => {
+        setImage(res.data.url);
       })
-      .catch(function (err) {
-        console.error(err)
-      })
-    setUploading(false)
-    console.log('url is', image)
-  }
+      .catch((err) => {
+        console.error(err);
+      });
+    setUploading(false);
+    console.log('url is', image);
+  };
+
   const submitHandler = (e) => {
-    e.preventDefault()
-    setValid(true)
+    e.preventDefault();
+    setValid(true);
     dispatch(
       Register(
         name.trim(),
-        classname,
+        classname.map((c) => c.value),
         address,
         parentname,
         phoneno,
@@ -69,28 +72,40 @@ const CommitteeMemberRegister = ({ history }) => {
         registrationfees,
         image
       )
-    )
-    setName('')
-    setAddress('')
-    // setImage('')
+    );
+    setName('');
+    setAddress('');
+    setClassname([]);
     setTimeout(() => {
-      setValid(false)
-    }, 10000)
-  }
-  const userLogin = useSelector((state) => state.userLogin)
-  // const userLogin = useSelector((state) => state.userLogin)
+      setValid(false);
+    }, 10000);
+  };
 
-  const { userCred } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userCred } = userLogin;
 
-  // const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
-  const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister)
+  const committeeMemberRegister = useSelector((state) => state.committeeMemberRegister);
+  const { loading, success, error } = committeeMemberRegister;
 
-  const { loading, success, error } = committeeMemberRegister
   useEffect(() => {
     if (!userCred) {
-      history.push('/login')
+      history.push('/login');
     }
-  }, [userCred, history])
+  }, [userCred, history]);
+
+  const classOptions = [
+    { value: 'One', label: 'One' },
+    { value: 'Two', label: 'Two' },
+    { value: 'Three', label: 'Three' },
+    { value: 'Four', label: 'Four' },
+    { value: 'Five', label: 'Five' },
+    { value: 'Six', label: 'Six' },
+    { value: 'Seven', label: 'Seven' },
+    { value: 'Eight', label: 'Eight' },
+    { value: 'Nine', label: 'Nine' },
+    { value: 'Ten', label: 'Ten' }
+  ];
+
   return (
     <div className='container1' style={{ marginTop: '10px' }}>
       {loading ? (
@@ -143,25 +158,14 @@ const CommitteeMemberRegister = ({ history }) => {
                 </select>
               </div>{' '}
               <div className='form-control'>
-                <label htmlFor='name'>Committee</label>
-                <select
-                  id='class'
+                <label htmlFor='name'>Class</label>
+                <Select
+                  isMulti
+                  options={classOptions}
                   value={classname}
-                  onChange={(e) => setClassname(e.target.value)}
+                  onChange={(selectedOptions) => setClassname(selectedOptions)}
                   required
-                >
-                  <option value=''>Select a Committee</option>
-                  <option value='One'>One</option>
-                  <option value='Two'>Two</option>
-                  <option value='Three'>Three</option>
-                  <option value='Four'>Four</option>
-                  <option value='Five'>Five</option>
-                  <option value='Six'>Six</option>
-                  <option value='Seven'>Seven</option>
-                  <option value='Eight'>Eight</option>
-                  <option value='Nine'>Nine</option>
-                  <option value='Ten'>Ten</option>
-                </select>
+                />
               </div>{' '}
               <div className='form-control'>
                 <label htmlFor='name'>Phone Number</label>
@@ -241,7 +245,7 @@ const CommitteeMemberRegister = ({ history }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CommitteeMemberRegister
+export default CommitteeMemberRegister;

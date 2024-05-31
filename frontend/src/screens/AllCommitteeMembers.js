@@ -1,37 +1,32 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { listCommitteeMembers } from '../actions/committeeMemberActions'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { deleteCommitteeMember } from '../actions/committeeMemberActions'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { listCommitteeMembers, deleteCommitteeMember } from '../actions/committeeMemberActions';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
-const AllCommitteeMembers = ({  }) => {
-  const dispatch = useDispatch()
-  const committeeMemberList = useSelector((state) => state.committeeMemberList)
-  const { loading, committeeMembers, error } = committeeMemberList
-  const committeeMemberDelete = useSelector((state) => state.committeeMemberDelete)
-  const {
-    loading: loadingDelete,
-    success: successDelete,
-    error: errorDelete,
-  } = committeeMemberDelete
-  // const matchid = match.params.id
+const AllCommitteeMembers = () => {
+  const dispatch = useDispatch();
+  const committeeMemberList = useSelector((state) => state.committeeMemberList);
+  const { loading, committeeMembers, error } = committeeMemberList;
+
+  const committeeMemberDelete = useSelector((state) => state.committeeMemberDelete);
+  const { loading: loadingDelete, success: successDelete, error: errorDelete } = committeeMemberDelete;
+
   useEffect(() => {
-    dispatch(listCommitteeMembers())
-  }, [dispatch, successDelete])
+    dispatch(listCommitteeMembers());
+  }, [dispatch, successDelete]);
+
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
-      dispatch(deleteCommitteeMember(id))
+      dispatch(deleteCommitteeMember(id));
     }
-  }
-  var i = 1
+  };
 
   const searchSubmit = (e) => {
-    e.preventDefault()
-    console.log('clicked')
-  }
-  // const loading1=true
-  // const committeeMembers = []
+    e.preventDefault();
+    // Implement search functionality here if needed
+  };
+
   return (
     <div className='container3'>
       <div className='outer'>
@@ -50,36 +45,26 @@ const AllCommitteeMembers = ({  }) => {
               <thead>
                 <tr>
                   <th>SN</th>
-                  {/* <th>ID</th> */}
                   <th>Photo</th>
                   <th>CommitteeMember Name</th>
-                  <th>Committee</th>
+                  <th>Committees</th>
                   <th>Address</th>
                   <th>Contact No</th>
-                  <th>Email</th> 
+                  <th>Email</th>
                   <th>Gender</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                {/* {match.params.id===data.id && */}
-                {/* {console.log(matchid)} */}
-                {/* {"A"==="A" ?():(
-
-)} */}
-                {/* for displaying the information about the particular class
-only we first should have the data of that class only 
-. We cannot make selection inside the map method by using double and operator. */}
-                {committeeMembers.map((data) => (
+                {committeeMembers.map((data, index) => (
                   <tr key={data._id} className='contents'>
-                    <td>{i++}</td>
-                    {/* <td>{data._id}</td> */}
+                    <td>{index + 1}</td>
                     <td>
                       <img style={{ height: '50px' }} src={data.image} alt='' />
                     </td>
                     <td>{data.committeeMember_name}</td>
-                    <td>{data.classname}</td>
+                    <td>{data.classname.join(', ')}</td>
                     <td>{data.address}</td>
                     <td>{data.contact_no}</td>
                     <td>{data.email}</td>
@@ -90,6 +75,7 @@ only we first should have the data of that class only
                           padding: '8px',
                           color: 'green',
                           fontSize: '25px',
+                          cursor: 'pointer',
                         }}
                         className='fas fa-user-edit'
                       ></i>
@@ -107,8 +93,6 @@ only we first should have the data of that class only
                       ></i>
                     </td>
                   </tr>
-
-                  // }
                 ))}
               </tbody>
             </table>
@@ -116,7 +100,7 @@ only we first should have the data of that class only
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AllCommitteeMembers
+export default AllCommitteeMembers;

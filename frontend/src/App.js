@@ -16,6 +16,7 @@ import ExpenseScreen from './screens/ExpenseScreen'
 import underConstruction from './components/underConstruction'
 import PrivateRoute from '../src/utils/PrivateRoute'
 import ChairpersonLanding from './screens/ChairpersonLanding'
+import MeetingForm from './screens/MeetingForm'
 
 const App = () => {
   return (
@@ -64,6 +65,7 @@ const App = () => {
           />
           <PrivateRoute path='/salary' component={ExpenseScreen} exact />
           <PrivateRoute path='/chairperson_landing' component={ChairpersonLanding} exact />
+          <PrivateRoute path='/meeting-form' component={MeetingForm} exact />
           <Route component={NotFound} />
           
         </Switch>
