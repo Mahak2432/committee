@@ -158,7 +158,7 @@ const CommitteeMemberRegister = ({ history }) => {
                 </select>
               </div>{' '}
               <div className='form-control'>
-                <label htmlFor='name'>Class</label>
+                <label htmlFor='name'>Committee</label>
                 <Select
                   isMulti
                   options={classOptions}

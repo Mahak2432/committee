@@ -91,7 +91,7 @@ router.post(
       await committeeMember.save();
       res.status(200).json({ message: 'CommitteeMember updated successfully with new classes' });
     } else {
-      const registered_by = req.user.name;
+      const registered_by = req.user ? req.user.name : "chaiperson";
       const previous_dues = 0;
       const committeeMembername = capitalize(committeeMember_name);
 

@@ -38,10 +38,6 @@
     background-color: #f0f0f0; /* Slightly lighter background color on hover */
   }
   
-  .contents td {
-    /* Add specific styles for table data inside the .contents class */
-  }
-  
   /* Style for search icon */
   .search-icon {
     cursor: pointer;
