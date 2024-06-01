@@ -13,6 +13,7 @@ import committeeMemberRoutes from './routes/committeeMemberRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
 import chairpersonRoutes from './routes/chairpersonRoutes.js'
 import hodRoutes from './routes/hodRoutes.js'
+import meetingRoutes from './routes/meetingRoutes.js'
 // const items = require('./data/Data')
 // const classes = require('./data/ClassData')
 // d0t
@@ -31,6 +32,7 @@ app.use('/api/committeeMembers', committeeMemberRoutes)
 app.use('/api/login', adminRoutes)
 app.use('/api/chairpersons', chairpersonRoutes)
 app.use('/api/hods', hodRoutes)
+app.use('/api/meetings', meetingRoutes);
 app.get('/api/config/cloudinary', (req, res) => {
   res.send(process.env.CLOUDINARY_URL)
 })

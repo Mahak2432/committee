@@ -9,7 +9,7 @@ import ChairpersonSalary from '../models/chairpersonSalaryModel.js'
 import ChairpersonAttendance from '../models/chairpersonAttendanceModel.js'
 import NonTeachingHodSalary from '../models/nonTeachingHodSalary.js'
 
-const router = express.Router()
+const   router = express.Router()
 
 // Route for registering the chairperson
 // Route for registering the chairperson

@@ -17,6 +17,7 @@ import underConstruction from './components/underConstruction'
 import PrivateRoute from '../src/utils/PrivateRoute'
 import ChairpersonLanding from './screens/ChairpersonLanding'
 import MeetingForm from './screens/MeetingForm'
+import HodLanding from './screens/HodLanding'
 
 const App = () => {
   return (
@@ -63,6 +64,7 @@ const App = () => {
             component={HodRegister}
             exact
           />
+          <PrivateRoute path='/hod_landing' component={HodLanding} exact/>
           <PrivateRoute path='/salary' component={ExpenseScreen} exact />
           <PrivateRoute path='/chairperson_landing' component={ChairpersonLanding} exact />
           <PrivateRoute path='/meeting-form' component={MeetingForm} exact />
