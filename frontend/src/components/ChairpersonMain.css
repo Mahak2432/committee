@@ -278,41 +278,48 @@ section {
   
 
   /* ChairpersonMain.css */
-.table-layout table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-layout th, .table-layout td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-  color: black; /* Change text color to black */
-}
-
-.table-layout th {
-  background-color: #f2f2f2;
-}
-
-.table-layout img {
-  max-height: 50px;
-}
-
-.contents i {
-  cursor: pointer;
-}
-
-.header h2 {
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 15px;
-}
-
-.content {
-  padding: 20px;
-  background-color: #f8f8f8;
-  margin-bottom: 20px;
-}
-
-
+  .meetings-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  
+  .meetings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .meetings-table th,
+  .meetings-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    color: #333; /* Darker text color */
+  }
+  
+  .meetings-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .meetings-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .meetings-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .meetings-table a {
+    color: #0056b3; /* Slightly darker blue for links */
+    text-decoration: none;
+  }
+  
+  .meetings-table a:hover {
+    text-decoration: underline;
+  }
   

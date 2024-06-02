@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createMeeting } from '../actions/meetingActions';
+import axios from 'axios';
+import './MeetingForm.css';
 
 const MeetingForm = () => {
   const [title, setTitle] = useState('');
@@ -8,26 +10,49 @@ const MeetingForm = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [numberOfAttendees, setNumberOfAttendees] = useState('');
-  const [pdf, setPdf] = useState(null);
+  const [pdfUrl, setPdfUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.REACT_APP_CLOUD_PRESET);
+
+    setUploading(true);
+    try {
+      const { data } = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`,
+        formData
+      );
+      console.log(data);
+      setPdfUrl(data.secure_url);
+    } catch (error) {
+      console.error(error);
+    }
+    setUploading(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('committeeName', committeeName);
-    formData.append('startTime', startTime);
-    formData.append('endTime', endTime);
-    formData.append('numberOfAttendees', numberOfAttendees);
-    formData.append('pdf', pdf);
+    const meetingData = {
+      title,
+      committeeName,
+      startTime,
+      endTime,
+      numberOfAttendees,
+      pdf: pdfUrl,
+    };
 
-    dispatch(createMeeting(formData));
+    dispatch(createMeeting(meetingData));
   };
 
   return (
     <div className="form-container">
+      <h1>Meeting Details</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Meeting Title</label>
@@ -51,9 +76,10 @@ const MeetingForm = () => {
         </div>
         <div className="form-group">
           <label htmlFor="pdf">Upload PDF</label>
-          <input type="file" id="pdf" onChange={(e) => setPdf(e.target.files[0])} required />
+          <input type="file" id="pdf" onChange={uploadFileHandler} required />
+          {uploading && <p className="uploading-message">Uploading...</p>}
         </div>
-        <button type="submit">Create Meeting</button>
+        <button type="submit">Submit Meeting Details</button>
       </form>
     </div>
   );

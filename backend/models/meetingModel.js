@@ -19,7 +19,7 @@ const meetingSchema = mongoose.Schema(
       required: true,
     },
     attendees: {
-      type: [String],
+      type: Number,
       required: true,
     },
     pdf: {

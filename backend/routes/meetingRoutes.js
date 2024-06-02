@@ -1,36 +1,23 @@
 import express from 'express';
-import multer from 'multer';
-import path from 'path';
 import Meeting from '../models/meetingModel.js';
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename(req, file, cb) {
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-  },
-});
-
-const upload = multer({ storage });
-
-router.post('/uploads', upload.single('pdf'), async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     console.log('in');
-    const { title, committee, startTime, endTime, attendees } = req.body;
-    const pdf = req.file.path;
-
+    console.log(req.body);
+    const { title, committee, startTime, endTime, attendees, pdf } = req.body;
 
     const meeting = new Meeting({
-      title,
-      committee,
-      startTime,
-      endTime,
-      attendees,
-      pdf,
+      title:req.body.title,
+      committee:req.body.committeeName,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
+      attendees: req.body.numberOfAttendees,
+      pdf:req.body.pdf,
     });
+    console.log(meeting);
 
     const createdMeeting = await meeting.save();
     res.status(201).json(createdMeeting);
@@ -39,7 +26,7 @@ router.post('/uploads', upload.single('pdf'), async (req, res) => {
   }
 });
 
-router.get('/api/meetings', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const meetings = await Meeting.find({});
     res.json(meetings);

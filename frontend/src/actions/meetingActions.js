@@ -18,12 +18,12 @@ export const createMeeting = (meetingData) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userCred.token}`,
       },
     };
 
-    const { data } = await axios.post('/api/meetings/uploads', meetingData, config);
+    const { data } = await axios.post('/api/meetings', meetingData, config);
 
     dispatch({
       type: MEETING_CREATE_SUCCESS,

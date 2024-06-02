@@ -11,6 +11,9 @@ import Footer from './Footer';
 const ChairpersonMain = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [meetings, setMeetings] = useState([]);
+  const [loadingMeetings, setLoadingMeetings] = useState(false);
+  const [errorMeetings, setErrorMeetings] = useState(null);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userCred } = userLogin;
@@ -54,6 +57,29 @@ const ChairpersonMain = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchMeetings = async () => {
+      setLoadingMeetings(true);
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userCred.token}`,
+          },
+        };
+        const { data } = await axios.get('/api/meetings', config);
+        setMeetings(data);
+        console.log(data);
+      } catch (error) {
+        setErrorMeetings(error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message);
+      } finally {
+        setLoadingMeetings(false);
+      }
+    };
+    fetchMeetings();
+  }, [userCred]);
+
   return (
     <main>
       <header>
@@ -84,6 +110,43 @@ const ChairpersonMain = () => {
             {committee}
           </h2>
         ))}
+      </div>
+      <div className="meetings-section">
+        <h2>Meeting Details</h2>
+        {loadingMeetings ? (
+          <Loader />
+        ) : errorMeetings ? (
+          <Message variant="danger">{errorMeetings}</Message>
+        ) : meetings.length === 0 ? (
+          <Message>No meeting information available.</Message>
+        ) : (
+          <table className="meetings-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Committee</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Attendees</th>
+                <th>PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+              {meetings.map((meeting) => (
+                <tr key={meeting._id}>
+                  <td>{meeting.title}</td>
+                  <td>{meeting.committee}</td>
+                  <td>{new Date(meeting.startTime).toLocaleString()}</td>
+                  <td>{new Date(meeting.endTime).toLocaleString()}</td>
+                  <td>{meeting.attendees}</td>
+                  <td>
+                    <a href={meeting.pdf} target="_blank" rel="noopener noreferrer">View PDF</a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       {!loading && <Footer />}
     </main>

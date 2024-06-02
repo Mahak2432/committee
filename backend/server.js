@@ -32,7 +32,7 @@ app.use('/api/committeeMembers', committeeMemberRoutes)
 app.use('/api/login', adminRoutes)
 app.use('/api/chairpersons', chairpersonRoutes)
 app.use('/api/hods', hodRoutes)
-app.use('/api/meetings', meetingRoutes);
+app.use('/api/meetings', meetingRoutes)
 app.get('/api/config/cloudinary', (req, res) => {
   res.send(process.env.CLOUDINARY_URL)
 })
