@@ -5,7 +5,6 @@ import Message from '../components/Message';
 import axios from 'axios';
 import { classlistCommitteeMember, deleteCommitteeMember } from '../actions/committeeMemberActions';
 import './ChairpersonMain.css';
-import DashboardCard from './DashboardCard';
 import Footer from './Footer';
 
 const ChairpersonMain = () => {
@@ -67,8 +66,10 @@ const ChairpersonMain = () => {
           },
         };
         const { data } = await axios.get('/api/meetings', config);
-        setMeetings(data);
-        console.log(data);
+        const filteredMeetings = data.filter((meeting) =>
+          userCred.subjectToTeach.includes(meeting.committee)
+        );
+        setMeetings(filteredMeetings);
       } catch (error) {
         setErrorMeetings(error.response && error.response.data.message
           ? error.response.data.message
@@ -116,9 +117,9 @@ const ChairpersonMain = () => {
         {loadingMeetings ? (
           <Loader />
         ) : errorMeetings ? (
-          <Message variant="danger">{errorMeetings}</Message>
+          <Message variant="danger" className="message-danger">{errorMeetings}</Message>
         ) : meetings.length === 0 ? (
-          <Message>No meeting information available.</Message>
+          <Message variant="info" className="message-info">No meeting information available.</Message>
         ) : (
           <table className="meetings-table">
             <thead>

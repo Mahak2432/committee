@@ -93,4 +93,36 @@ body {
     font-size: 16px;
     margin-top: 10px;
   }
+  /* Custom dropdown styling */
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    appearance: none; /* Remove default arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23555"><path d="M10 12.586l-4.293-4.293-1.414 1.414L10 15.414l5.707-5.707-1.414-1.414L10 12.586z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+  }
+  
+  .form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+  }
+  
+  /* Style dropdown options */
+  .form-group select option {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* Hover effect for dropdown options */
+  .form-group select option:hover {
+    background-color: #f0f2f5;
+  }
+  
   

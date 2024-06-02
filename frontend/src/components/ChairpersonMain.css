@@ -322,4 +322,22 @@ section {
   .meetings-table a:hover {
     text-decoration: underline;
   }
-  
+  /* ChairpersonMain.css */
+/* ChairpersonMain.css */
+.message-info {
+  color: #333 !important; /* Ensure dark text color */
+  background-color: #d9edf7; /* Light blue background for info messages */
+  padding: 15px;
+  border: 1px solid #bce8f1;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.message-danger {
+  color: #a94442 !important; /* Ensure dark red text for error messages */
+  background-color: #f2dede; /* Light red background for error messages */
+  padding: 15px;
+  border: 1px solid #ebccd1;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
