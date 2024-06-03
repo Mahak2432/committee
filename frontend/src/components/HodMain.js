@@ -225,7 +225,7 @@ const HodMain = () => {
           <Loader />
         ) : (
           <div className='card-handler'>
-            {items.slice(0, 3).map((item) => (
+            {items.slice(0, 4).map((item) => (
               <DashboardCard
                 key={item?._id}
                 takeme={item?.takeme}

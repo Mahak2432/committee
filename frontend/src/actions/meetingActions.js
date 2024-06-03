@@ -18,7 +18,7 @@ export const createMeeting = (meetingData) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${userCred.token}`,
       },
     };

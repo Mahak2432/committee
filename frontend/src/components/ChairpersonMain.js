@@ -141,7 +141,7 @@ const ChairpersonMain = () => {
                   <td>{new Date(meeting.endTime).toLocaleString()}</td>
                   <td>{meeting.attendees}</td>
                   <td>
-                    <a href={meeting.pdf} target="_blank" rel="noopener noreferrer">View PDF</a>
+                    <a href={`http://localhost:5000/${meeting.pdf}`} target="_blank" rel="noopener noreferrer">View PDF</a>
                   </td>
                 </tr>
               ))}
