@@ -115,40 +115,54 @@ const HodMain = () => {
   const searchSubmit = (e) => {
     e.preventDefault();
     console.log('Searching for:', searchName);
-    console.log(chairpersons);
-    console.log(committeeMembers);
 
     if (searchName) {
-      const chairperson = chairpersons.find(
+      const matchedChairpersons = chairpersons.filter(
         (person) => person.chairperson_name.toLowerCase() === searchName.toLowerCase()
       );
-      const memberCommittees = committeeMembers.filter(
+
+      const matchedCommitteeMembers = committeeMembers.filter(
         (member) => member.committeeMember_name.toLowerCase() === searchName.toLowerCase()
       );
 
-      const chairpersonCommittees = chairperson
-        ? chairperson.subjectToTeach.map((subject) => `${subject} - Chairperson`).join('\n')
-        : '';
-      const memberCommitteeDetails = memberCommittees
-        .map((member) =>
-          member.committees
-            .map((committee) => `${committee.committee_name} - ${committee.role}`)
-            .join('\n')
-        )
-        .join('\n');
+      const results = {};
 
-      if (chairperson || memberCommittees.length > 0) {
-        setSearchResult({
-          name: chairperson ? chairperson.chairperson_name : memberCommittees[0].committeeMember_name,
-          email: chairperson ? chairperson.email : memberCommittees[0].email,
-          chairpersonCommittees,
-          memberCommitteeDetails,
-        });
+      matchedChairpersons.forEach((person) => {
+        if (results[person.email]) {
+          results[person.email].chairpersonCommittees = person.subjectToTeach.map((subject) => `${subject} - Chairperson`).join('\n');
+        } else {
+          results[person.email] = {
+            name: person.chairperson_name,
+            email: person.email,
+            chairpersonCommittees: person.subjectToTeach.map((subject) => `${subject} - Chairperson`).join('\n'),
+            memberCommitteeDetails: '',
+          };
+        }
+      });
+
+      matchedCommitteeMembers.forEach((member) => {
+        if (results[member.email]) {
+          results[member.email].memberCommitteeDetails += results[member.email].memberCommitteeDetails
+            ? '\n' + member.committees.map((committee) => `${committee.committee_name} - ${committee.role}`).join('\n')
+            : member.committees.map((committee) => `${committee.committee_name} - ${committee.role}`).join('\n');
+        } else {
+          results[member.email] = {
+            name: member.committeeMember_name,
+            email: member.email,
+            chairpersonCommittees: '',
+            memberCommitteeDetails: member.committees.map((committee) => `${committee.committee_name} - ${committee.role}`).join('\n'),
+          };
+        }
+      });
+
+      if (Object.keys(results).length > 0) {
+        setSearchResult(Object.values(results));
       } else {
         setSearchResult(null);
       }
     }
   };
+
 
   return (
     <main>
@@ -315,17 +329,20 @@ const HodMain = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{searchResult.name}</td>
-                  <td>{searchResult.email}</td>
-                  <td style={{ whiteSpace: 'pre-wrap' }}>{searchResult.chairpersonCommittees}</td>
-                  <td style={{ whiteSpace: 'pre-wrap' }}>{searchResult.memberCommitteeDetails}</td>
-                </tr>
+                {searchResult.map((result, index) => (
+                  <tr key={index}>
+                    <td>{result.name}</td>
+                    <td>{result.email}</td>
+                    <td style={{ whiteSpace: 'pre-wrap' }}>{result.chairpersonCommittees}</td>
+                    <td style={{ whiteSpace: 'pre-wrap' }}>{result.memberCommitteeDetails}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </section>
       )}
+
       <div className='main__container'>
         {loadingItems ? (
           <Loader />
