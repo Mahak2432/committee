@@ -173,17 +173,17 @@ const HodMain = () => {
       </div>
       {visibleSection === 'about' && (
         <section className='content'>
-          <p>About Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque...</p>
+          <p>Welcome to the Computer Science and Engineering department at [Your University/Institution]. We're a dynamic community dedicated to pushing the boundaries of computing through education, research, and innovation. Join us as we explore the exciting world of technology and prepare the next generation of computer scientists and engineers.</p>
         </section>
       )}
       {visibleSection === 'vision' && (
         <section className='content'>
-          <p>Vision Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque...</p>
+          <p>Our vision is to be a global leader in computer science and engineering, driving innovation, advancing knowledge, and making a positive impact on society. We're committed to excellence, diversity, and ethical leadership as we strive to shape the future of technology.</p>
         </section>
       )}
       {visibleSection === 'achievements' && (
         <section className='content'>
-          <p>Achievements ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque...</p>
+          <p>At Bit Mesra CSE department, we're proud of our achievements. From groundbreaking research to student success stories, our department has made waves in the world of technology. Join us and be part of a community that's making a difference through innovation and excellence.</p>
         </section>
       )}
       {userCred?.subjectToTeach && (
