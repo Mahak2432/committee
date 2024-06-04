@@ -35,10 +35,7 @@ const AllHods = ({}) => {
   return (
     <div className='container3'>
       <div className='outer'>
-        <input type='text' placeholder='Search for hod...' />
-        <span className='search-icon' onClick={searchSubmit}>
-          <i className='fas fa-search'></i>
-        </span>
+      <h1><b>ALL HODs</b></h1>
 
         <div className='table-layout'>
           {loading ? (

@@ -60,10 +60,7 @@ const AllChairpersons = () => {
   return (
     <div className='container3'>
       <div className='outer'>
-        <input type='text' placeholder='Search for chairperson...' />
-        <span className='search-icon' onClick={searchSubmit}>
-          <i className='fas fa-search'></i>
-        </span>
+      <h1><b>ALL CHAIRPERSONS</b></h1>
 
         <div className='table-layout'>
           {loadingChairpersons || loadingCommitteeMembers ? (

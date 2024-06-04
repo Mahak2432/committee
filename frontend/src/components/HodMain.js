@@ -14,8 +14,12 @@ const HodMain = () => {
   const [items, setItems] = useState([]);
   const [loadingItems, setLoadingItems] = useState(false);
   const [visibleSection, setVisibleSection] = useState(null);
-  const [searchEmail, setSearchEmail] = useState('');
+  const [searchName, setSearchName] = useState('');
   const [searchResult, setSearchResult] = useState(null);
+  const [meetings, setMeetings] = useState([]);
+  const [loadingMeetings, setLoadingMeetings] = useState(false);
+  const [errorMeetings, setErrorMeetings] = useState(null);
+  const [selectedCommittee, setSelectedCommittee] = useState('');
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userCred } = userLogin;
@@ -29,8 +33,6 @@ const HodMain = () => {
 
   const committeeMemberList = useSelector((state) => state.committeeMemberList);
   const { loading: loadingCommitteeMembers, committeeMembers, error: errorCommitteeMembers } = committeeMemberList;
-
-  
 
   useEffect(() => {
     console.log('User Credentials:', userCred);
@@ -53,8 +55,8 @@ const HodMain = () => {
 
   useEffect(() => {
     if (userCred?.hod_name) {
-        dispatch(listChairpersons());
-        dispatch(listCommitteeMembers());
+      dispatch(listChairpersons());
+      dispatch(listCommitteeMembers());
     }
   }, [dispatch, userCred, successDelete]);
 
@@ -68,24 +70,79 @@ const HodMain = () => {
     }
   };
 
+  const committeeOptions = [
+    { value: 'Admissions Committee', label: 'Admissions Committee' },
+    { value: 'Examination Committee', label: 'Examination Committee' },
+    { value: 'Lab Committee', label: 'Lab Committee' },
+    { value: 'Placement Cell Committee', label: 'Placement Cell Committee' },
+    { value: 'Department Advisory Committee', label: 'Department Advisory Committee' },
+    { value: 'Research Committee', label: 'Research Committee' },
+    { value: 'Cultural Committee', label: 'Cultural Committee' },
+    { value: 'Sports Committee', label: 'Sports Committee' },
+    { value: 'Library Committee', label: 'Library Committee' },
+    { value: 'Disciplinary Committee', label: 'Disciplinary Committee' },
+  ];
+
+  const fetchMeetings = async (committee) => {
+    setLoadingMeetings(true);
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userCred.token}`,
+        },
+      };
+      const { data } = await axios.get('/api/meetings', config);
+      const filteredMeetings = data.filter((meeting) =>
+        meeting.committee.includes(committee)
+      );
+      setMeetings(filteredMeetings);
+    } catch (error) {
+      setErrorMeetings(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+    } finally {
+      setLoadingMeetings(false);
+    }
+  };
+  const handleCommitteeChange = (e) => {
+    const selectedCommittee = e.target.value;
+    setSelectedCommittee(selectedCommittee);
+    fetchMeetings(selectedCommittee);
+  };
+
   const searchSubmit = (e) => {
     e.preventDefault();
-    console.log('Searching for:', searchEmail);
-    console.log(chairpersons)
-    console.log(committeeMembers)
-    if (searchEmail) {
-      const chairperson = chairpersons.find((person) => person.email === searchEmail);
-      const memberCommittees = committeeMembers.filter((member) => member.email === searchEmail);
+    console.log('Searching for:', searchName);
+    console.log(chairpersons);
+    console.log(committeeMembers);
 
-      const chairpersonCommittees = chairperson ? chairperson.subjectToTeach : [];
-      const memberCommitteeNames = memberCommittees.map((member) => member.classname);
+    if (searchName) {
+      const chairperson = chairpersons.find(
+        (person) => person.chairperson_name.toLowerCase() === searchName.toLowerCase()
+      );
+      const memberCommittees = committeeMembers.filter(
+        (member) => member.committeeMember_name.toLowerCase() === searchName.toLowerCase()
+      );
+
+      const chairpersonCommittees = chairperson
+        ? chairperson.subjectToTeach.map((subject) => `${subject} - Chairperson`).join('\n')
+        : '';
+      const memberCommitteeDetails = memberCommittees
+        .map((member) =>
+          member.committees
+            .map((committee) => `${committee.committee_name} - ${committee.role}`)
+            .join('\n')
+        )
+        .join('\n');
 
       if (chairperson || memberCommittees.length > 0) {
         setSearchResult({
           name: chairperson ? chairperson.chairperson_name : memberCommittees[0].committeeMember_name,
-          email: searchEmail,
+          email: chairperson ? chairperson.email : memberCommittees[0].email,
           chairpersonCommittees,
-          memberCommittees: memberCommitteeNames,
+          memberCommitteeDetails,
         });
       } else {
         setSearchResult(null);
@@ -184,13 +241,62 @@ const HodMain = () => {
           )}
         </section>
       )}
+      <div className='dropdown-container'>
+        <select value={selectedCommittee} onChange={handleCommitteeChange}>
+          <option value=''>Select Committee For meetging Details .</option>
+          {committeeOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      {selectedCommittee && (
+        <section className='content'>
+          <h2>{selectedCommittee} Meetings</h2>
+          {loadingMeetings ? (
+            <Loader />
+          ) : errorMeetings ? (
+            <Message variant='danger' message={errorMeetings} />
+          ) : (
+            <div className='table-layout'>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Committee</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Attendees</th>
+                    <th>PDF</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {meetings.map((meeting) => (
+                    <tr key={meeting._id}>
+                      <td>{meeting.title}</td>
+                      <td>{meeting.committee}</td>
+                      <td>{new Date(meeting.startTime).toLocaleString()}</td>
+                      <td>{new Date(meeting.endTime).toLocaleString()}</td>
+                      <td>{meeting.attendees}</td>
+                      <td>
+                        <a href={`http://localhost:5000/${meeting.pdf}`} target="_blank" rel="noopener noreferrer">View PDF</a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
       <div className='search-container'>
         <form onSubmit={searchSubmit}>
           <input
             type='text'
-            placeholder='Search by email...'
-            value={searchEmail}
-            onChange={(e) => setSearchEmail(e.target.value)}
+            placeholder='Search by name...'
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
           />
           <button type='submit'>Search</button>
         </form>
@@ -212,8 +318,8 @@ const HodMain = () => {
                 <tr>
                   <td>{searchResult.name}</td>
                   <td>{searchResult.email}</td>
-                  <td>{searchResult.chairpersonCommittees.join(', ')}</td>
-                  <td>{searchResult.memberCommittees.join(', ')}</td>
+                  <td style={{ whiteSpace: 'pre-wrap' }}>{searchResult.chairpersonCommittees}</td>
+                  <td style={{ whiteSpace: 'pre-wrap' }}>{searchResult.memberCommitteeDetails}</td>
                 </tr>
               </tbody>
             </table>
@@ -226,14 +332,17 @@ const HodMain = () => {
         ) : (
           <div className='card-handler'>
             {items.slice(0, 4).map((item) => (
-              <DashboardCard
-                key={item?._id}
-                takeme={item?.takeme}
-                title={item?.title}
-                image={item?.image}
-              />
+              item?.title !== 'Hods' && (
+                <DashboardCard
+                  key={item?._id}
+                  takeme={item?.takeme}
+                  title={item?.title}
+                  image={item?.image}
+                />
+              )
             ))}
           </div>
+
         )}
       </div>
       {!loadingItems && <Footer />}

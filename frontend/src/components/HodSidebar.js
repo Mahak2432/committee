@@ -38,7 +38,7 @@ const HodSidebar = ({ sidebarOpen, closeSidebar }) => {
             <div className='sidebar__link'>
             <i className='fas fa-mail-bulk'></i>
             <a className='linked' href='https://mail.google.com/mail/u/0/#compose' target='_blank' rel='noopener noreferrer'>
-                Email
+                Send Email
             </a>
             </div>
         <div className='sidebar__logout'>

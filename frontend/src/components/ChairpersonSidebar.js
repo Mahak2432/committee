@@ -35,6 +35,12 @@ const ChairpersonSidebar = ({ sidebarOpen, closeSidebar }) => {
           <i className='fas fa-envelope'></i>
           <span className='linked'>Email: {userCred?.email}</span>
         </div>
+        <div className='sidebar__link'>
+          <i className='fas fa-mail-bulk'></i>
+          <a className='linked' href='https://mail.google.com/mail/u/0/#compose' target='_blank' rel='noopener noreferrer'>
+            Send Email
+          </a>
+        </div>
         <h2>CommitteeMembers Section</h2>
         <div className='sidebar__link'>
           <i className='fa fa-male' aria-hidden='true'></i>
