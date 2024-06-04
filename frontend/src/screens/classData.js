@@ -13,44 +13,44 @@ const Classes = [
   // },
   {
     _id: 4,
-    classname: 'One',
+    classname: 'Admissions Committee',
   },
   {
     _id: 5,
-    classname: 'Two',
+    classname: 'Examination Committee',
   },
   {
     _id: 6,
-    classname: 'Three',
+    classname: 'Lab Committee',
   },
   {
     _id: 7,
-    classname: 'Four',
+    classname: 'Placement Cell Committee',
   },
 
   {
     _id: 8,
-    classname: 'Five',
+    classname: 'Department Advisory Committee',
   },
   {
     _id: 9,
-    classname: 'Six',
+    classname: 'Research Committee',
   },
   {
     _id: 10,
-    classname: 'Seven',
+    classname: 'Cultural Committee',
   },
   {
     _id: 11,
-    classname: 'Eight',
+    classname: 'Sports Committee',
   },
   {
     _id: 12,
-    classname: 'Nine',
+    classname: 'Library Committee',
   },
   {
     _id: 13,
-    classname: 'Ten',
+    classname: 'Disciplinary Committee',
   },
 ]
 

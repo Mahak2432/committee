@@ -30,10 +30,7 @@ const AllCommitteeMembers = () => {
   return (
     <div className='container3'>
       <div className='outer'>
-        <input type='text' placeholder='Search for committeeMember...' />
-        <span className='search-icon' onClick={searchSubmit}>
-          <i className='fas fa-search'></i>
-        </span>
+        <h1><b>ALL COMMITTEE MEMBERS</b></h1>
 
         <div className='table-layout'>
           {loading ? (
@@ -47,12 +44,11 @@ const AllCommitteeMembers = () => {
                   <th>SN</th>
                   <th>Photo</th>
                   <th>CommitteeMember Name</th>
-                  <th>Committees</th>
+                  <th>Committees and Roles</th>
                   <th>Address</th>
                   <th>Contact No</th>
                   <th>Email</th>
                   <th>Gender</th>
-                  <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -64,22 +60,17 @@ const AllCommitteeMembers = () => {
                       <img style={{ height: '50px' }} src={data.image} alt='' />
                     </td>
                     <td>{data.committeeMember_name}</td>
-                    <td>{data.classname.join(', ')}</td>
+                    <td>
+                      {data.committees.map((committee) => (
+                        <div key={committee._id}>
+                          {committee.committee_name} - {committee.role}
+                        </div>
+                      ))}
+                    </td>
                     <td>{data.address}</td>
                     <td>{data.contact_no}</td>
                     <td>{data.email}</td>
                     <td>{data.gender}</td>
-                    <td>
-                      <i
-                        style={{
-                          padding: '8px',
-                          color: 'green',
-                          fontSize: '25px',
-                          cursor: 'pointer',
-                        }}
-                        className='fas fa-user-edit'
-                      ></i>
-                    </td>
                     <td>
                       <i
                         style={{

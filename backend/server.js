@@ -9,7 +9,6 @@ import adminRoutes from './routes/adminRoutes.js';
 import chairpersonRoutes from './routes/chairpersonRoutes.js';
 import hodRoutes from './routes/hodRoutes.js';
 import meetingRoutes from './routes/meetingRoutes.js';
-import signatureRoute from './routes/signatureRoute.js';
 import Dashboard from './models/dashboardModel.js';
 
 dotenv.config();
@@ -48,8 +47,6 @@ app.use('/api/login', adminRoutes);
 app.use('/api/chairpersons', chairpersonRoutes);
 app.use('/api/hods', hodRoutes);
 app.use('/api/meetings', meetingRoutes);
-app.use('/api', signatureRoute);
-
 app.get('/api/config/cloudinary', (req, res) => {
   res.send(process.env.CLOUDINARY_URL);
 });

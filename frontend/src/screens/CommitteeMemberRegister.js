@@ -16,11 +16,9 @@ const CommitteeMemberRegister = ({ history }) => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [gender, setGender] = useState('');
-  const [classname, setClassname] = useState([]);
+  const [committees, setCommittees] = useState([]);
   const [phoneno, setPhoneno] = useState('');
-  const [parentname, setParentname] = useState('');
   const [age, setAge] = useState('');
-  const [registrationfees, setRegistraionfees] = useState('');
   const [image, setImage] = useState('');
 
   const uploadFileHandler = async (e) => {
@@ -59,23 +57,25 @@ const CommitteeMemberRegister = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     setValid(true);
+    const formattedCommittees = committees.map((c) => ({
+      committee_name: c.committee_name.value,
+      role: c.role.value,
+    }));
     dispatch(
       Register(
         name.trim(),
-        classname.map((c) => c.value),
+        formattedCommittees,
         address,
-        parentname,
         phoneno,
         gender,
         age,
         email,
-        registrationfees,
         image
       )
     );
     setName('');
     setAddress('');
-    setClassname([]);
+    setCommittees([]);
     setTimeout(() => {
       setValid(false);
     }, 10000);
@@ -93,18 +93,46 @@ const CommitteeMemberRegister = ({ history }) => {
     }
   }, [userCred, history]);
 
-  const classOptions = [
-    { value: 'One', label: 'One' },
-    { value: 'Two', label: 'Two' },
-    { value: 'Three', label: 'Three' },
-    { value: 'Four', label: 'Four' },
-    { value: 'Five', label: 'Five' },
-    { value: 'Six', label: 'Six' },
-    { value: 'Seven', label: 'Seven' },
-    { value: 'Eight', label: 'Eight' },
-    { value: 'Nine', label: 'Nine' },
-    { value: 'Ten', label: 'Ten' }
+  const committeeOptions = [
+    { value: 'Admissions Committee', label: 'Admissions Committee' },
+    { value: 'Examination Committee', label: 'Examination Committee' },
+    { value: 'Lab Committee', label: 'Lab Committee' },
+    { value: 'Placement Cell Committee', label: 'Placement Cell Committee' },
+    { value: 'Department Advisory Committee', label: 'Department Advisory Committee' },
+    { value: 'Research Committee', label: 'Research Committee' },
+    { value: 'Cultural Committee', label: 'Cultural Committee' },
+    { value: 'Sports Committee', label: 'Sports Committee' },
+    { value: 'Library Committee', label: 'Library Committee' },
+    { value: 'Disciplinary Committee', label: 'Disciplinary Committee' },
   ];
+
+  const roleOptions = [
+    { value: 'Convenor', label: 'Convenor' },
+    { value: 'Co-Ordinator', label: 'Co-Ordinator' },
+    { value: 'Asst. Coordinator', label: 'Asst. Coordinator' },
+    { value: 'Member', label: 'Member' },
+  ];
+
+  const handleCommitteeChange = (index, selectedOption) => {
+    const newCommittees = [...committees];
+    newCommittees[index] = { ...newCommittees[index], committee_name: selectedOption };
+    setCommittees(newCommittees);
+  };
+
+  const handleRoleChange = (index, selectedOption) => {
+    const newCommittees = [...committees];
+    newCommittees[index] = { ...newCommittees[index], role: selectedOption };
+    setCommittees(newCommittees);
+  };
+
+  const addCommittee = () => {
+    setCommittees([...committees, { committee_name: null, role: null }]);
+  };
+
+  const removeCommittee = (index) => {
+    const newCommittees = committees.filter((_, i) => i !== index);
+    setCommittees(newCommittees);
+  };
 
   return (
     <div className='container1' style={{ marginTop: '10px' }}>
@@ -125,72 +153,73 @@ const CommitteeMemberRegister = ({ history }) => {
                 />
               </div>
               <div className='form-control'>
-                <label htmlFor='name'>Email</label>
+                <label htmlFor='email'>Email</label>
                 <input
                   type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-              </div>{' '}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Address</label>
+                <label htmlFor='address'>Address</label>
                 <input
                   type='text'
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   required
                 />
-              </div>{' '}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Gender</label>
+                <label htmlFor='gender'>Gender</label>
                 <select
                   required
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
                 >
-                  {console.log(gender)}
                   <option value=''>Select Gender</option>
                   <option value='Male'>Male</option>
-
                   <option value='Female'>Female</option>
                   <option value='Others'>Others</option>
                 </select>
-              </div>{' '}
+              </div>
+              {committees.map((committee, index) => (
+                <div key={index} className='committee-role-pair'>
+                  <div className='form-control'>
+                    <label htmlFor={`committee-${index}`}>Committee</label>
+                    <Select
+                      id={`committee-${index}`}
+                      options={committeeOptions}
+                      value={committee.committee_name}
+                      onChange={(selectedOption) => handleCommitteeChange(index, selectedOption)}
+                      required
+                    />
+                  </div>
+                  <div className='form-control'>
+                    <label htmlFor={`role-${index}`}>Role</label>
+                    <Select
+                      id={`role-${index}`}
+                      options={roleOptions}
+                      value={committee.role}
+                      onChange={(selectedOption) => handleRoleChange(index, selectedOption)}
+                      required
+                    />
+                  </div>
+                  <button type='button' onClick={() => removeCommittee(index)}>Remove</button>
+                </div>
+              ))}
+              <button type='button' className='add-committee-btn' onClick={addCommittee}>Add Committee</button>
               <div className='form-control'>
-                <label htmlFor='name'>Committee</label>
-                <Select
-                  isMulti
-                  options={classOptions}
-                  value={classname}
-                  onChange={(selectedOptions) => setClassname(selectedOptions)}
-                  required
-                />
-              </div>{' '}
-              <div className='form-control'>
-                <label htmlFor='name'>Phone Number</label>
+                <label htmlFor='phoneno'>Phone Number</label>
                 <input
                   type='text'
                   value={phoneno}
                   onChange={(e) => setPhoneno(e.target.value)}
                   required
                 />
-              </div>{' '}
-              {/* <div className='form-control'>
-                <label htmlFor='name'>Parent's Name</label>
-                <input
-                  type='text'
-                  value={parentname}
-                  onChange={(e) => setParentname(e.target.value)}
-                  required
-                />
-              </div> */}
-              {/* <div className='form-control'>
-              <label htmlFor='name'>Joining Date</label>
-              <input type='date' />
-            </div>{' '} */}
+              </div>
               <div className='form-control'>
-                <label htmlFor='name'>Age</label>
+                <label htmlFor='age'>Age</label>
                 <input
                   type='number'
                   value={age}
@@ -198,26 +227,14 @@ const CommitteeMemberRegister = ({ history }) => {
                   required
                 />
               </div>
-              {console.log('image url is', image)}
-              {/* <div className='form-control'>
-                <label htmlFor='registration-fees'>Registration Fees</label>
+              <div className='form-control'>
+                <label htmlFor='image'>Upload Picture</label>
                 <input
-                  type='number'
-                  value={registrationfees}
-                  onChange={(e) => setRegistraionfees(e.target.value)}
+                  className='custom-file-input'
+                  onChange={uploadFileHandler}
+                  type='file'
                   required
                 />
-              </div> */}
-              <div className='form-control'>
-                <label htmlFor='name'>
-                  Upload Picture
-                  <input
-                    className='custom-file-input'
-                    onChange={uploadFileHandler}
-                    type='file'
-                    required
-                  />
-                </label>
                 {uploading && <Loader />}
                 {time && image && (
                   <Message
@@ -226,8 +243,6 @@ const CommitteeMemberRegister = ({ history }) => {
                   />
                 )}
               </div>
-              {/* <div className="register-btn"> */}
-              {/* </div> */}
             </div>
             {success && valid && (
               <Message
@@ -236,7 +251,6 @@ const CommitteeMemberRegister = ({ history }) => {
                 message={success.message}
               />
             )}
-
             <button className='btn-register' type='submit'>
               Register Committee Member
             </button>

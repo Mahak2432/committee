@@ -685,9 +685,7 @@ place-content: center;
    
 
 }
-.allIncome p{
-    /* padding:40px; */
-}
+
 
 
 .disable{
@@ -698,3 +696,38 @@ place-content: center;
     opacity: 0.5;
 
   }
+
+
+  /* Add committee button styles */
+.add-committee-btn {
+    margin: 10px 0;
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+  }
+  
+  .add-committee-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Remove committee button styles */
+  .committee-role-pair button {
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+  }
+  
+  .committee-role-pair button:hover {
+    background-color: #c82333;
+  }
+  

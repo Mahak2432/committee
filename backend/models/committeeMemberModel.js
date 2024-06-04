@@ -1,5 +1,16 @@
 import mongoose from 'mongoose';
 
+const roleSchema = mongoose.Schema({
+  committee_name: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  }
+});
+
 const committeeMemberSchema = mongoose.Schema(
   {
     registered_by: {
@@ -11,19 +22,13 @@ const committeeMemberSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    classname: {
-      type: [String],
+    committees: {
+      type: [roleSchema],
       required: true,
-    },
-    roll_no: {
-      type: Number,
     },
     address: {
       type: String,
       required: true,
-    },
-    parents_name: {
-      type: String,
     },
     contact_no: {
       type: String,
@@ -33,9 +38,6 @@ const committeeMemberSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    previous_dues: {
-      type: Number,
-    },
     age: {
       type: String,
       required: true,
@@ -43,9 +45,6 @@ const committeeMemberSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
-    },
-    registration_fees: {
-      type: Number,
     },
     image: {
       type: String,

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import {
   STUDENT_LIST_REQUEST,
   STUDENT_LIST_SUCCESS,
@@ -21,217 +21,150 @@ import {
   STUDENT_FEES_REQUEST,
   STUDENT_FEES_SUCCESS,
   STUDENT_FEES_FAIL,
-} from '../constants/committeeMemberConstants'
+} from '../constants/committeeMemberConstants';
 
-//the below uses function within a function which is privileged by redux-thunk
-
+// List all committee members
 export const listCommitteeMembers = () => async (dispatch) => {
   try {
-    dispatch({
-      type: STUDENT_LIST_REQUEST,
-    })
-    const { data } = await axios.get('/api/committeeMembers')
-    dispatch({
-      type: STUDENT_LIST_SUCCESS,
-      payload: data,
-    })
+    dispatch({ type: STUDENT_LIST_REQUEST });
+    const { data } = await axios.get('/api/committeeMembers');
+    dispatch({ type: STUDENT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
-//following displays list of all committeeMembers belonging to the particular class
+};
 
+// List committee members by class
 export const classlistCommitteeMember = (id) => async (dispatch) => {
   try {
-    dispatch({
-      type: STUDENT_CLASS_LIST_REQUEST,
-    })
-    const { data } = await axios.get(`/api/committeeMembers/class/${id}`)
-    dispatch({
-      type: STUDENT_CLASS_LIST_SUCCESS,
-      payload: data,
-    })
+    dispatch({ type: STUDENT_CLASS_LIST_REQUEST });
+    const { data } = await axios.get(`/api/committeeMembers/class/${id}`);
+    dispatch({ type: STUDENT_CLASS_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_CLASS_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
-//following is for searching the committeeMember for paying the fees
+};
 
+// Search committee members
 export const committeeMemberSearch = (name, classname, rollno) => async (dispatch) => {
   try {
-    dispatch({
-      type: STUDENT_SEARCH_REQUEST,
-    })
-    console.log(name, classname, rollno)
-    const { data } = await axios.get(
-      `/api/committeeMembers/search/${name}/${classname}/${rollno}`
-    )
-    console.log('Data is ', data)
-    dispatch({
-      type: STUDENT_SEARCH_SUCCESS,
-      payload: data,
-    })
+    dispatch({ type: STUDENT_SEARCH_REQUEST });
+    console.log(name, classname, rollno);
+    const { data } = await axios.get(`/api/committeeMembers/search/${name}/${classname}/${rollno}`);
+    console.log('Data is ', data);
+    dispatch({ type: STUDENT_SEARCH_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_SEARCH_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
 
-//committeeMember register
-
+// Register a new committee member
 export const Register = (
   committeeMember_name,
-  classname,
-
+  committees,
   address,
-  parents_name,
-
   contact_no,
   gender,
   age,
   email,
-  registration_fees,
   image
 ) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: STUDENT_REGISTER_REQUEST,
-    })
-    //we need to send headers information so we declaring it inside the config
+    dispatch({ type: STUDENT_REGISTER_REQUEST });
+
     const {
       userLogin: { userCred },
-    } = getState()
+    } = getState();
+
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userCred.token}`,
       },
-    }
+    };
+
     const { data } = await axios.post(
       '/api/committeeMembers/register',
       {
         committeeMember_name,
-        classname,
-
+        committees,
         address,
-        parents_name,
-
         contact_no,
         gender,
         age,
         email,
-        registration_fees,
         image,
       },
       config
-    )
-    dispatch({
-      type: STUDENT_REGISTER_SUCCESS,
-      payload: data,
-    })
-    //we are getting  the json data from our backend request so we need to convert it into the
-    //string before we save them in our local storage of our  browser
+    );
+
+    dispatch({ type: STUDENT_REGISTER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
 
-//FOLLOWING IS FOR DELETING THE STUDENT
-
+// Delete a committee member
 export const deleteCommitteeMember = (id) => async (dispatch) => {
   try {
-    dispatch({
-      type: STUDENT_DELETE_REQUEST,
-    })
-    const { data } = await axios.delete(`/api/committeeMembers/delete/${id}`)
-    dispatch({
-      type: STUDENT_DELETE_SUCCESS,
-      payload: data,
-    })
+    dispatch({ type: STUDENT_DELETE_REQUEST });
+    const { data } = await axios.delete(`/api/committeeMembers/delete/${id}`);
+    dispatch({ type: STUDENT_DELETE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_DELETE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
 
-//committeeMember attendacnce
-
-export const committeeMemberAttendances = (classname, committeeMembers) => async (
-  dispatch,
-  getState
-) => {
+// Committee member attendance
+export const committeeMemberAttendances = (classname, committeeMembers) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: STUDENT_ATTENDANCE_REQUEST,
-    })
-    //we need to send headers information so we declaring it inside the config
+    dispatch({ type: STUDENT_ATTENDANCE_REQUEST });
+
     const {
       userLogin: { userCred },
-    } = getState()
+    } = getState();
+
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userCred.token}`,
       },
-    }
+    };
+
     const { data } = await axios.post(
       `/api/committeeMembers/attendance/${classname}`,
-      {
-        committeeMembers,
-      },
+      { committeeMembers },
       config
-    )
-    dispatch({
-      type: STUDENT_ATTENDANCE_SUCCESS,
-      payload: data,
-    })
-    //we are getting  the json data from our backend request so we need to convert it into the
-    //string before we save them in our local storage of our  browser
+    );
+
+    dispatch({ type: STUDENT_ATTENDANCE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_ATTENDANCE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
 
-//fees
-
+// Pay fees
 export const PayFees = (
   committeeMemberId,
   committeeMember_name,
-
   classname,
   roll_no,
   month_name,
@@ -244,19 +177,19 @@ export const PayFees = (
   miscellaneous
 ) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: STUDENT_FEES_REQUEST,
-    })
-    //we need to send headers information so we declaring it inside the config
+    dispatch({ type: STUDENT_FEES_REQUEST });
+
     const {
       userLogin: { userCred },
-    } = getState()
+    } = getState();
+
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userCred.token}`,
       },
-    }
+    };
+
     const { data } = await axios.post(
       `/api/committeeMembers/fees/${committeeMemberId}`,
       {
@@ -273,20 +206,13 @@ export const PayFees = (
         miscellaneous,
       },
       config
-    )
-    dispatch({
-      type: STUDENT_FEES_SUCCESS,
-      payload: data,
-    })
-    //we are getting  the json data from our backend request so we need to convert it into the
-    //string before we save them in our local storage of our  browser
+    );
+
+    dispatch({ type: STUDENT_FEES_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: STUDENT_FEES_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
-}
+};
