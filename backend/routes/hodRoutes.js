@@ -46,7 +46,7 @@ router.post(
     }
 
     console.log(req.body)
-    const registered_by = req.user.name
+    const registered_by = req.user?req.use.name:"Admin"
 
     console.log(registered_by)
 

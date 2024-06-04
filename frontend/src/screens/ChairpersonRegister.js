@@ -25,16 +25,16 @@ const ChairpersonRegister = ({ history }) => {
   const [image, setImage] = useState('')
 
   const committeeOptions = [
-    { value: 'One', label: 'One' },
-    { value: 'Two', label: 'Two' },
-    { value: 'Three', label: 'Three' },
-    { value: 'Four', label: 'Four' },
-    { value: 'Five', label: 'Five' },
-    { value: 'Six', label: 'Six' },
-    { value: 'Seven', label: 'Seven' },
-    { value: 'Eight', label: 'Eight' },
-    { value: 'Nine', label: 'Nine' },
-    { value: 'Ten', label: 'Ten' },
+    { value: 'Admissions Committee', label: 'Admissions Committee' },
+    { value: 'Examination Committee', label: 'Examination Committee' },
+    { value: 'Lab Committee', label: 'Lab Committee' },
+    { value: 'Placement Cell Committee', label: 'Placement Cell Committee' },
+    { value: 'Department Advisory Committee', label: 'Department Advisory Committee' },
+    { value: 'Research Committee', label: 'Research Committee' },
+    { value: 'Cultural Committee', label: 'Cultural Committee' },
+    { value: 'Sports Committee', label: 'Sports Committee' },
+    { value: 'Library Committee', label: 'Library Committee' },
+    { value: 'Disciplinary Committee', label: 'Disciplinary Committee' },
   ]
 
   const uploadFileHandler = async (e) => {
@@ -151,7 +151,7 @@ const ChairpersonRegister = ({ history }) => {
                 />
               </div>
               <div className='form-control'>
-                <label htmlFor='subjectToTeach'>Subjects to Teach</label>
+                <label htmlFor='subjectToTeach'>Chairperson of Committees</label>
                 <Select
                   isMulti
                   name='subjects'

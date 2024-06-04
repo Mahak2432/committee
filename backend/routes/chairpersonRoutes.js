@@ -48,7 +48,8 @@ router.post(
       const chairperson_info = await Chairperson.findOne().sort({ chairpersonId: -1 }).limit(1)
       const chairpersonId = chairperson_info ? chairperson_info.chairpersonId + 1 : 1
 
-      const registered_by = req.user.name
+      const registered_by = req.user ? req.user.name : 'admin';
+
       const chairpersonname = capitalize(chairperson_name)
 
       const new_chairperson = await Chairperson.create({

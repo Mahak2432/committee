@@ -29,10 +29,16 @@ const AllChairpersons = () => {
     if (chairpersons && committeeMembers) {
       const names = {};
       chairpersons.forEach((chairperson) => {
-       
+        // Find committees where the chairperson is also a member
         const members = committeeMembers.filter((member) => member.email === chairperson.email);
-        console.log(members);
-        names[chairperson.email] = members.map((member) => member.classname).join(', ');
+
+        const memberRoles = members.flatMap((member) => 
+          member.committees.map((committee) => `${committee.committee_name} - ${committee.role}`)
+        );
+
+        const chairpersonRoles = chairperson.subjectToTeach.map((committee) => `${committee} - Chairperson`);
+
+        names[chairperson.email] = [...new Set([...chairpersonRoles, ...memberRoles])].join('\n');
       });
       setCommitteeNames(names);
     }
@@ -74,15 +80,12 @@ const AllChairpersons = () => {
                   <th>Photo</th>
                   <th>Chairperson Name</th>
                   <th>Qualification</th>
-                  <th>Chairperson Id</th>
                   <th>Address</th>
-                  <th>Head of Committee</th>
+                  <th>Committees and Roles</th>
                   <th>Contact No</th>
                   <th>Email</th>
                   <th>Age</th>
                   <th>Gender</th>
-                  <th>Member of Committee</th>
-                  <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -95,20 +98,16 @@ const AllChairpersons = () => {
                     </td>
                     <td>{data.chairperson_name}</td>
                     <td>{data.qualification}</td>
-                    <td>{data.chairpersonId}</td>
                     <td>{data.address}</td>
-                    <td>{data.subjectToTeach.join(', ')}</td>
+                    <td>
+                      <div style={{ whiteSpace: 'pre-line' }}>
+                        {committeeNames[data.email]}
+                      </div>
+                    </td>
                     <td>{data.contact_no}</td>
                     <td>{data.email}</td>
                     <td>{data.age}</td>
                     <td>{data.gender}</td>
-                    <td>{committeeNames[data.email] || '-'}</td>
-                    <td>
-                      <i
-                        style={{ padding: '8px', color: 'green', fontSize: '25px' }}
-                        className='fas fa-user-edit'
-                      ></i>
-                    </td>
                     <td>
                       <i
                         style={{ padding: '8px', color: 'red', fontSize: '25px', cursor: 'pointer' }}

@@ -41,7 +41,7 @@ export const listCommitteeMembers = () => async (dispatch) => {
 export const classlistCommitteeMember = (id) => async (dispatch) => {
   try {
     dispatch({ type: STUDENT_CLASS_LIST_REQUEST });
-    const { data } = await axios.get(`/api/committeeMembers/class/${id}`);
+    const { data } = await axios.get(`/api/committeeMembers/committee/${id}`);
     dispatch({ type: STUDENT_CLASS_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
