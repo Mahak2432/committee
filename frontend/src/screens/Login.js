@@ -84,7 +84,6 @@ const Login = ({ history, location }) => {
               required
             >
               <option value="Admin">Admin</option>
-              <option value="CommitteeMember">Committee Member</option>
               <option value="Hod">HOD</option>
               <option value="Chairperson">Chairperson</option>
             </select>

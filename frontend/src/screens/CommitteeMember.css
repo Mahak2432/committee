@@ -260,13 +260,16 @@ th, td {
   th {
     text-align: left;
   }
-  .container3
-  {
-    height:100vh;
-    padding:10px;
-    overflow-y:auto;
-    background: rgb(175, 63, 63);
+  
+  .container3 {
+    height: 100vh;
+    padding: 10px;
+    overflow-y: auto;
+    background-image: url('./cseee.jpeg');
+    background-size: cover; /* This ensures the image covers the entire container */
+    background-position: center; /* This centers the image in the container */
   }
+  
   .container3 .outer{
       max-width: 90%;
       background: rgb(136 156 121);
